@@ -45,7 +45,7 @@ export default function Home() {
         id="root"
         className="relative flex min-h-svh flex-col items-center justify-center px-6 sm:px-8"
       >
-        <div className="absolute top-12 left-0 w-full overflow-hidden pb-2 md:top-16">
+        <div className="absolute top-12 left-0 w-full pb-2 md:top-16">
           <InfiniteMarquee />
         </div>
         <div className="flex flex-col items-center gap-6">
