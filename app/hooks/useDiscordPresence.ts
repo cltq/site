@@ -26,6 +26,8 @@ export function useDiscordPresence(
   const [error, setError] = useState<Error | null>(null);
 
   const sseRef = useRef<SSEManager<DiscordPresence> | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   const baseUrl = options.apiBaseUrl;
 
@@ -51,17 +53,32 @@ export function useDiscordPresence(
     setLoading(false);
   }, [fetchInitial]);
 
-  useEffect(() => {
+  const stopConnections = useCallback(() => {
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    if (sseRef.current) {
+      sseRef.current.destroy();
+      sseRef.current = null;
+    }
+    if (abortRef.current) {
+      abortRef.current.abort();
+      abortRef.current = null;
+    }
+  }, []);
+
+  const startConnections = useCallback(() => {
     if (options.paused) return;
 
-    let aborted = false;
     const abortController = new AbortController();
+    abortRef.current = abortController;
 
     setLoading(true);
     setError(null);
 
     fetchInitial(abortController.signal).then(() => {
-      if (!aborted) {
+      if (!abortController.signal.aborted) {
         setLoading(false);
       }
     });
@@ -84,20 +101,33 @@ export function useDiscordPresence(
     );
 
     const pollInterval = options.pollInterval ?? 5000;
-    const pollTimer = setInterval(() => {
-      if (!aborted) {
+    pollRef.current = setInterval(() => {
+      if (!abortController.signal.aborted) {
         fetchInitial(abortController.signal);
       }
     }, pollInterval);
+  }, [baseUrl, fetchInitial, options.pollInterval, options.paused]);
+
+  useEffect(() => {
+    if (options.paused) return;
+
+    startConnections();
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stopConnections();
+      } else {
+        startConnections();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      aborted = true;
-      abortController.abort();
-      sse.destroy();
-      sseRef.current = null;
-      clearInterval(pollTimer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      stopConnections();
     };
-  }, [baseUrl, fetchInitial, options.pollInterval, options.paused]);
+  }, [options.paused, startConnections, stopConnections]);
 
   return { presence, loading, error, refetch };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import type { SpotifyData } from "@/app/lib/discord/types";
 import { fetchSpotify } from "@/app/lib/spotify/api";
 
@@ -15,6 +15,49 @@ export function useSpotify(pollInterval = 15000, enabled = true): UseSpotifyRetu
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  const load = useCallback(async (signal?: AbortSignal) => {
+    try {
+      const data = await fetchSpotify(signal);
+      setSpotify(data);
+      setError(null);
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setError(err instanceof Error ? err : new Error(String(err)));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const stop = useCallback(() => {
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    if (abortRef.current) {
+      abortRef.current.abort();
+      abortRef.current = null;
+    }
+  }, []);
+
+  const start = useCallback(() => {
+    if (!enabled) return;
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setLoading(true);
+    load(controller.signal);
+
+    pollRef.current = setInterval(() => {
+      if (!controller.signal.aborted) {
+        load(controller.signal);
+      }
+    }, pollInterval);
+  }, [enabled, pollInterval, load]);
+
   useEffect(() => {
     if (!enabled) {
       setSpotify(null);
@@ -23,38 +66,23 @@ export function useSpotify(pollInterval = 15000, enabled = true): UseSpotifyRetu
       return;
     }
 
-    let cancelled = false;
-    const abortController = new AbortController();
+    start();
 
-    async function load() {
-      try {
-        const data = await fetchSpotify(abortController.signal);
-        if (!cancelled) {
-          setSpotify(data);
-          setError(null);
-        }
-      } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        if (!cancelled) {
-          setError(err instanceof Error ? err : new Error(String(err)));
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
       }
-    }
+    };
 
-    load();
-
-    const timer = setInterval(() => {
-      if (!cancelled) load();
-    }, pollInterval);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      cancelled = true;
-      abortController.abort();
-      clearInterval(timer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      stop();
     };
-  }, [pollInterval, enabled]);
+  }, [enabled, start, stop]);
 
   return { spotify, loading, error };
 }
