@@ -37,7 +37,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
-      className="group flex flex-col justify-between rounded-xl border border-white/10 p-5 transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+      className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:text-left sm:max-w-none sm:p-5"
     >
       <div>
         <p className="truncate text-[15px] font-medium text-white transition-colors duration-200 group-hover:text-white">
@@ -47,7 +47,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           {repo.description ?? "No description"}
         </p>
       </div>
-      <div className="mt-3 flex items-center gap-4 text-[12px] text-zinc-600">
+      <div className="mt-3 flex items-center justify-center gap-4 text-[12px] text-zinc-600 sm:justify-start">
         {repo.language && (
           <span className="flex items-center gap-1.5">
             <span
@@ -94,7 +94,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           </span>
         )}
         {repo.topics.length > 0 && (
-          <span className="ml-auto flex gap-1 overflow-hidden">
+          <span className="flex gap-1 overflow-hidden sm:ml-auto">
             {repo.topics.slice(0, 2).map((t) => (
               <span
                 key={t}
@@ -143,9 +143,9 @@ export default function GitHubRepos({
   return (
     <div>
       {loading ? (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="space-y-3 rounded-xl border border-white/10 p-5">
+            <div key={i} className="space-y-3 rounded-xl border border-white/10 p-3 sm:p-5">
               <div className="h-4 w-32 animate-pulse rounded bg-zinc-800" />
               <div className="h-3 w-full animate-pulse rounded bg-zinc-800" />
               <div className="h-3 w-20 animate-pulse rounded bg-zinc-800" />
@@ -153,7 +153,7 @@ export default function GitHubRepos({
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {repos.map((repo, i) => (
             <RepoCard key={repo.id} repo={repo} index={i} />
           ))}
