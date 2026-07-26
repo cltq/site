@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { homeSections } from "@/app/routes";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function SectionDots() {
   const [activeId, setActiveId] = useState(homeSections[0].id);
@@ -45,7 +45,7 @@ export default function SectionDots() {
 
   return (
     <nav
-      className="fixed left-5 top-1/2 z-30 -translate-y-1/2 flex-col items-center gap-3 font-mono md:flex"
+      className="fixed left-3 top-1/2 z-30 -translate-y-1/2 flex-col items-center gap-5 font-mono md:left-5 md:gap-3"
       aria-label="Section navigation"
     >
       {homeSections.map((section) => {
@@ -54,36 +54,26 @@ export default function SectionDots() {
           <button
             key={section.id}
             onClick={() => scrollTo(section.id)}
-            className="group relative flex items-center"
+            className="relative flex items-center"
             aria-label={section.name}
           >
-            <motion.span
-              className="block rounded-full"
-              animate={
-                active
-                  ? { width: 10, height: 10, backgroundColor: "#ffffff" }
-                  : { width: 6, height: 6, backgroundColor: "rgba(255,255,255,0.2)" }
-              }
-              whileHover={
-                active
-                  ? {}
-                  : { backgroundColor: "rgba(255,255,255,0.4)" }
-              }
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            />
-            <AnimatePresence>
-              {active && (
-                <motion.span
-                  initial={{ opacity: 0, x: -4 }}
-                  animate={{ opacity: 1, x: 8 }}
-                  exit={{ opacity: 0, x: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="pointer-events-none absolute left-5 whitespace-nowrap rounded-md bg-[#0b0b0f]/80 px-2.5 py-1 text-xs text-zinc-400 backdrop-blur-sm"
-                >
-                  {section.name}
-                </motion.span>
-              )}
-            </AnimatePresence>
+            <span className="block h-1.5 w-1.5 rounded-full bg-white/20" />
+            {active && (
+              <motion.span
+                layoutId="active-dot"
+                className="absolute left-0 top-1/2 block h-2 w-2 -translate-y-1/2 rounded-full bg-white sm:h-2.5 sm:w-2.5"
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              />
+            )}
+            {active && (
+              <motion.span
+                layoutId="section-label"
+                className="pointer-events-none absolute left-5 whitespace-nowrap text-xs text-zinc-400"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              >
+                {section.name}
+              </motion.span>
+            )}
           </button>
         );
       })}
