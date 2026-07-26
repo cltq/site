@@ -13,6 +13,10 @@ export const appRoutes: AppRoute[] = [
   //   name: "Music",
   //   href: "/music",
   // },
+  // {
+  //   name: "BD",
+  //   href: "/bd",
+  // },
 ];
 
 export interface HomeSection {
