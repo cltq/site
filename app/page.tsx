@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 const DiscordWidget = dynamic(() => import("@/app/components/DiscordWidget"), {
   ssr: false,
@@ -32,6 +32,15 @@ import Footer from "@/components/Footer";
 import AskModalController from "@/app/components/AskModalController";
 
 export default function Home() {
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    requestAnimationFrame(() => {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, "", "/");
+    });
+  }, []);
   const githubUser = process.env.GITHUB_USERNAME ?? "";
   const githubBlacklist =
     process.env.GITHUB_BLACKLIST?.split(",")

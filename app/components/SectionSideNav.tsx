@@ -13,12 +13,11 @@ export default function SectionSideNav() {
 
     const observers: IntersectionObserver[] = [];
 
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           const id = entry.target.id;
           setActiveId(id);
-          history.replaceState(null, "", `/#${id}`);
         }
       }
     };
@@ -43,7 +42,6 @@ export default function SectionSideNav() {
     const el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth" });
-    history.pushState(null, "", `/#${id}`);
   }
 
   return (
