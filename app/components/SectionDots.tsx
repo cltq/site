@@ -45,7 +45,7 @@ export default function SectionDots() {
 
   return (
     <nav
-      className="fixed left-3 top-0 z-30 flex h-full flex-col items-center justify-center gap-20 font-mono md:left-5"
+      className="fixed left-3 top-0 z-30 flex h-full flex-col items-center justify-center gap-[10rem] font-mono md:left-5"
       aria-label="Section navigation"
     >
       {homeSections.map((section) => {
