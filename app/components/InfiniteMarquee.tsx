@@ -49,7 +49,7 @@ export default function InfiniteMarquee() {
         className="animate-marquee flex w-max items-center text-[13px] will-change-transform group-hover:[animation-play-state:paused]"
         aria-hidden="true"
       >
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <LinkSet key={i} />
         ))}
       </div>
