@@ -17,7 +17,13 @@ export default function Footer() {
     const el = innerRef.current;
     if (!el) return;
 
+    let paused = document.hidden;
+
     function tick(now: number) {
+      if (paused) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
       if (!startRef.current) startRef.current = now;
       const elapsed = (now - startRef.current) % CYCLE_MS;
       const index = Math.floor(elapsed / (HOLD_MS + SLIDE_MS));
@@ -28,8 +34,17 @@ export default function Footer() {
       rafRef.current = requestAnimationFrame(tick);
     }
 
+    const handleVisibility = () => {
+      paused = document.hidden;
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (

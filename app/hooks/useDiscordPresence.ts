@@ -53,22 +53,7 @@ export function useDiscordPresence(
     setLoading(false);
   }, [fetchInitial]);
 
-  const stopConnections = useCallback(() => {
-    if (pollRef.current) {
-      clearInterval(pollRef.current);
-      pollRef.current = null;
-    }
-    if (sseRef.current) {
-      sseRef.current.destroy();
-      sseRef.current = null;
-    }
-    if (abortRef.current) {
-      abortRef.current.abort();
-      abortRef.current = null;
-    }
-  }, []);
-
-  const startConnections = useCallback(() => {
+  useEffect(() => {
     if (options.paused) return;
 
     const abortController = new AbortController();
@@ -100,24 +85,30 @@ export function useDiscordPresence(
       "presence_update",
     );
 
-    const pollInterval = options.pollInterval ?? 5000;
-    pollRef.current = setInterval(() => {
-      if (!abortController.signal.aborted) {
-        fetchInitial(abortController.signal);
+    const startPolling = () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+      const pollInterval = options.pollInterval ?? 60000;
+      pollRef.current = setInterval(() => {
+        if (!abortController.signal.aborted) {
+          fetchInitial(abortController.signal);
+        }
+      }, pollInterval);
+    };
+
+    const stopPolling = () => {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
       }
-    }, pollInterval);
-  }, [baseUrl, fetchInitial, options.pollInterval, options.paused]);
+    };
 
-  useEffect(() => {
-    if (options.paused) return;
-
-    startConnections();
+    startPolling();
 
     const handleVisibility = () => {
       if (document.hidden) {
-        stopConnections();
+        stopPolling();
       } else {
-        startConnections();
+        startPolling();
       }
     };
 
@@ -125,9 +116,13 @@ export function useDiscordPresence(
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
-      stopConnections();
+      stopPolling();
+      sse.destroy();
+      sseRef.current = null;
+      abortController.abort();
+      abortRef.current = null;
     };
-  }, [options.paused, startConnections, stopConnections]);
+  }, [options.paused, baseUrl, fetchInitial, options.pollInterval]);
 
   return { presence, loading, error, refetch };
 }

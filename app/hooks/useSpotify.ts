@@ -31,33 +31,6 @@ export function useSpotify(pollInterval = 15000, enabled = true): UseSpotifyRetu
     }
   }, []);
 
-  const stop = useCallback(() => {
-    if (pollRef.current) {
-      clearInterval(pollRef.current);
-      pollRef.current = null;
-    }
-    if (abortRef.current) {
-      abortRef.current.abort();
-      abortRef.current = null;
-    }
-  }, []);
-
-  const start = useCallback(() => {
-    if (!enabled) return;
-
-    const controller = new AbortController();
-    abortRef.current = controller;
-
-    setLoading(true);
-    load(controller.signal);
-
-    pollRef.current = setInterval(() => {
-      if (!controller.signal.aborted) {
-        load(controller.signal);
-      }
-    }, pollInterval);
-  }, [enabled, pollInterval, load]);
-
   useEffect(() => {
     if (!enabled) {
       setSpotify(null);
@@ -66,13 +39,35 @@ export function useSpotify(pollInterval = 15000, enabled = true): UseSpotifyRetu
       return;
     }
 
-    start();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setLoading(true);
+    load(controller.signal);
+
+    const startPolling = () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+      pollRef.current = setInterval(() => {
+        if (!controller.signal.aborted) {
+          load(controller.signal);
+        }
+      }, pollInterval);
+    };
+
+    const stopPolling = () => {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+    };
+
+    startPolling();
 
     const handleVisibility = () => {
       if (document.hidden) {
-        stop();
+        stopPolling();
       } else {
-        start();
+        startPolling();
       }
     };
 
@@ -80,9 +75,11 @@ export function useSpotify(pollInterval = 15000, enabled = true): UseSpotifyRetu
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
-      stop();
+      stopPolling();
+      controller.abort();
+      abortRef.current = null;
     };
-  }, [enabled, start, stop]);
+  }, [enabled, pollInterval, load]);
 
   return { spotify, loading, error };
 }

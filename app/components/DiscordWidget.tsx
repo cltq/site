@@ -89,7 +89,7 @@ export default function DiscordWidget({
   const customStatus = showCustomStatus ? parseCustomStatus(presence.customStatus) : null;
 
   const showSpotifySection = showSpotify && spotifyData;
-  const showActivitySection = showActivities && presence.activities.length > 0;
+  const showActivitySection = showActivities && (presence.activities?.length ?? 0) > 0;
   const hasPresence = customStatus || showSpotifySection || showActivitySection;
 
   return (

@@ -9,10 +9,21 @@ export default function HeroText() {
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const pausedRef = useRef(false);
 
   const current = roles[roleIndex];
 
   useEffect(() => {
+    const handleVisibility = () => {
+      pausedRef.current = document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (pausedRef.current) return;
+
     const speed = deleting ? 50 : 100;
 
     if (!deleting && charIndex === current.length) {
@@ -23,7 +34,7 @@ export default function HeroText() {
     if (deleting && charIndex === 0) {
       setDeleting(false);
       setRoleIndex((prev) => (prev + 1) % roles.length);
-      return;
+      return () => {};
     }
 
     timeoutRef.current = setTimeout(() => {
