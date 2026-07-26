@@ -9,20 +9,20 @@ export default function HeroText() {
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
-  const pausedRef = useRef(false);
+  const [paused, setPaused] = useState(false);
 
   const current = roles[roleIndex];
 
   useEffect(() => {
     const handleVisibility = () => {
-      pausedRef.current = document.hidden;
+      setPaused(document.hidden);
     };
     document.addEventListener("visibilitychange", handleVisibility);
     return () => document.removeEventListener("visibilitychange", handleVisibility);
   }, []);
 
   useEffect(() => {
-    if (pausedRef.current) return;
+    if (paused) return;
 
     const speed = deleting ? 50 : 100;
 
@@ -42,7 +42,7 @@ export default function HeroText() {
     }, speed);
 
     return () => clearTimeout(timeoutRef.current!);
-  }, [charIndex, deleting, current.length, roleIndex]);
+  }, [charIndex, deleting, current.length, roleIndex, paused]);
 
   return (
     <div className="flex items-center justify-center">
