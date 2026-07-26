@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TimeLeft {
   days: number;
@@ -12,6 +12,33 @@ interface TimeLeft {
 
 function formatNumber(num: number, digits = 2) {
   return num.toString().padStart(digits, "0");
+}
+
+function FlipDigit({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative overflow-hidden rounded-2xl bg-white/[0.06] border border-white/[0.08]">
+        <div className="flex h-28 w-28 items-center justify-center sm:h-24 sm:w-24">
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={value}
+              initial={{ y: 20, opacity: 0, scale: 0.9 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -20, opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="absolute text-3xl font-bold tabular-nums text-white sm:text-5xl"
+            >
+              {value}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+        <div className="absolute inset-x-0 top-1/2 h-px bg-white/[0.06]" />
+      </div>
+      <span className="text-[10px] tracking-widest text-zinc-500 uppercase sm:text-xs">
+        {label}
+      </span>
+    </div>
+  );
 }
 
 export default function BirthdaySection() {
@@ -67,32 +94,17 @@ export default function BirthdaySection() {
         </p>
       </motion.div>
 
-      <div className="grid w-full max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
-        {units.map((unit, i) => (
-          <motion.div
-            key={unit.label}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.15 + i * 0.05 }}
-            whileHover={{ scale: 1.03, borderColor: "rgba(255,255,255,0.2)" }}
-            className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-5"
-          >
-            <motion.span
-              key={unit.value}
-              initial={{ opacity: 0.6, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="text-3xl font-bold tabular-nums text-white sm:text-4xl"
-            >
-              {unit.value}
-            </motion.span>
-            <span className="text-xs tracking-widest text-zinc-500 uppercase">
-              {unit.label}
-            </span>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="grid grid-cols-2 justify-items-center gap-6 sm:grid-cols-4 sm:gap-4"
+      >
+        {units.map((unit) => (
+          <FlipDigit key={unit.label} value={unit.value} label={unit.label} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

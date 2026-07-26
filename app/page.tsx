@@ -146,7 +146,7 @@ export default function Home() {
       {/* Birthday */}
       <section
         id="birthday"
-        className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8"
+        className="flex min-h-svh items-center justify-center px-4 pl-10 pt-24 pb-16 sm:px-8"
       >
         <Reveal className="flex w-full max-w-4xl flex-col items-center gap-12 sm:gap-16">
           <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">

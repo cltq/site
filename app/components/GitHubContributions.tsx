@@ -1,39 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import Heatmap from "./heatmap/Heatmap";
+import type { ContributionDay } from "./heatmap/utils";
+import { fetchContributions } from "@/app/lib/github/contributions";
 
 export default function GitHubContributions({ username }: { username: string }) {
-  if (!username) return null;
+  const [data, setData] = useState<ContributionDay[]>([]);
 
-  const params = new URLSearchParams({
-    username,
-    bg_color: "000000",
-    color: "9ca3af",
-    line: "27272a",
-    point: "ffffff",
-    area_color: "000000",
-    area: "true",
-    hide_border: "true",
-    hide_title: "true",
-    custom_title: "Contributions",
-    radius: "8",
-    height: "250",
-    days: "20",
-  });
+  useEffect(() => {
+    if (!username) return;
+    fetchContributions(username).then(setData).catch(() => setData([]));
+  }, [username]);
+
+  const now = new Date();
+  const startDate = useMemo(() => new Date(now.getFullYear(), 0, 1), []);
+  const endDate = useMemo(() => new Date(now.getFullYear(), 11, 31), []);
+
+  if (!username) return null;
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-6">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img
-          src={`https://github-readme-activity-graph.vercel.app/graph?${params.toString()}`}
-          alt={`${username}'s contribution graph`}
-          className="w-full overflow-hidden rounded-xl"
-        />
-      </motion.div>
+      <Heatmap data={data} startDate={startDate} endDate={endDate} />
     </div>
   );
 }
