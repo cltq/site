@@ -18,8 +18,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/discord/:path*",
-        destination: "https://api.applefumi.xyz/v2/discord/:path*",
+        source: "/api/discord",
+        destination: "https://api.applefumi.xyz/v2/discord/",
+      },
+      {
+        source: "/api/discord/:path+",
+        destination: "https://api.applefumi.xyz/v2/discord/:path+",
       },
       {
         source: "/api/spotify",
