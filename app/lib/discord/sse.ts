@@ -39,8 +39,9 @@ export class SSEManager<T = unknown> {
 
       const handler = (event: MessageEvent) => {
         try {
-          const parsed = JSON.parse(event.data) as T;
-          this.callbacks?.onMessage(parsed);
+          const parsed = JSON.parse(event.data);
+          const unwrapped = parsed?.data ?? parsed;
+          this.callbacks?.onMessage(unwrapped as T);
         } catch {
           this.callbacks?.onMessage(event.data as unknown as T);
         }
