@@ -29,7 +29,7 @@ export async function fetchDiscordPresence(
   baseUrl?: string,
   signal?: AbortSignal,
 ): Promise<DiscordPresence> {
-  const url = getBaseUrl(baseUrl);
+  const url = `${getBaseUrl(baseUrl)}/`;
   const json = await fetchJson<ApiResponse<DiscordPresence>>(url, signal);
   return json.data;
 }
