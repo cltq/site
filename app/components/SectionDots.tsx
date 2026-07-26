@@ -45,7 +45,7 @@ export default function SectionDots() {
 
   return (
     <nav
-      className="fixed left-3 top-0 z-30 flex h-full flex-col items-center justify-center gap-[1.67rem] font-mono md:left-5"
+      className="fixed left-3 top-0 z-30 flex h-full flex-col items-center justify-center gap-[1.34rem] font-mono md:left-5"
       aria-label="Section navigation"
     >
       {homeSections.map((section) => {
@@ -64,15 +64,6 @@ export default function SectionDots() {
                 className="absolute left-0 top-1/2 block h-2 w-2 -translate-y-1/2 rounded-full bg-white sm:h-2.5 sm:w-2.5"
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               />
-            )}
-            {active && (
-              <motion.span
-                layoutId="section-label"
-                className="pointer-events-none absolute left-5 whitespace-nowrap text-xs text-zinc-400"
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              >
-                {section.name}
-              </motion.span>
             )}
           </button>
         );
