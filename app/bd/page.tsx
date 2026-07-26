@@ -84,7 +84,7 @@ export default function BirthdayCountdown() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center"
         >
           <p className="mb-2 text-xs tracking-widest text-zinc-500 uppercase">
@@ -95,7 +95,7 @@ export default function BirthdayCountdown() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="text-center"
         >
           <h1 className="text-xl font-semibold tracking-tight text-white sm:text-2xl md:text-3xl">
@@ -106,29 +106,34 @@ export default function BirthdayCountdown() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
-        >
+        <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {units.map((unit, i) => (
             <motion.div
               key={unit.label}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.25 + i * 0.08,
+                ease: "easeOut",
+              }}
               className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-6 lg:p-8"
             >
-              <span className="text-3xl font-bold tabular-nums text-white sm:text-5xl lg:text-6xl">
+              <motion.span
+                key={unit.value}
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.15 }}
+                className="text-3xl font-bold tabular-nums text-white sm:text-5xl lg:text-6xl"
+              >
                 {unit.value}
-              </span>
+              </motion.span>
               <span className="text-[10px] tracking-widest text-zinc-500 uppercase sm:text-xs">
                 {unit.label}
               </span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </div>

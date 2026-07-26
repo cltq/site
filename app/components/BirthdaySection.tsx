@@ -52,6 +52,21 @@ export default function BirthdaySection() {
 
   return (
     <div className="flex w-full flex-col items-center gap-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="text-center"
+      >
+        <h3 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
+          Fumi&apos;s Birthday & New Year Countdown
+        </h3>
+        <p className="mt-2 text-xs text-zinc-500">
+          Until 31/12/{new Date().getFullYear() + 1}
+        </p>
+      </motion.div>
+
       <div className="grid w-full max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
         {units.map((unit, i) => (
           <motion.div
@@ -59,7 +74,7 @@ export default function BirthdaySection() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: i * 0.05 }}
+            transition={{ duration: 0.3, delay: 0.15 + i * 0.05 }}
             className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] p-3 sm:p-4"
           >
             <span className="text-2xl font-bold tabular-nums text-white sm:text-3xl">
@@ -71,9 +86,6 @@ export default function BirthdaySection() {
           </motion.div>
         ))}
       </div>
-      <p className="text-xs text-zinc-500">
-        Until 31/12/{new Date().getFullYear() + 1}
-      </p>
     </div>
   );
 }
