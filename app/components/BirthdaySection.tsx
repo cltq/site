@@ -75,11 +75,18 @@ export default function BirthdaySection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: 0.15 + i * 0.05 }}
+            whileHover={{ scale: 1.03, borderColor: "rgba(255,255,255,0.2)" }}
             className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-5"
           >
-            <span className="text-3xl font-bold tabular-nums text-white sm:text-4xl">
+            <motion.span
+              key={unit.value}
+              initial={{ opacity: 0.6, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="text-3xl font-bold tabular-nums text-white sm:text-4xl"
+            >
               {unit.value}
-            </span>
+            </motion.span>
             <span className="text-xs tracking-widest text-zinc-500 uppercase">
               {unit.label}
             </span>

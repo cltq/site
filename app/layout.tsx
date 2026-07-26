@@ -6,7 +6,7 @@ import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
 import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
-import SectionSideNav from "@/app/components/SectionSideNav";
+import SectionDots from "@/app/components/SectionDots";
 import TitleUpdater from "@/app/components/TitleUpdater";
 import UtmTracker from "@/app/components/UtmTracker";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -55,7 +55,7 @@ export default function RootLayout({
       </head>
       <body className="relative h-full bg-black font-sans text-[#9ca3af]">
         <DynamicBackgrounds />
-        <SectionSideNav />
+        <SectionDots />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
             <PageTransition>
