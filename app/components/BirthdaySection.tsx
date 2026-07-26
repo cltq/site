@@ -51,7 +51,7 @@ export default function BirthdaySection() {
   ];
 
   return (
-    <div className="flex w-full flex-col items-center gap-6">
+    <div className="flex w-full flex-col items-center gap-8">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export default function BirthdaySection() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h3 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
+        <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
           Fumi&apos;s Birthday & New Year Countdown
         </h3>
         <p className="mt-2 text-xs text-zinc-500">
@@ -67,7 +67,7 @@ export default function BirthdaySection() {
         </p>
       </motion.div>
 
-      <div className="grid w-full max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
         {units.map((unit, i) => (
           <motion.div
             key={unit.label}
@@ -75,12 +75,12 @@ export default function BirthdaySection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: 0.15 + i * 0.05 }}
-            className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] p-3 sm:p-4"
+            className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-5"
           >
-            <span className="text-2xl font-bold tabular-nums text-white sm:text-3xl">
+            <span className="text-3xl font-bold tabular-nums text-white sm:text-4xl">
               {unit.value}
             </span>
-            <span className="text-[10px] tracking-widest text-zinc-500 uppercase">
+            <span className="text-xs tracking-widest text-zinc-500 uppercase">
               {unit.label}
             </span>
           </motion.div>
