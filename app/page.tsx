@@ -80,7 +80,7 @@ export default function Home() {
           </svg>
         </div>
         {/* Mobile: vertical on right */}
-        <div className="fixed top-1/2 right-3 z-20 flex -translate-y-1/2 flex-col items-center gap-3 text-[11px] text-zinc-400 md:hidden">
+        <div className="fixed bottom-8 right-3 z-20 flex flex-col items-center gap-3 text-[11px] text-zinc-400 md:hidden">
           <svg
             className="size-3"
             style={{ animation: "bounce-down 1.5s ease-in-out infinite" }}
