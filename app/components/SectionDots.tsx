@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { homeSections } from "@/app/routes";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SectionDots() {
   const [activeId, setActiveId] = useState(homeSections[0].id);
@@ -45,7 +45,7 @@ export default function SectionDots() {
 
   return (
     <nav
-      className="fixed right-5 top-1/2 z-30 -translate-y-1/2 flex-col items-center gap-3 font-mono md:flex"
+      className="fixed left-5 top-1/2 z-30 -translate-y-1/2 flex-col items-center gap-3 font-mono md:flex"
       aria-label="Section navigation"
     >
       {homeSections.map((section) => {
@@ -54,7 +54,7 @@ export default function SectionDots() {
           <button
             key={section.id}
             onClick={() => scrollTo(section.id)}
-            className="group relative flex items-center justify-center"
+            className="group relative flex items-center"
             aria-label={section.name}
           >
             <motion.span
@@ -71,9 +71,19 @@ export default function SectionDots() {
               }
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             />
-            <span className="pointer-events-none absolute right-6 whitespace-nowrap rounded-md bg-[#0b0b0f]/80 px-2.5 py-1 text-xs text-zinc-400 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
-              {section.name}
-            </span>
+            <AnimatePresence>
+              {active && (
+                <motion.span
+                  initial={{ opacity: 0, x: -4 }}
+                  animate={{ opacity: 1, x: 8 }}
+                  exit={{ opacity: 0, x: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="pointer-events-none absolute left-5 whitespace-nowrap rounded-md bg-[#0b0b0f]/80 px-2.5 py-1 text-xs text-zinc-400 backdrop-blur-sm"
+                >
+                  {section.name}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         );
       })}
