@@ -3,14 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import Heatmap from "./heatmap/Heatmap";
 import type { ContributionDay } from "./heatmap/utils";
-import { fetchContributions } from "@/app/lib/github/contributions";
 
 export default function GitHubContributions({ username }: { username: string }) {
   const [data, setData] = useState<ContributionDay[]>([]);
 
   useEffect(() => {
     if (!username) return;
-    fetchContributions(username).then(setData).catch(() => setData([]));
+    fetch(`/api/github/contributions?username=${encodeURIComponent(username)}`)
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData([]));
   }, [username]);
 
   const now = new Date();
