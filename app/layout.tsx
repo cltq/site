@@ -2,11 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { Chakra_Petch } from "next/font/google";
 import PageTransition from "@/app/components/PageTransition";
+import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
 import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
 import SectionSideNav from "@/app/components/SectionSideNav";
 import TitleUpdater from "@/app/components/TitleUpdater";
+import UtmTracker from "@/app/components/UtmTracker";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -56,7 +58,9 @@ export default function RootLayout({
         <SectionSideNav />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
-            <PageTransition>{children}</PageTransition>
+            <PageTransition>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </PageTransition>
           </div>
         </div>
         <ContextMenuGuard />
@@ -64,6 +68,7 @@ export default function RootLayout({
         <SpeedInsights />
         <Analytics />
         <TitleUpdater />
+        <UtmTracker />
       </body>
     </html>
   );
