@@ -27,6 +27,7 @@ import SocialIcons from "@/app/components/SocialIcons";
 import GitHubRepos from "@/app/components/GitHubRepos";
 import Reveal from "@/app/components/Reveal";
 import TechStack from "@/app/components/TechStack";
+import BirthdaySection from "@/app/components/BirthdaySection";
 import GitHubContributions from "@/app/components/GitHubContributions";
 import Footer from "@/components/Footer";
 import AskModalController from "@/app/components/AskModalController";
@@ -139,6 +140,19 @@ export default function Home() {
             </h3>
             <GitHubRepos username={githubUser} blacklist={githubBlacklist} />
           </div>
+        </Reveal>
+      </section>
+
+      {/* Birthday */}
+      <section
+        id="birthday"
+        className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8"
+      >
+        <Reveal className="flex w-full max-w-4xl flex-col items-center gap-12 sm:gap-16">
+          <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+            Birthday
+          </h2>
+          <BirthdaySection />
         </Reveal>
       </section>
 

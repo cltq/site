@@ -130,14 +130,6 @@ export default function BirthdayCountdown() {
           ))}
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-xs text-zinc-600"
-        >
-          Every second counts until the new year begins!
-        </motion.p>
       </div>
     </div>
   );

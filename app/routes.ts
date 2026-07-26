@@ -27,4 +27,5 @@ export interface HomeSection {
 export const homeSections: HomeSection[] = [
   { id: "root", name: "Home" },
   { id: "development", name: "Development" },
+  { id: "birthday", name: "Birthday" },
 ];
