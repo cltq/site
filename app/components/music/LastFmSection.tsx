@@ -5,11 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fetchTopTracks, fetchTopArtists } from "@/app/lib/lastfm/api";
 import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from "@/app/lib/lastfm/types";
 
+function proxyImage(src: string) {
+  return `/api/lastfm?img=${encodeURIComponent(src)}`;
+}
+
 function TrackImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
   if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#1a1a1a]" />;
   return (
-    <img src={src} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded object-cover" />
+    <img src={proxyImage(src)} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded object-cover" />
   );
 }
 
@@ -17,7 +21,7 @@ function ArtistImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
   if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#1a1a1a]" />;
   return (
-    <img src={src} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded-full object-cover" />
+    <img src={proxyImage(src)} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded-full object-cover" />
   );
 }
 
