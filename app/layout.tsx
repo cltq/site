@@ -22,18 +22,18 @@ const chakraPetch = Chakra_Petch({
 });
 
 export const metadata: Metadata = {
-  description: "Fumi/Maple's Portfolio/Personal Website",
+  description: "Maple's Portfolio/Personal Website",
   icons: { icon: "/favicon.png" },
   openGraph: {
     title: "Maple",
-    description: "Fumi/Maple's Portfolio/Personal Website",
+    description: "Maple's Portfolio/Personal Website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Maple",
-    description: "Fumi/Maple's Portfolio/Personal Website",
+    description: "Maple's Portfolio/Personal Website",
     images: ["/og-image.png"],
   },
 };
@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}>
       <head>
-        <title>fumi</title>
+        <title>Maple</title>
       </head>
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />
@@ -68,7 +68,6 @@ export default function RootLayout({
         <WebMCP />
         <SpeedInsights />
         <Analytics />
-        <TitleUpdater />
         <UtmTracker />
       </body>
     </html>
