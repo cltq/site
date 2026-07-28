@@ -39,6 +39,23 @@ function filterImages(images: any[]) {
   return images.filter((i: any) => i["#text"] && !isAlbumPlaceholder(i["#text"]));
 }
 
+async function fetchItunesArtwork(artist: string, track: string): Promise<string | null> {
+  try {
+    const term = encodeURIComponent(`${artist} ${track}`);
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&media=music&limit=1`,
+      { signal: AbortSignal.timeout(5000) },
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const artwork = data.results?.[0]?.artworkUrl100;
+    if (!artwork) return null;
+    return artwork.replace("100x100", "600x600");
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const headers = { ...corsHeaders };
   const { searchParams } = new URL(request.url);
@@ -104,6 +121,7 @@ export async function GET(request: NextRequest) {
       const enriched = await Promise.all(
         data.toptracks.track.map(async (track: any) => {
           const originalImages = filterImages(track.image || []);
+
           try {
             const infoRes = await fetch(
               lastfmUrl("track.getInfo", apiKey, {
@@ -123,6 +141,14 @@ export async function GET(request: NextRequest) {
               }
             }
           } catch {}
+
+          if (originalImages.length === 0) {
+            const artwork = await fetchItunesArtwork(track.artist.name, track.name);
+            if (artwork) {
+              return { ...track, image: [{ "#text": artwork, size: "extralarge" }] };
+            }
+          }
+
           return { ...track, image: originalImages };
         }),
       );
