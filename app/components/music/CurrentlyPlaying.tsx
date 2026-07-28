@@ -30,7 +30,7 @@ export default function CurrentlyPlaying() {
   useEffect(() => {
     const fetchTrack = async () => {
       try {
-        const res = await fetch("https://spotify.applefumi.xyz/api/spotify");
+        const res = await fetch("/api/spotify");
         if (!res.ok) throw new Error("not ok");
         const data: SpotifyNowPlaying = await res.json();
         if (data.isPlaying) {
