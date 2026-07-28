@@ -12,7 +12,7 @@ function MonthLabelsInner({ labels }: MonthLabelsProps) {
       {labels.map((item) => (
         <span
           key={`${item.label}-${item.weekIndex}`}
-          className="absolute text-[10px] text-[#8b949e]"
+          className="absolute text-[10px] text-[#a6adc8]"
           style={{
             left: `${item.weekIndex * 15}px`,
           }}

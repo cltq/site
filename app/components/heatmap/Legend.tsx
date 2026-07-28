@@ -7,7 +7,7 @@ const LEVELS = [0, 1, 2, 3, 4];
 
 function LegendInner() {
   return (
-    <div className="flex items-center gap-1.5 text-[10px] text-[#8b949e]" aria-label="Contribution legend">
+    <div className="flex items-center gap-1.5 text-[10px] text-[#a6adc8]" aria-label="Contribution legend">
       <span>Less</span>
       {LEVELS.map((level) => (
         <div

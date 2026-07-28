@@ -26,7 +26,7 @@ function FlipDigit({ value, label }: { value: string; label: string }) {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -20, opacity: 0, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="absolute text-3xl font-bold tabular-nums text-white sm:text-5xl"
+              className="absolute text-3xl font-bold tabular-nums text-[#cdd6f4] sm:text-5xl"
             >
               {value}
             </motion.span>
@@ -34,7 +34,7 @@ function FlipDigit({ value, label }: { value: string; label: string }) {
         </div>
         <div className="absolute inset-x-0 top-1/2 h-px bg-white/[0.06]" />
       </div>
-      <span className="text-[10px] tracking-widest text-zinc-500 uppercase sm:text-xs">
+      <span className="text-[10px] tracking-widest text-[#9399b2] uppercase sm:text-xs">
         {label}
       </span>
     </div>
@@ -86,10 +86,10 @@ export default function BirthdaySection() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+        <h3 className="text-xl font-semibold tracking-tight text-[#cdd6f4] sm:text-2xl">
           Fumi&apos;s Birthday & New Year Countdown
         </h3>
-        <p className="mt-2 text-xs text-zinc-500">
+        <p className="mt-2 text-xs text-[#9399b2]">
           Until 31/12/{new Date().getFullYear() + 1}
         </p>
       </motion.div>

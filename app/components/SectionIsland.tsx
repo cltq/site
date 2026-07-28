@@ -43,7 +43,7 @@ export default function SectionIsland() {
     <nav
       className={`${GeistMono.variable} fixed top-4 left-1/2 z-50 hidden -translate-x-1/2 font-mono md:block`}
     >
-      <div className="flex items-center gap-3 rounded-full border border-white/10 bg-[#0b0b0f]/80 px-5 py-2 backdrop-blur-xl">
+      <div className="flex items-center gap-3 rounded-full border border-white/10 bg-[#181825]/80 px-5 py-2 backdrop-blur-xl">
         <img src="/icon.png" alt="Fumi" className="h-6 w-6 shrink-0 rounded-full" />
         <div className="relative h-5 overflow-hidden">
           <AnimatePresence mode="popLayout">

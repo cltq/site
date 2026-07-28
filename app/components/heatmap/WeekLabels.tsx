@@ -18,7 +18,7 @@ function WeekLabelsInner() {
       {WEEKDAYS.filter((_, i) => i % 2 === 1).map((day) => (
         <span
           key={day.index}
-          className="flex h-[12px] items-center text-[10px] text-[#8b949e] sm:h-[13px]"
+          className="flex h-[12px] items-center text-[10px] text-[#a6adc8] sm:h-[13px]"
         >
           {day.label}
         </span>

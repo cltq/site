@@ -57,12 +57,12 @@ export default function SectionSideNav() {
               <button
                 onClick={() => scrollTo(section.id)}
                 className={`group flex items-center gap-2 text-sm transition-colors duration-200 ${
-                  active ? "text-white" : "text-zinc-500 hover:text-zinc-300"
+                  active ? "text-[#cdd6f4]" : "text-[#9399b2] hover:text-[#bac2de]"
                 }`}
               >
                 <motion.span
                   className={`transition-colors duration-200 ${
-                    active ? "text-white" : "text-zinc-700 group-hover:text-zinc-300"
+                    active ? "text-[#cdd6f4]" : "text-[#6c7086] group-hover:text-[#bac2de]"
                   }`}
                   animate={active ? { x: 2 } : { x: 0 }}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}

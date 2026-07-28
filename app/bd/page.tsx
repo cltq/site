@@ -79,7 +79,7 @@ export default function BirthdayCountdown() {
   ];
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-[#0b0b0f] px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-svh flex-col items-center justify-center bg-[#1e1e2e] px-4 sm:px-6 lg:px-8">
       <div className="flex w-full max-w-5xl flex-col items-center gap-10 sm:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -87,7 +87,7 @@ export default function BirthdayCountdown() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center"
         >
-          <p className="mb-2 text-xs tracking-widest text-zinc-500 uppercase">
+          <p className="mb-2 text-xs tracking-widest text-[#9399b2] uppercase">
             {currentDate} &mdash; {currentTime}
           </p>
         </motion.div>
@@ -98,10 +98,10 @@ export default function BirthdayCountdown() {
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="text-center"
         >
-          <h1 className="text-xl font-semibold tracking-tight text-white sm:text-2xl md:text-3xl">
+          <h1 className="text-xl font-semibold tracking-tight text-[#cdd6f4] sm:text-2xl md:text-3xl">
             Fumi&apos;s Birthday & New Year Countdown
           </h1>
-          <p className="mt-3 text-sm text-zinc-400">
+          <p className="mt-3 text-sm text-[#a6adc8]">
             Until 31/12/{new Date().getFullYear() + 1}
           </p>
         </motion.div>
@@ -124,11 +124,11 @@ export default function BirthdayCountdown() {
                 initial={{ opacity: 0.7 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.15 }}
-                className="text-3xl font-bold tabular-nums text-white sm:text-5xl lg:text-6xl"
+                className="text-3xl font-bold tabular-nums text-[#cdd6f4] sm:text-5xl lg:text-6xl"
               >
                 {unit.value}
               </motion.span>
-              <span className="text-[10px] tracking-widest text-zinc-500 uppercase sm:text-xs">
+              <span className="text-[10px] tracking-widest text-[#9399b2] uppercase sm:text-xs">
                 {unit.label}
               </span>
             </motion.div>

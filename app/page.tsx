@@ -8,10 +8,10 @@ const DiscordWidget = dynamic(() => import("@/app/components/DiscordWidget"), {
   loading: () => (
     <div className="flex flex-col gap-4 md:flex-row">
       <div className="flex items-center gap-3">
-        <div className="h-12 w-12 shrink-0 animate-pulse rounded-full bg-zinc-800" />
+        <div className="h-12 w-12 shrink-0 animate-pulse rounded-full bg-[#313244]" />
         <div className="space-y-2">
-          <div className="h-4 w-28 animate-pulse rounded bg-zinc-800" />
-          <div className="h-3 w-20 animate-pulse rounded bg-zinc-800" />
+          <div className="h-4 w-28 animate-pulse rounded bg-[#313244]" />
+          <div className="h-3 w-20 animate-pulse rounded bg-[#313244]" />
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default function Home() {
           <SocialIcons />
         </div>
         {/* Desktop: horizontal at center bottom */}
-        <div className="fixed bottom-8 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 text-xs text-zinc-400 md:flex">
+        <div className="fixed bottom-8 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 text-xs text-[#a6adc8] md:flex">
           <span>scroll</span>
           <svg
             className="size-3"
@@ -80,7 +80,7 @@ export default function Home() {
           </svg>
         </div>
         {/* Mobile: vertical on right */}
-        <div className="fixed bottom-8 right-3 z-20 flex flex-col items-center gap-3 text-[11px] text-zinc-400 md:hidden">
+        <div className="fixed bottom-8 right-3 z-20 flex flex-col items-center gap-3 text-[11px] text-[#a6adc8] md:hidden">
           <svg
             className="size-3"
             style={{ animation: "bounce-down 1.5s ease-in-out infinite" }}
@@ -116,26 +116,26 @@ export default function Home() {
         className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8"
       >
         <Reveal className="flex w-full max-w-4xl flex-col items-center gap-12 sm:gap-16">
-          <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+          <h2 className="text-xl font-semibold tracking-tight text-[#cdd6f4] sm:text-2xl">
             Development
           </h2>
 
           <div className="flex w-full flex-col items-center gap-3 sm:gap-4">
-            <h3 className="text-xs font-medium tracking-wide text-zinc-400 uppercase sm:text-sm">
+            <h3 className="text-xs font-medium tracking-wide text-[#a6adc8] uppercase sm:text-sm">
               Stacks
             </h3>
             <TechStack />
           </div>
 
           <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
-            <h3 className="text-xs font-medium tracking-wide text-zinc-400 uppercase sm:text-sm">
+            <h3 className="text-xs font-medium tracking-wide text-[#a6adc8] uppercase sm:text-sm">
               Contributions
             </h3>
             <GitHubContributions username={githubUser} />
           </div>
 
           <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
-            <h3 className="text-xs font-medium tracking-wide text-zinc-400 uppercase sm:text-sm">
+            <h3 className="text-xs font-medium tracking-wide text-[#a6adc8] uppercase sm:text-sm">
               Projects
             </h3>
             <GitHubRepos username={githubUser} blacklist={githubBlacklist} />
@@ -149,7 +149,7 @@ export default function Home() {
         className="flex min-h-svh items-center justify-center px-4 pl-10 pt-24 pb-16 sm:px-8"
       >
         <Reveal className="flex w-full max-w-4xl flex-col items-center gap-12 sm:gap-16">
-          <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+          <h2 className="text-xl font-semibold tracking-tight text-[#cdd6f4] sm:text-2xl">
             Birthday
           </h2>
           <BirthdaySection />

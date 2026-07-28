@@ -53,7 +53,7 @@ export default function RootLayout({
       <head>
         <title>fumi</title>
       </head>
-      <body className="relative h-full bg-black font-sans text-[#9ca3af]">
+      <body className="relative h-full bg-[#1e1e2e] font-sans text-[#a6adc8]">
         <DynamicBackgrounds />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">

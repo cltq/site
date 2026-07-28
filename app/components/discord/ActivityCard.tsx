@@ -27,16 +27,16 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  "0": "#5865F2",
-  "1": "#9146FF",
-  "2": "#1DB954",
-  "3": "#FF73FA",
-  "5": "#FAA61A",
-  Playing: "#5865F2",
-  Streaming: "#9146FF",
-  Listening: "#1DB954",
-  Watching: "#FF73FA",
-  Competing: "#FAA61A",
+  "0": "#89b4fa",
+  "1": "#cba6f7",
+  "2": "#a6e3a1",
+  "3": "#f5c2e7",
+  "5": "#f9e2af",
+  Playing: "#89b4fa",
+  Streaming: "#cba6f7",
+  Listening: "#a6e3a1",
+  Watching: "#f5c2e7",
+  Competing: "#f9e2af",
 };
 
 function ActivityIcon({
@@ -79,7 +79,7 @@ function ActivityIcon({
   const largeImage = normalizeDiscordCdnUrl(iconUrl);
   const smallImage = normalizeDiscordCdnUrl(smallImageUrl);
   const [imgError, setImgError] = useState(false);
-  const fallbackColor = TYPE_COLORS[String(activity.type)] || "#5865F2";
+  const fallbackColor = TYPE_COLORS[String(activity.type)] || "#89b4fa";
 
   const iconSize = compact ? 28 : 64;
 
@@ -97,7 +97,7 @@ function ActivityIcon({
           <img
             src={smallImage}
             alt={smallText}
-            className="absolute -right-1 -bottom-1 h-5 w-5 rounded-full border-2 border-solid border-zinc-700 max-md:h-4 max-md:w-4"
+            className="absolute -right-1 -bottom-1 h-5 w-5 rounded-full border-2 border-solid border-[#45475a] max-md:h-4 max-md:w-4"
             loading="lazy"
           />
         )}
@@ -132,10 +132,10 @@ export function ActivityCard({ activity, animated = true, compact = false }: Act
 
       <div className="min-w-0 flex-1">
         {!compact && (
-          <p className="text-[12px] font-medium tracking-wider text-zinc-500 uppercase">{label}</p>
+          <p className="text-[12px] font-medium tracking-wider text-[#9399b2] uppercase">{label}</p>
         )}
         <p
-          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-white`}
+          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-[#cdd6f4]`}
         >
           {activity.emoji && (
             <span className="mr-1">
@@ -154,21 +154,21 @@ export function ActivityCard({ activity, animated = true, compact = false }: Act
         </p>
         {(compact ? activity.details : activity.details || activity.state) && (
           <p
-            className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-zinc-400`}
+            className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-[#a6adc8]`}
           >
             {compact ? activity.details : activity.details || activity.state}
           </p>
         )}
         {!compact && activity.state && activity.details && (
-          <p className="truncate text-[14px] text-zinc-400">{activity.state}</p>
+          <p className="truncate text-[14px] text-[#a6adc8]">{activity.state}</p>
         )}
         {!compact && activity.timestamps?.end && (
-          <p className="mt-0.5 text-[13px] text-zinc-500 tabular-nums">
+          <p className="mt-0.5 text-[13px] text-[#9399b2] tabular-nums">
             {formatActivityTime(activity.timestamps.end)}
           </p>
         )}
         {!compact && activity.party && (
-          <p className="mt-0.5 text-[13px] text-zinc-500">
+          <p className="mt-0.5 text-[13px] text-[#9399b2]">
             {activity.party.size}/{activity.party.max}
           </p>
         )}

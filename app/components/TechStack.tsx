@@ -72,9 +72,9 @@ export default function TechStack() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: i * 0.04 }}
-          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-zinc-300 transition-colors duration-200 hover:border-white/25 hover:text-white"
+          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-[#bac2de] transition-colors duration-200 hover:border-white/25 hover:text-[#cdd6f4]"
         >
-          <svg className="h-4 w-4 shrink-0 fill-current text-zinc-400" viewBox="0 0 24 24">
+          <svg className="h-4 w-4 shrink-0 fill-current text-[#a6adc8]" viewBox="0 0 24 24">
             <path d={item.icon} />
           </svg>
           {item.name}

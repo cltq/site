@@ -48,7 +48,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="mx-auto w-full max-w-4xl px-8 pt-6 pb-6 pb-[calc(24px+env(safe-area-inset-bottom,0px))] text-[13px] text-zinc-600">
+    <footer className="mx-auto w-full max-w-4xl px-8 pt-6 pb-6 pb-[calc(24px+env(safe-area-inset-bottom,0px))] text-[13px] text-[#7f849c]">
       <div className="mb-6 h-px w-full bg-white/10" />
       <div className="flex items-center justify-center">
         <p className="flex items-center gap-2">
@@ -61,7 +61,7 @@ export default function Footer() {
               {[...names, names[0]].map((name, i) => (
                 <span
                   key={`${name}-${i}`}
-                  className="whitespace-nowrap text-white"
+                  className="whitespace-nowrap text-[#cdd6f4]"
                   style={{ height: `${ITEM_HEIGHT_EM}em`, lineHeight: `${ITEM_HEIGHT_EM}em` }}
                 >
                   {name}

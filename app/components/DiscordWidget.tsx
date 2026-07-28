@@ -46,7 +46,7 @@ export default function DiscordWidget({
       <div className={`flex flex-col items-start gap-4 ${className}`}>
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12 shrink-0">
-            <div className="absolute inset-0 rounded-full bg-zinc-800" />
+            <div className="absolute inset-0 rounded-full bg-[#313244]" />
             <div
               className="absolute inset-[-2px] rounded-full"
               style={{
@@ -55,11 +55,11 @@ export default function DiscordWidget({
                 animation: "spin-border 1.2s linear infinite",
               }}
             />
-            <div className="absolute inset-[1px] rounded-full bg-zinc-800" />
+            <div className="absolute inset-[1px] rounded-full bg-[#313244]" />
           </div>
           <div className="space-y-2">
-            <div className="h-4 w-28 animate-pulse rounded bg-zinc-800" />
-            <div className="h-3 w-20 animate-pulse rounded bg-zinc-800" />
+            <div className="h-4 w-28 animate-pulse rounded bg-[#313244]" />
+            <div className="h-3 w-20 animate-pulse rounded bg-[#313244]" />
           </div>
         </div>
       </div>
@@ -70,14 +70,14 @@ export default function DiscordWidget({
     return (
       <div className={`flex flex-col items-center gap-4 ${className}`}>
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-lg text-zinc-400">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#313244] text-lg text-[#a6adc8]">
             ?
           </div>
           <div>
-            <p className="text-[13px] text-zinc-400">
+            <p className="text-[13px] text-[#a6adc8]">
               {error ? "Failed to load presence" : "No presence data"}
             </p>
-            <p className="mt-0.5 text-[11px] text-zinc-500">
+            <p className="mt-0.5 text-[11px] text-[#9399b2]">
               {error?.message ?? "User may not exist"}
             </p>
           </div>
@@ -123,17 +123,17 @@ export default function DiscordWidget({
             </div>
 
             <div>
-              <p className="text-[15px] leading-tight font-semibold text-white">
+              <p className="text-[15px] leading-tight font-semibold text-[#cdd6f4]">
                 {presence.displayName || presence.username}
               </p>
               {presence.displayName && presence.displayName !== presence.username && (
-                <p className="text-[14px] leading-tight text-zinc-500">@{presence.username}</p>
+                <p className="text-[14px] leading-tight text-[#9399b2]">@{presence.username}</p>
               )}
             </div>
           </div>
 
           {customStatus && (
-            <p className="truncate text-center text-[13px] leading-tight text-zinc-400">
+            <p className="truncate text-center text-[13px] leading-tight text-[#a6adc8]">
               {customStatus.emoji && <span className="mr-1">{customStatus.emoji}</span>}
               {customStatus.text}
             </p>
