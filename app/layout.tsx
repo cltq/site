@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { GeistMono } from "geist/font/mono";
+import { GeistSans, GeistMono } from "geist/font";
 import { Chakra_Petch } from "next/font/google";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}>
       <head>
         <title>Maple</title>
       </head>
