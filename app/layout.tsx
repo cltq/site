@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { Chakra_Petch } from "next/font/google";
-import PageTransition from "@/app/components/PageTransition";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
@@ -27,14 +26,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Maple",
     description: "Maple's Portfolio/Personal Website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, type: "image/png" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Maple",
     description: "Maple's Portfolio/Personal Website",
-    images: ["/og-image.png"],
+    images: ["/opengraph-image.png"],
   },
 };
 
@@ -59,9 +58,7 @@ export default function RootLayout({
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
-            <PageTransition>
-              <ErrorBoundary>{children}</ErrorBoundary>
-            </PageTransition>
+            <ErrorBoundary>{children}</ErrorBoundary>
           </div>
         </div>
         <ContextMenuGuard />
