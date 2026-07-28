@@ -86,8 +86,8 @@ export default function LastFmSection({ username }: { username: string }) {
     (async () => {
       try {
         const [tracksRes, artistsRes] = await Promise.all([
-          fetchTopTracks("1month", 5),
-          fetchTopArtists("1month", 5),
+          fetchTopTracks("1month", 10),
+          fetchTopArtists("1month", 10),
         ]);
         setTracks(tracksRes.toptracks.track);
         setArtists(artistsRes.topartists.artist);
