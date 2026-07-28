@@ -32,7 +32,11 @@ function lastfmUrl(method: string, apiKey: string, extra: Record<string, string>
 }
 
 function isAlbumPlaceholder(url: string) {
-  return url.includes("2a96cbd8b46e442fc41c2b86b821562f");
+  return url.includes("2a96cbd8b46e442fc41c2b86b821562f") || !url;
+}
+
+function filterImages(images: any[]) {
+  return images.filter((i: any) => i["#text"] && !isAlbumPlaceholder(i["#text"]));
 }
 
 export async function GET(request: NextRequest) {
@@ -99,6 +103,7 @@ export async function GET(request: NextRequest) {
     if (method === "user.gettoptracks" && data.toptracks?.track) {
       const enriched = await Promise.all(
         data.toptracks.track.map(async (track: any) => {
+          const originalImages = filterImages(track.image || []);
           try {
             const infoRes = await fetch(
               lastfmUrl("track.getInfo", apiKey, {
@@ -111,16 +116,14 @@ export async function GET(request: NextRequest) {
               const info = await infoRes.json();
               const album = info.track?.album;
               if (album?.image) {
-                const realImages = album.image.filter(
-                  (i: any) => i["#text"] && !isAlbumPlaceholder(i["#text"]),
-                );
+                const realImages = filterImages(album.image);
                 if (realImages.length > 0) {
-                  return { ...track, image: album.image };
+                  return { ...track, image: realImages };
                 }
               }
             }
           } catch {}
-          return track;
+          return { ...track, image: originalImages };
         }),
       );
       data.toptracks.track = enriched;
@@ -129,6 +132,7 @@ export async function GET(request: NextRequest) {
     if (method === "user.gettopartists" && data.topartists?.artist) {
       const enriched = await Promise.all(
         data.topartists.artist.map(async (artist: any) => {
+          const originalImages = filterImages(artist.image || []);
           try {
             const infoRes = await fetch(
               lastfmUrl("artist.getInfo", apiKey, { artist: artist.name, user }),
@@ -137,16 +141,14 @@ export async function GET(request: NextRequest) {
               const info = await infoRes.json();
               const artistInfo = info.artist;
               if (artistInfo?.image) {
-                const realImages = artistInfo.image.filter(
-                  (i: any) => i["#text"] && !isAlbumPlaceholder(i["#text"]),
-                );
+                const realImages = filterImages(artistInfo.image);
                 if (realImages.length > 0) {
-                  return { ...artist, image: artistInfo.image };
+                  return { ...artist, image: realImages };
                 }
               }
             }
           } catch {}
-          return artist;
+          return { ...artist, image: originalImages };
         }),
       );
       data.topartists.artist = enriched;
