@@ -31,16 +31,16 @@ export function SpotifyCard({ spotify, animated = true, compact = false }: Spoti
 
       <div className="min-w-0 flex-1">
         <p
-          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-[#cdd6f4]`}
+          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-[#fafafa]`}
         >
           {spotify.song}
         </p>
         <p
-          className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-[#a6adc8]`}
+          className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-[#a3a3a3]`}
         >
           {spotify.artist}
         </p>
-        {!compact && <p className="mt-0.5 truncate text-[13px] text-[#9399b2]">{spotify.album}</p>}
+        {!compact && <p className="mt-0.5 truncate text-[13px] text-[#a3a3a3]">{spotify.album}</p>}
       </div>
     </div>
   );

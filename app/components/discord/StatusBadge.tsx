@@ -10,10 +10,10 @@ interface StatusBadgeProps {
 }
 
 const STATUS_COLORS: Record<DiscordStatus, string> = {
-  online: "#a6e3a1",
-  idle: "#f9e2af",
-  dnd: "#f38ba8",
-  offline: "#6c7086",
+  online: "#23a55a",
+  idle: "#f0b232",
+  dnd: "#f23f43",
+  offline: "#80848e",
 };
 
 const STATUS_LABELS: Record<DiscordStatus, string> = {

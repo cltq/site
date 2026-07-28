@@ -9,6 +9,7 @@ import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
 
 import TitleUpdater from "@/app/components/TitleUpdater";
 import UtmTracker from "@/app/components/UtmTracker";
+import { Navbar } from "@/components/navbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -53,8 +54,9 @@ export default function RootLayout({
       <head>
         <title>fumi</title>
       </head>
-      <body className="relative h-full bg-[#1e1e2e] font-sans text-[#a6adc8]">
+      <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />
+        <Navbar />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
             <PageTransition>

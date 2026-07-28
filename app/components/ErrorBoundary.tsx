@@ -30,7 +30,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
       return (
         this.props.fallback ?? (
           <div className="flex min-h-svh items-center justify-center">
-            <p className="text-sm text-[#9399b2]">Something went wrong.</p>
+            <p className="text-sm text-[#a3a3a3]">Something went wrong.</p>
           </div>
         )
       );

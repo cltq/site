@@ -7,7 +7,7 @@ import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from "@/app/
 
 function TrackImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
-  if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#313244]" />;
+  if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#1a1a1a]" />;
   return (
     <img src={src} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded object-cover" />
   );
@@ -15,7 +15,7 @@ function TrackImage({ images }: { images: LastFmImage[] }) {
 
 function ArtistImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
-  if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#313244]" />;
+  if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#1a1a1a]" />;
   return (
     <img src={src} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded-full object-cover" />
   );
@@ -33,13 +33,13 @@ function TopTracksList({ tracks }: { tracks: LastFmTrack[] }) {
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >
-            <span className="w-5 shrink-0 text-right text-sm text-[#7f849c]">{i + 1}</span>
+            <span className="w-5 shrink-0 text-right text-sm text-[#737373]">{i + 1}</span>
             <TrackImage images={track.image} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-base text-[#cdd6f4]">{track.name}</p>
-              <p className="truncate text-sm text-[#9399b2]">{track.artist.name}</p>
+              <p className="truncate text-base text-[#fafafa]">{track.name}</p>
+              <p className="truncate text-sm text-[#a3a3a3]">{track.artist.name}</p>
             </div>
-            <span className="shrink-0 text-sm text-[#7f849c]">{track.playcount}</span>
+            <span className="shrink-0 text-sm text-[#737373]">{track.playcount}</span>
           </motion.div>
         ))}
       </AnimatePresence>
@@ -59,12 +59,12 @@ function TopArtistsList({ artists }: { artists: LastFmArtist[] }) {
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >
-            <span className="w-5 shrink-0 text-right text-sm text-[#7f849c]">{i + 1}</span>
+            <span className="w-5 shrink-0 text-right text-sm text-[#737373]">{i + 1}</span>
             <ArtistImage images={artist.image} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-base text-[#cdd6f4]">{artist.name}</p>
+              <p className="truncate text-base text-[#fafafa]">{artist.name}</p>
             </div>
-            <span className="shrink-0 text-sm text-[#7f849c]">{artist.playcount}</span>
+            <span className="shrink-0 text-sm text-[#737373]">{artist.playcount}</span>
           </motion.div>
         ))}
       </AnimatePresence>
@@ -97,12 +97,12 @@ export default function LastFmSection({ username }: { username: string }) {
 
   return (
     <div>
-      <p className="mb-3 text-base text-[#9399b2]">Been listening to this month</p>
+      <p className="mb-3 text-base text-[#a3a3a3]">Been listening to this month</p>
       <div className="mb-4 inline-flex rounded-lg border border-white/10 p-0.5">
         <button
           onClick={() => setType("tracks")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
-            type === "tracks" ? "bg-[#313244] text-[#cdd6f4]" : "text-[#9399b2] hover:text-[#bac2de]"
+            type === "tracks" ? "bg-[#1a1a1a] text-[#fafafa]" : "text-[#a3a3a3] hover:text-[#d4d4d4]"
           }`}
         >
           tracks
@@ -110,7 +110,7 @@ export default function LastFmSection({ username }: { username: string }) {
         <button
           onClick={() => setType("artists")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
-            type === "artists" ? "bg-[#313244] text-[#cdd6f4]" : "text-[#9399b2] hover:text-[#bac2de]"
+            type === "artists" ? "bg-[#1a1a1a] text-[#fafafa]" : "text-[#a3a3a3] hover:text-[#d4d4d4]"
           }`}
         >
           artists
@@ -122,10 +122,10 @@ export default function LastFmSection({ username }: { username: string }) {
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="flex items-center gap-3">
               <div className="w-4" />
-              <div className="h-10 w-10 animate-pulse rounded bg-[#313244]" />
+              <div className="h-10 w-10 animate-pulse rounded bg-[#1a1a1a]" />
               <div className="flex-1 space-y-1.5">
-                <div className="h-3 w-28 animate-pulse rounded bg-[#313244]" />
-                <div className="h-2.5 w-20 animate-pulse rounded bg-[#313244]" />
+                <div className="h-3 w-28 animate-pulse rounded bg-[#1a1a1a]" />
+                <div className="h-2.5 w-20 animate-pulse rounded bg-[#1a1a1a]" />
               </div>
             </div>
           ))}
@@ -140,7 +140,7 @@ export default function LastFmSection({ username }: { username: string }) {
         href={`https://www.last.fm/user/${username}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-block text-xs text-[#7f849c] transition-colors duration-200 hover:text-[#a6adc8]"
+        className="mt-4 inline-block text-xs text-[#737373] transition-colors duration-200 hover:text-[#a3a3a3]"
       >
         tracked via last.fm
       </a>

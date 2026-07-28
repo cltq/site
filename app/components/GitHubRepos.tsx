@@ -27,7 +27,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
-  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#a6adc8") : "#a6adc8";
+  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#a3a3a3") : "#a3a3a3";
 
   return (
     <motion.a
@@ -40,14 +40,14 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:text-left sm:max-w-none sm:p-5"
     >
       <div>
-        <p className="truncate text-[15px] font-medium text-[#cdd6f4] transition-colors duration-200 group-hover:text-[#cdd6f4]">
+        <p className="truncate text-[15px] font-medium text-[#fafafa] transition-colors duration-200 group-hover:text-[#fafafa]">
           {repo.name}
         </p>
-        <p className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[13px] text-[#9399b2]">
+        <p className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[13px] text-[#a3a3a3]">
           {repo.description ?? "No description"}
         </p>
       </div>
-      <div className="mt-3 flex items-center justify-center gap-4 text-[12px] text-[#7f849c] sm:justify-start">
+      <div className="mt-3 flex items-center justify-center gap-4 text-[12px] text-[#737373] sm:justify-start">
         {repo.language && (
           <span className="flex items-center gap-1.5">
             <span
@@ -98,7 +98,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
             {repo.topics.slice(0, 2).map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] whitespace-nowrap text-[#9399b2]"
+                className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] whitespace-nowrap text-[#a3a3a3]"
               >
                 {t}
               </span>
@@ -135,7 +135,7 @@ export default function GitHubRepos({
   if (!username) {
     return (
       <div>
-        <p className="text-sm text-[#9399b2]">Configure GITHUB_USERNAME to show repos</p>
+        <p className="text-sm text-[#a3a3a3]">Configure GITHUB_USERNAME to show repos</p>
       </div>
     );
   }
@@ -146,9 +146,9 @@ export default function GitHubRepos({
         <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3 rounded-xl border border-white/10 p-3 sm:p-5">
-              <div className="h-4 w-32 animate-pulse rounded bg-[#313244]" />
-              <div className="h-3 w-full animate-pulse rounded bg-[#313244]" />
-              <div className="h-3 w-20 animate-pulse rounded bg-[#313244]" />
+              <div className="h-4 w-32 animate-pulse rounded bg-[#1a1a1a]" />
+              <div className="h-3 w-full animate-pulse rounded bg-[#1a1a1a]" />
+              <div className="h-3 w-20 animate-pulse rounded bg-[#1a1a1a]" />
             </div>
           ))}
         </div>

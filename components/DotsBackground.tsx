@@ -106,7 +106,7 @@ export default function DotsBackground() {
                   ctx!.beginPath();
                   ctx!.moveTo(a.x, a.y);
                   ctx!.lineTo(b.x, b.y);
-                  ctx!.strokeStyle = `rgba(205,214,244,${alpha})`;
+                  ctx!.strokeStyle = `rgba(255,255,255,${alpha})`;
                   ctx!.lineWidth = 1;
                   ctx!.stroke();
                 }
@@ -123,7 +123,7 @@ export default function DotsBackground() {
         const alpha = BASE_ALPHA + g * g * (PEAK_ALPHA - BASE_ALPHA);
         ctx!.beginPath();
         ctx!.arc(x, y, DOT_RADIUS, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(205,214,244,${alpha})`;
+        ctx!.fillStyle = `rgba(255,255,255,${alpha})`;
         ctx!.fill();
       }
     }
@@ -145,7 +145,7 @@ export default function DotsBackground() {
     <canvas
       ref={canvasRef}
       className="pointer-events-none fixed inset-0 z-0"
-      style={{ backgroundColor: "#181825" }}
+      style={{ backgroundColor: "#000000" }}
     />
   );
 }

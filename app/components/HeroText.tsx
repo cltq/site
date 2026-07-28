@@ -46,9 +46,9 @@ export default function HeroText() {
 
   return (
     <div className="flex items-center justify-center">
-      <p className="text-base text-[#a6adc8]">
-        <span className="font-medium text-[#cdd6f4]">{current.slice(0, charIndex)}</span>
-        <span className="animate-blink ml-0.5 inline-block h-[1.1em] w-[2px] bg-[#cdd6f4] align-middle" />
+      <p className="text-base text-[#a3a3a3]">
+        <span className="font-medium text-[#fafafa]">{current.slice(0, charIndex)}</span>
+        <span className="animate-blink ml-0.5 inline-block h-[1.1em] w-[2px] bg-[#fafafa] align-middle" />
       </p>
     </div>
   );

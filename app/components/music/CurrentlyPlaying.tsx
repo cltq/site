@@ -29,14 +29,14 @@ export default function CurrentlyPlaying() {
 
   return (
     <div>
-      <p className="mb-3 text-base text-[#9399b2]">Currently playing song on Spotify</p>
+      <p className="mb-3 text-base text-[#a3a3a3]">Currently playing song on Spotify</p>
       <div className="rounded-xl border border-white/10 p-4">
         {loading ? (
           <div className="flex items-center gap-3">
-            <div className="h-16 w-16 shrink-0 animate-pulse rounded-lg bg-[#313244]" />
+            <div className="h-16 w-16 shrink-0 animate-pulse rounded-lg bg-[#1a1a1a]" />
             <div className="space-y-2">
-              <div className="h-4 w-32 animate-pulse rounded bg-[#313244]" />
-              <div className="h-3 w-24 animate-pulse rounded bg-[#313244]" />
+              <div className="h-4 w-32 animate-pulse rounded bg-[#1a1a1a]" />
+              <div className="h-3 w-24 animate-pulse rounded bg-[#1a1a1a]" />
             </div>
           </div>
         ) : spotify ? (
@@ -48,7 +48,7 @@ export default function CurrentlyPlaying() {
             <SpotifyCard spotify={spotify} />
           </motion.div>
         ) : (
-          <p className="text-sm text-[#9399b2]">Not playing anything right now</p>
+          <p className="text-sm text-[#a3a3a3]">Not playing anything right now</p>
         )}
       </div>
     </div>
