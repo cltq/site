@@ -1,14 +1,9 @@
-import GitHubRepos from "@/app/components/GitHubRepos";
 import Reveal from "@/app/components/Reveal";
 import TechStack from "@/app/components/TechStack";
 import GitHubContributions from "@/app/components/GitHubContributions";
 
 export default function DevelopmentPage() {
   const githubUser = process.env.GITHUB_USERNAME ?? "";
-  const githubBlacklist =
-    process.env.GITHUB_BLACKLIST?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean) ?? [];
 
   return (
     <div className="flex flex-col">
@@ -30,13 +25,6 @@ export default function DevelopmentPage() {
               Contributions
             </h3>
             <GitHubContributions username={githubUser} />
-          </div>
-
-          <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
-            <h3 className="text-xs font-medium tracking-wide text-[#a3a3a3] uppercase sm:text-sm">
-              Projects
-            </h3>
-            <GitHubRepos username={githubUser} blacklist={githubBlacklist} />
           </div>
         </Reveal>
       </section>
