@@ -94,8 +94,8 @@ export default function BioPage() {
           fontFamily: "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
         }}
       >
-        <Reveal className="flex w-full max-w-lg flex-col items-center gap-10 sm:gap-12">
-          <div className="flex flex-col items-center gap-2">
+        <Reveal className="flex w-full max-w-lg flex-col items-start gap-10 sm:gap-12">
+          <div className="flex flex-col items-start gap-2">
             <h2 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
               Biolinks
             </h2>
