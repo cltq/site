@@ -94,9 +94,9 @@ export default function BirthdayCountdown() {
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="text-center"
         >
-          <h1 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl md:text-3xl">
-            Fumi&apos;s Birthday & New Year Countdown
-          </h1>
+          <p className="mb-2 text-xs tracking-widest text-[#a3a3a3]">
+            — Fumi&apos;s Birthday &amp; New Year Countdown
+          </p>
           <p className="mt-3 text-sm text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
         </motion.div>
 

@@ -96,9 +96,7 @@ export default function BioPage() {
       >
         <Reveal className="flex w-full max-w-lg flex-col items-start gap-10 sm:gap-12">
           <div className="flex flex-col items-start gap-2">
-            <h2 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
-              Biolinks
-            </h2>
+            <p className="mb-2 text-xs tracking-widest text-[#737373]">— bio</p>
             <p className="text-sm text-[#a3a3a3]">
               All my biolinks. Click on any link to visit it!
             </p>

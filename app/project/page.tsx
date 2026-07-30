@@ -12,9 +12,7 @@ export default function ProjectPage() {
     <div className="flex flex-col">
       <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
         <Reveal className="flex w-full max-w-4xl flex-col items-start gap-12 sm:gap-16">
-          <h2 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
-            Projects
-          </h2>
+          <p className="mb-2 text-xs tracking-widest text-[#737373]">— projects</p>
 
           <p className="max-w-lg text-sm text-[#a3a3a3] sm:text-base">
             Most of my projects are on{" "}

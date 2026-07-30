@@ -86,9 +86,9 @@ export default function BirthdaySection() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h3 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
-          Fumi&apos;s Birthday & New Year Countdown
-        </h3>
+        <p className="mb-2 text-xs tracking-widest text-[#a3a3a3]">
+          — Fumi&apos;s Birthday &amp; New Year Countdown
+        </p>
         <p className="mt-2 text-xs text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
       </motion.div>
 

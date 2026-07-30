@@ -11,9 +11,7 @@ export default function ContactPage() {
       <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
         <Reveal className="flex w-full max-w-2xl flex-col items-start gap-12">
           <div className="flex flex-col items-start gap-2">
-            <h2 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
-              Contact
-            </h2>
+            <p className="mb-2 text-xs tracking-widest text-[#737373]">— contact</p>
             <p className="text-sm text-gray-400">Reach out anytime. Just a hi is okay...</p>
           </div>
 
