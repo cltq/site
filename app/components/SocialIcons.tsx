@@ -21,6 +21,27 @@ export default function SocialIcons() {
         </svg>
       </a>
       <a
+        href="https://gitlab.com/mpji"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#a3a3a3] transition-colors duration-200 hover:text-[#d4d4d4]"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 3 8.5 9.5l-1.8 5.4a.6.6 0 0 0 .23.67l5.07 3.68a.6.6 0 0 0 .7 0l5.07-3.68a.6.6 0 0 0 .23-.67L15.5 9.5 12 3Z" />
+          <path d="M8.5 9.5 5 10.8l-1.5 4.2 4-2.2" />
+          <path d="M15.5 9.5 19 10.8l1.5 4.2-4-2.2" />
+        </svg>
+      </a>
+      <a
         href="https://discord.com/users/969088519161139270"
         target="_blank"
         rel="noopener noreferrer"
