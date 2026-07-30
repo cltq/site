@@ -25,4 +25,8 @@ export const appRoutes: AppRoute[] = [
     name: "Birthday",
     href: "/birthday",
   },
+  {
+    name: "Contact",
+    href: "/contact",
+  },
 ];
