@@ -5,11 +5,12 @@ import type { NavbarItem, NavbarProps } from "./types";
 import { defaultNavItems } from "./nav-items";
 import NavItem from "./NavItem";
 
-export default function Navbar({ items = defaultNavItems }: Partial<NavbarProps> & { items?: NavbarItem[] }) {
+export default function Navbar({
+  items = defaultNavItems,
+}: Partial<NavbarProps> & { items?: NavbarItem[] }) {
   const pathname = usePathname();
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   const containerStyle = {
     background: "rgba(20,20,20,0.8)",
@@ -24,19 +25,11 @@ export default function Navbar({ items = defaultNavItems }: Partial<NavbarProps>
       {/* Desktop — fixed left, vertically centered */}
       <nav
         aria-label="Main navigation"
-        className="fixed left-5 top-1/2 z-50 hidden -translate-y-1/2 md:block"
+        className="fixed top-1/2 left-5 z-50 hidden -translate-y-1/2 md:block"
       >
-        <div
-          className="flex flex-col gap-0.5 rounded-xl p-1.5"
-          style={containerStyle}
-        >
+        <div className="flex flex-col gap-0.5 rounded-xl p-1.5" style={containerStyle}>
           {items.map((item) => (
-            <NavItem
-              key={item.href}
-              item={item}
-              isActive={isActive(item.href)}
-              pillId="nav-pill"
-            />
+            <NavItem key={item.href} item={item} isActive={isActive(item.href)} pillId="nav-pill" />
           ))}
         </div>
       </nav>
@@ -46,10 +39,7 @@ export default function Navbar({ items = defaultNavItems }: Partial<NavbarProps>
         aria-label="Main navigation"
         className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 md:hidden"
       >
-        <div
-          className="flex gap-0.5 rounded-xl p-1.5"
-          style={containerStyle}
-        >
+        <div className="flex gap-0.5 rounded-xl p-1.5" style={containerStyle}>
           {items.map((item) => (
             <NavItem
               key={item.href}

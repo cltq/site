@@ -96,7 +96,7 @@ export default function CurrentlyPlaying() {
                   <div className="absolute inset-0 rounded-lg ring-1 ring-white/10 ring-inset" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[15px] font-semibold leading-tight text-[#fafafa]">
+                  <p className="truncate text-[15px] leading-tight font-semibold text-[#fafafa]">
                     {track.title}
                   </p>
                   <p className="truncate text-[14px] leading-tight text-[#a3a3a3]">
@@ -104,7 +104,7 @@ export default function CurrentlyPlaying() {
                   </p>
                   <p className="mt-0.5 truncate text-[13px] text-[#a3a3a3]">{track.album}</p>
                   <div className="mt-2 flex items-center gap-2">
-                    <span className="text-[11px] tabular-nums text-[#737373]">
+                    <span className="text-[11px] text-[#737373] tabular-nums">
                       {formatTime(progress)}
                     </span>
                     <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#2a2a2a]">
@@ -115,7 +115,7 @@ export default function CurrentlyPlaying() {
                         }}
                       />
                     </div>
-                    <span className="text-[11px] tabular-nums text-[#737373]">
+                    <span className="text-[11px] text-[#737373] tabular-nums">
                       {formatTime(track.durationMs)}
                     </span>
                   </div>

@@ -49,7 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}
+    >
       <head>
         <title>Maple</title>
       </head>

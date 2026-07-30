@@ -57,9 +57,10 @@ export async function fetchDiscordBadges(
   signal?: AbortSignal,
 ): Promise<{ badges: DiscordBadge[]; publicFlags: number }> {
   const url = `${getBaseUrl(baseUrl)}/badges`;
-  const json = await fetchJson<
-    ApiResponse<{ badges: DiscordBadge[]; publicFlags: number }>
-  >(url, signal);
+  const json = await fetchJson<ApiResponse<{ badges: DiscordBadge[]; publicFlags: number }>>(
+    url,
+    signal,
+  );
   return json.data;
 }
 

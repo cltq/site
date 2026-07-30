@@ -42,10 +42,9 @@ function filterImages(images: any[]) {
 async function fetchItunesArtwork(artist: string, track: string): Promise<string | null> {
   try {
     const term = encodeURIComponent(`${artist} ${track}`);
-    const res = await fetch(
-      `https://itunes.apple.com/search?term=${term}&media=music&limit=1`,
-      { signal: AbortSignal.timeout(5000) },
-    );
+    const res = await fetch(`https://itunes.apple.com/search?term=${term}&media=music&limit=1`, {
+      signal: AbortSignal.timeout(5000),
+    });
     if (!res.ok) return null;
     const data = await res.json();
     const artwork = data.results?.[0]?.artworkUrl100;

@@ -14,7 +14,7 @@ const WEEKDAYS = [
 
 function WeekLabelsInner() {
   return (
-    <div className="flex flex-col gap-[2px] pr-2 pt-[18px]" aria-hidden="true">
+    <div className="flex flex-col gap-[2px] pt-[18px] pr-2" aria-hidden="true">
       {WEEKDAYS.filter((_, i) => i % 2 === 1).map((day) => (
         <span
           key={day.index}

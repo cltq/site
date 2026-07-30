@@ -56,7 +56,9 @@ function renderPlatformIcon(url: string, name: string) {
   }
 
   return (
-    <div className={`${commonClasses} text-sm font-semibold text-[#fafafa] drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]`}>
+    <div
+      className={`${commonClasses} text-sm font-semibold text-[#fafafa] drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]`}
+    >
       {name.slice(0, 2).toUpperCase()}
     </div>
   );
@@ -86,7 +88,12 @@ const visibleLinks = platformLinks.filter((link) => isAllowedBiolink(link.url));
 export default function BioPage() {
   return (
     <div className="flex flex-col">
-      <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8" style={{ fontFamily: "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+      <section
+        className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8"
+        style={{
+          fontFamily: "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
+        }}
+      >
         <Reveal className="flex w-full max-w-lg flex-col items-center gap-10 sm:gap-12">
           <div className="flex flex-col items-center gap-2">
             <h2 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">

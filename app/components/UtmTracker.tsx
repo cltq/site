@@ -3,13 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const UTM_KEYS = [
-  "utm_source",
-  "utm_medium",
-  "utm_campaign",
-  "utm_term",
-  "utm_content",
-];
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 const STORAGE_KEY = "utm_params";
 
 function readUtmFromUrl(): URLSearchParams {

@@ -37,7 +37,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
-      className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:text-left sm:max-w-none sm:p-5"
+      className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:max-w-none sm:p-5 sm:text-left"
     >
       <div>
         <p className="truncate text-[15px] font-medium text-[#fafafa] transition-colors duration-200 group-hover:text-[#fafafa]">

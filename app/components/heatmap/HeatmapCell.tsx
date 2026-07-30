@@ -18,7 +18,7 @@ function HeatmapCellInner({ day }: HeatmapCellProps) {
       tabIndex={0}
       aria-label={label}
       title={label}
-      className="h-[12px] w-[12px] rounded-[2px] outline-none transition-all duration-150 hover:scale-150 hover:brightness-125 focus:ring-1 focus:ring-white/50 focus:ring-offset-1 focus:ring-offset-[#000000] sm:h-[13px] sm:w-[13px]"
+      className="h-[12px] w-[12px] rounded-[2px] transition-all duration-150 outline-none hover:scale-150 hover:brightness-125 focus:ring-1 focus:ring-white/50 focus:ring-offset-1 focus:ring-offset-[#000000] sm:h-[13px] sm:w-[13px]"
       style={{ backgroundColor: color }}
     />
   );

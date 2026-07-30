@@ -17,7 +17,7 @@ function formatNumber(num: number, digits = 2) {
 function FlipDigit({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative overflow-hidden rounded-2xl bg-white/[0.06] border border-white/[0.08]">
+      <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06]">
         <div className="flex h-28 w-28 items-center justify-center sm:h-24 sm:w-24">
           <AnimatePresence mode="popLayout">
             <motion.span
@@ -26,7 +26,7 @@ function FlipDigit({ value, label }: { value: string; label: string }) {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -20, opacity: 0, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="absolute text-3xl font-bold tabular-nums text-[#fafafa] sm:text-5xl"
+              className="absolute text-3xl font-bold text-[#fafafa] tabular-nums sm:text-5xl"
             >
               {value}
             </motion.span>
@@ -89,9 +89,7 @@ export default function BirthdaySection() {
         <h3 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl">
           Fumi&apos;s Birthday & New Year Countdown
         </h3>
-        <p className="mt-2 text-xs text-[#a3a3a3]">
-          Until 31/12/{new Date().getFullYear() + 1}
-        </p>
+        <p className="mt-2 text-xs text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
       </motion.div>
 
       <motion.div

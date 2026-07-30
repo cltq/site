@@ -13,7 +13,12 @@ function TrackImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
   if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#1a1a1a]" />;
   return (
-    <img src={proxyImage(src)} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded object-cover" />
+    <img
+      src={proxyImage(src)}
+      alt=""
+      loading="lazy"
+      className="h-12 w-12 shrink-0 rounded object-cover"
+    />
   );
 }
 
@@ -21,7 +26,12 @@ function ArtistImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
   if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#1a1a1a]" />;
   return (
-    <img src={proxyImage(src)} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded-full object-cover" />
+    <img
+      src={proxyImage(src)}
+      alt=""
+      loading="lazy"
+      className="h-12 w-12 shrink-0 rounded-full object-cover"
+    />
   );
 }
 
@@ -106,7 +116,9 @@ export default function LastFmSection({ username }: { username: string }) {
         <button
           onClick={() => setType("tracks")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
-            type === "tracks" ? "bg-[#1a1a1a] text-[#fafafa]" : "text-[#a3a3a3] hover:text-[#d4d4d4]"
+            type === "tracks"
+              ? "bg-[#1a1a1a] text-[#fafafa]"
+              : "text-[#a3a3a3] hover:text-[#d4d4d4]"
           }`}
         >
           tracks
@@ -114,7 +126,9 @@ export default function LastFmSection({ username }: { username: string }) {
         <button
           onClick={() => setType("artists")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
-            type === "artists" ? "bg-[#1a1a1a] text-[#fafafa]" : "text-[#a3a3a3] hover:text-[#d4d4d4]"
+            type === "artists"
+              ? "bg-[#1a1a1a] text-[#fafafa]"
+              : "text-[#a3a3a3] hover:text-[#d4d4d4]"
           }`}
         >
           artists

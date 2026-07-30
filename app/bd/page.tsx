@@ -36,12 +36,8 @@ export default function BirthdayCountdown() {
 
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        );
-        const minutes = Math.floor(
-          (difference % (1000 * 60 * 60)) / (1000 * 60),
-        );
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
         const milliseconds = Math.floor((difference % 1000) / 10);
 
@@ -101,9 +97,7 @@ export default function BirthdayCountdown() {
           <h1 className="text-xl font-semibold tracking-tight text-[#fafafa] sm:text-2xl md:text-3xl">
             Fumi&apos;s Birthday & New Year Countdown
           </h1>
-          <p className="mt-3 text-sm text-[#a3a3a3]">
-            Until 31/12/{new Date().getFullYear() + 1}
-          </p>
+          <p className="mt-3 text-sm text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
         </motion.div>
 
         <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
@@ -124,7 +118,7 @@ export default function BirthdayCountdown() {
                 initial={{ opacity: 0.7 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.15 }}
-                className="text-3xl font-bold tabular-nums text-[#fafafa] sm:text-5xl lg:text-6xl"
+                className="text-3xl font-bold text-[#fafafa] tabular-nums sm:text-5xl lg:text-6xl"
               >
                 {unit.value}
               </motion.span>
@@ -134,7 +128,6 @@ export default function BirthdayCountdown() {
             </motion.div>
           ))}
         </div>
-
       </div>
     </div>
   );

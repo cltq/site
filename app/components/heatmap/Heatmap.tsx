@@ -24,7 +24,12 @@ export default function Heatmap({ data, startDate, endDate }: HeatmapProps) {
   const end = endDate ?? now;
   const start = startDate
     ? new Date(startDate)
-    : (() => { const d = new Date(end); d.setFullYear(d.getFullYear() - 1); d.setDate(d.getDate() + 1); return d; })();
+    : (() => {
+        const d = new Date(end);
+        d.setFullYear(d.getFullYear() - 1);
+        d.setDate(d.getDate() + 1);
+        return d;
+      })();
 
   const weeks = useMemo(() => {
     const days = generateCalendarDays(start, end, data);
@@ -45,18 +50,17 @@ export default function Heatmap({ data, startDate, endDate }: HeatmapProps) {
           <WeekLabels />
           <div className="flex flex-col">
             <MonthLabels labels={monthLabels} />
-            <div
-              role="grid"
-              aria-label="GitHub contribution heatmap"
-              className="flex gap-[2px]"
-            >
+            <div role="grid" aria-label="GitHub contribution heatmap" className="flex gap-[2px]">
               {weeks.map((week, w) => (
                 <div key={w} className="flex flex-col gap-[2px]">
                   {week.map((day, d) =>
                     day ? (
                       <HeatmapCell key={day.dateStr} day={day} />
                     ) : (
-                      <div key={`empty-${w}-${d}`} className="h-[12px] w-[12px] sm:h-[13px] sm:w-[13px]" />
+                      <div
+                        key={`empty-${w}-${d}`}
+                        className="h-[12px] w-[12px] sm:h-[13px] sm:w-[13px]"
+                      />
                     ),
                   )}
                 </div>

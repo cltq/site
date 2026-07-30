@@ -139,7 +139,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="ชื่อ (ถ้าอยากใส่)"
-                      className="w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2.5 text-sm text-[#fafafa]/90 placeholder-[#737373] outline-none transition-colors focus:border-white/[0.12] focus:bg-white/[0.05]"
+                      className="w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2.5 text-sm text-[#fafafa]/90 placeholder-[#737373] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
                     />
                   </div>
 
@@ -149,7 +149,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="อยากถามอะไร?"
-                    className="w-full resize-none rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm leading-relaxed text-[#fafafa]/90 placeholder-[#737373] outline-none transition-colors focus:border-white/[0.12] focus:bg-white/[0.05]"
+                    className="w-full resize-none rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm leading-relaxed text-[#fafafa]/90 placeholder-[#737373] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
                   />
 
                   <div className="mt-4 flex justify-end">
