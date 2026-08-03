@@ -143,7 +143,7 @@ export default function GitHubRepos({
   return (
     <div>
       {loading ? (
-        <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3 rounded-xl border border-white/10 p-3 sm:p-5">
               <div className="h-4 w-32 animate-pulse rounded bg-[#1a1a1a]" />
@@ -153,7 +153,7 @@ export default function GitHubRepos({
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {repos.map((repo, i) => (
             <RepoCard key={repo.id} repo={repo} index={i} />
           ))}
