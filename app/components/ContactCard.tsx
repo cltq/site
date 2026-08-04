@@ -22,6 +22,16 @@ function GitHubIcon() {
   );
 }
 
+function HauntIcon() {
+  return (
+    <img
+      src="https://www.google.com/s2/favicons?domain=haunt.gg&sz=96"
+      alt=""
+      className="h-5 w-5 object-contain"
+    />
+  );
+}
+
 function DiscordIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -37,6 +47,15 @@ export const githubPlatform: ContactCardPlatform = {
   description: "repos & projects",
   href: "https://github.com/cltq",
   copyValue: "cltq",
+};
+
+export const hauntPlatform: ContactCardPlatform = {
+  name: "Haunt",
+  icon: <HauntIcon />,
+  username: "haunt.gg/fumi",
+  description: "all of my links and socials",
+  href: "https://haunt.gg/fumi",
+  copyValue: "fumi",
 };
 
 export const discordPlatform: ContactCardPlatform = {

@@ -1,9 +1,9 @@
 import ContactHero from "@/app/components/ContactHero";
-import ContactCard, { githubPlatform } from "@/app/components/ContactCard";
+import ContactCard, { githubPlatform, hauntPlatform } from "@/app/components/ContactCard";
 import AvailabilityStatus from "@/app/components/AvailabilityStatus";
 
 export default function ContactPage() {
-  const platforms = [githubPlatform];
+  const platforms = [githubPlatform, hauntPlatform];
 
   return (
     <div className="flex flex-col">
