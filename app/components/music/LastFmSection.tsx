@@ -97,7 +97,7 @@ export default function LastFmSection({ username }: { username: string }) {
     (async () => {
       try {
         const [tracksRes, artistsRes] = await Promise.all([
-          fetchTopTracks("1month", 10),
+          fetchTopTracks("1month", 20),
           fetchTopArtists("1month", 10),
         ]);
         setTracks(tracksRes.toptracks.track);
@@ -112,8 +112,8 @@ export default function LastFmSection({ username }: { username: string }) {
 
   return (
     <div>
-      <p className="mb-2 text-xs tracking-widest text-[#737373]">music</p>
-      <p className="mb-1 text-base text-[#a3a3a3]">Song that ive been listening to this month</p>
+      <p className="mb-2 text-xs tracking-widest text-[#737373]">ー music</p>
+      <p className="mb-1 text-base text-[#a3a3a3]">songs that ive been listening</p>
       {tracks[0] && type === "tracks" && (
         <p className="mb-3 text-sm text-[#737373]">
           {tracks[0].name} &mdash; {tracks[0].artist.name}
