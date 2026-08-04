@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/bio",
         permanent: true,
       },
+      {
+        source: "/projects",
+        destination: "/project",
+        permanent: true,
+      },
     ];
   },
   async headers() {

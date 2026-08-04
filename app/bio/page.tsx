@@ -92,9 +92,9 @@ export default function BioPage() {
           fontFamily: "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
         }}
       >
-        <div className="flex w-full max-w-lg flex-col items-start gap-10 sm:gap-12">
-          <div className="flex flex-col items-start gap-2">
-            <p className="mb-2 text-xs tracking-widest text-[#737373]">ー bio</p>
+        <div className="flex w-full max-w-lg flex-col items-center gap-10 text-center sm:gap-12">
+          <div className="flex w-full flex-col items-center gap-2">
+            <p className="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">ー bio</p>
             <p className="text-sm text-[#a3a3a3]">
               All my biolinks. Click on any link to visit it!
             </p>

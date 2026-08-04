@@ -148,7 +148,7 @@ export default function GitHubRepos({
           <LoadingSquares />
         </div>
       ) : (
-        <div className="grid grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {repos.map((repo, i) => (
             <RepoCard key={repo.id} repo={repo} index={i} />
           ))}
