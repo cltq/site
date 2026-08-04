@@ -26,14 +26,16 @@ export default function Home() {
         className="relative flex min-h-svh flex-col items-center justify-center px-6 sm:px-8"
       >
         <div className="flex flex-col items-center gap-6">
-          <DiscordWidget showSpotify={false} />
+          <div className="relative">
+            <DiscordWidget showSpotify={false} />
+            <div className="absolute top-1/2 left-full ml-6 hidden w-80 -translate-y-1/2 md:block">
+              <NowPlayingPanel />
+            </div>
+          </div>
           <HeroText />
           <SocialIcons />
         </div>
-        <div className="absolute right-8 top-1/2 hidden -translate-y-1/2 md:block">
-          <NowPlayingPanel />
-        </div>
-        <div className="mt-16 block md:hidden">
+        <div className="mx-auto mt-16 block w-full max-w-xs md:hidden">
           <NowPlayingPanel />
         </div>
       </section>

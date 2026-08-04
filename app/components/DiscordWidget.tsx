@@ -80,7 +80,7 @@ export default function DiscordWidget({
     <AnimatePresence mode="wait">
       <motion.div
         key={presence.id}
-        className={`flex flex-col items-center gap-4 ${className}`}
+        className={`relative flex flex-col items-center gap-4 ${className}`}
         initial={animated ? { opacity: 0, y: 20 } : undefined}
         animate={animated ? { opacity: 1, y: 0 } : undefined}
         transition={animated ? { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } : undefined}
@@ -125,7 +125,7 @@ export default function DiscordWidget({
         </div>
 
         {(showSpotifySection || showActivitySection) && (
-          <div className="w-full rounded-xl border border-white/10 p-4 max-md:origin-top max-md:scale-90 max-md:p-3">
+          <div className="w-full max-w-xs rounded-xl p-4 max-md:p-3 md:absolute md:right-full md:top-1/2 md:mr-6 md:w-80 md:-translate-y-1/2">
             <div className="flex flex-col items-center gap-4 max-md:gap-3">
               <AnimatePresence mode="sync">
                 {showSpotifySection && (
