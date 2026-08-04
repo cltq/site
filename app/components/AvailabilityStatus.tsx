@@ -30,14 +30,13 @@ export default function AvailabilityStatus() {
   const visitorTime = useTime();
 
   return (
-    <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-      <span className="text-gray-500">{myTime || "--:--"}</span>
+    <div className="flex items-center justify-center gap-1 text-sm text-gray-500">
       {visitorTime && (
         <>
-          <span className="text-gray-600">|</span>
-          <span className="text-gray-500">{visitorTime}</span>
+          <span className="text-gray-500">your {visitorTime}</span>
         </>
       )}
+      <span className="text-gray-500">is my {myTime || "--:--"}</span>
     </div>
   );
 }
