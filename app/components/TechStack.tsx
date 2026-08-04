@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 const stacks = [
   {
     name: "React",
@@ -63,22 +61,19 @@ const stacks = [
 export default function TechStack() {
   return (
     <div className="flex w-full max-w-2xl flex-wrap justify-center gap-2">
-      {stacks.map((item, i) => (
-        <motion.a
+      {stacks.map((item) => (
+        <a
           key={item.name}
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: i * 0.04 }}
           className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-[#d4d4d4] transition-colors duration-200 hover:border-white/25 hover:text-[#fafafa]"
         >
           <svg className="h-4 w-4 shrink-0 fill-current text-[#a3a3a3]" viewBox="0 0 24 24">
             <path d={item.icon} />
           </svg>
           {item.name}
-        </motion.a>
+        </a>
       ))}
     </div>
   );

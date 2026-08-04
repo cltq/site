@@ -3,16 +3,19 @@
 import { useEffect, useMemo, useState } from "react";
 import Heatmap from "./heatmap/Heatmap";
 import type { ContributionDay } from "./heatmap/utils";
+import LoadingSquares from "@/app/components/LoadingSquares";
 
 export default function GitHubContributions({ username }: { username: string }) {
   const [data, setData] = useState<ContributionDay[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!username) return;
     fetch(`/api/github/contributions?username=${encodeURIComponent(username)}`)
       .then((r) => r.json())
       .then(setData)
-      .catch(() => setData([]));
+      .catch(() => setData([]))
+      .finally(() => setLoading(false));
   }, [username]);
 
   const now = new Date();
@@ -23,7 +26,13 @@ export default function GitHubContributions({ username }: { username: string }) 
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-6">
-      <Heatmap data={data} startDate={startDate} endDate={endDate} />
+      {loading ? (
+        <div className="flex justify-center py-12">
+          <LoadingSquares />
+        </div>
+      ) : (
+        <Heatmap data={data} startDate={startDate} endDate={endDate} />
+      )}
     </div>
   );
 }

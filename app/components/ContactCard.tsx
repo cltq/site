@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLink, Mail } from "lucide-react";
-import { motion } from "framer-motion";
 interface ContactCardPlatform {
   name: string;
   icon: React.ReactNode;
@@ -13,7 +12,6 @@ interface ContactCardPlatform {
 
 interface ContactCardProps {
   platform: ContactCardPlatform;
-  index: number;
 }
 
 function GitHubIcon() {
@@ -62,12 +60,9 @@ export const emailPlatform: ContactCardPlatform = {
 const iconContainerClass =
   "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-gray-300";
 
-export default function ContactCard({ platform, index }: ContactCardProps) {
+export default function ContactCard({ platform }: ContactCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 * index, ease: [0.25, 0.1, 0.25, 1] }}
+    <div
       className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-5 py-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
@@ -91,6 +86,6 @@ export default function ContactCard({ platform, index }: ContactCardProps) {
           <ExternalLink size={16} />
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchTopTracks, fetchTopArtists } from "@/app/lib/lastfm/api";
 import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from "@/app/lib/lastfm/types";
+import LoadingSquares from "@/app/components/LoadingSquares";
 
 function proxyImage(src: string) {
   return `/api/lastfm?img=${encodeURIComponent(src)}`;
@@ -142,17 +143,8 @@ export default function LastFmSection({ username }: { username: string }) {
       </div>
 
       {loading ? (
-        <div className="space-y-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <div className="w-4" />
-              <div className="h-10 w-10 animate-pulse rounded bg-[#1a1a1a]" />
-              <div className="flex-1 space-y-1.5">
-                <div className="h-3 w-28 animate-pulse rounded bg-[#1a1a1a]" />
-                <div className="h-2.5 w-20 animate-pulse rounded bg-[#1a1a1a]" />
-              </div>
-            </div>
-          ))}
+        <div className="flex justify-center py-8">
+          <LoadingSquares />
         </div>
       ) : type === "tracks" ? (
         <TopTracksList tracks={tracks} />

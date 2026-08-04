@@ -1,4 +1,3 @@
-import Reveal from "@/app/components/Reveal";
 import TechStack from "@/app/components/TechStack";
 import GitHubContributions from "@/app/components/GitHubContributions";
 
@@ -8,8 +7,8 @@ export default function DevelopmentPage() {
   return (
     <div className="flex flex-col">
       <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
-        <Reveal className="flex w-full max-w-4xl flex-col items-start gap-12 sm:gap-16">
-          <p className="mb-2 text-xs tracking-widest text-[#737373]">— development</p>
+        <div className="flex w-full max-w-4xl flex-col items-start gap-12 sm:gap-16">
+          <p className="mb-2 text-xs tracking-widest text-[#737373]">ー development</p>
 
           <div className="flex w-full flex-col items-start gap-3 sm:gap-4">
             <p className="text-xs tracking-widest text-[#737373]">stacks</p>
@@ -20,7 +19,7 @@ export default function DevelopmentPage() {
             <p className="text-xs tracking-widest text-[#737373]">contributions</p>
             <GitHubContributions username={githubUser} />
           </div>
-        </Reveal>
+        </div>
       </section>
     </div>
   );

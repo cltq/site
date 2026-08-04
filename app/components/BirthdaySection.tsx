@@ -79,30 +79,18 @@ export default function BirthdaySection() {
 
   return (
     <div className="flex w-full flex-col items-center gap-8">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
+      <div className="text-center">
         <p className="mb-2 text-xs tracking-widest text-[#a3a3a3]">
           — Fumi&apos;s Birthday &amp; New Year Countdown
         </p>
         <p className="mt-2 text-xs text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="grid grid-cols-2 justify-items-center gap-6 sm:grid-cols-4 sm:gap-4"
-      >
+      <div className="grid grid-cols-2 justify-items-center gap-6 sm:grid-cols-4 sm:gap-4">
         {units.map((unit) => (
           <FlipDigit key={unit.label} value={unit.value} label={unit.label} />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

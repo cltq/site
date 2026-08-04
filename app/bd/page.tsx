@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 interface TimeLeft {
   days: number;
@@ -77,55 +76,35 @@ export default function BirthdayCountdown() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-[#000000] px-4 sm:px-6 lg:px-8">
       <div className="flex w-full max-w-5xl flex-col items-center gap-10 sm:gap-14">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center"
-        >
+        <div className="text-center">
           <p className="mb-2 text-xs tracking-widest text-[#a3a3a3] uppercase">
             {currentDate} &mdash; {currentTime}
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="text-center"
-        >
+        <div className="text-center">
           <p className="mb-2 text-xs tracking-widest text-[#a3a3a3]">
             — Fumi&apos;s Birthday &amp; New Year Countdown
           </p>
           <p className="mt-3 text-sm text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
-        </motion.div>
+        </div>
 
         <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {units.map((unit, i) => (
-            <motion.div
+          {units.map((unit) => (
+            <div
               key={unit.label}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.25 + i * 0.08,
-                ease: "easeOut",
-              }}
               className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 sm:p-6 lg:p-8"
             >
-              <motion.span
+              <span
                 key={unit.value}
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.15 }}
                 className="text-3xl font-bold text-[#fafafa] tabular-nums sm:text-5xl lg:text-6xl"
               >
                 {unit.value}
-              </motion.span>
+              </span>
               <span className="text-[10px] tracking-widest text-[#a3a3a3] uppercase sm:text-xs">
                 {unit.label}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

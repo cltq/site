@@ -9,6 +9,7 @@ import { SpotifyCard } from "@/app/components/discord/SpotifyCard";
 import { ActivityCycle } from "@/app/components/discord/ActivityCard";
 import type { DiscordWidgetProps } from "@/app/lib/discord/types";
 import { normalizeDiscordCdnUrl } from "@/app/lib/discord/url";
+import LoadingSquares from "@/app/components/LoadingSquares";
 
 function parseCustomStatus(
   cs: string | { text?: string; emoji?: { name?: string } | null } | null | undefined,
@@ -43,25 +44,8 @@ export default function DiscordWidget({
 
   if (loading) {
     return (
-      <div className={`flex flex-col items-start gap-4 ${className}`}>
-        <div className="flex items-center gap-3">
-          <div className="relative h-12 w-12 shrink-0">
-            <div className="absolute inset-0 rounded-full bg-[#1a1a1a]" />
-            <div
-              className="absolute inset-[-2px] rounded-full"
-              style={{
-                background:
-                  "conic-gradient(from 0deg, transparent 25%, white 50%, transparent 75%)",
-                animation: "spin-border 1.2s linear infinite",
-              }}
-            />
-            <div className="absolute inset-[1px] rounded-full bg-[#1a1a1a]" />
-          </div>
-          <div className="space-y-2">
-            <div className="h-4 w-28 animate-pulse rounded bg-[#1a1a1a]" />
-            <div className="h-3 w-20 animate-pulse rounded bg-[#1a1a1a]" />
-          </div>
-        </div>
+      <div className={`flex items-center justify-center ${className}`}>
+        <LoadingSquares />
       </div>
     );
   }

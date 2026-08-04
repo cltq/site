@@ -1,6 +1,6 @@
 export default function SocialIcons() {
   return (
-    <div className="flex animate-[fadeInUp_0.5s_ease-out_0.15s_both] gap-6">
+    <div className="flex gap-6">
       <a
         href="https://github.com/cltq"
         target="_blank"

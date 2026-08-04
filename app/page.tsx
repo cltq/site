@@ -2,18 +2,13 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import LoadingSquares from "@/app/components/LoadingSquares";
 
 const DiscordWidget = dynamic(() => import("@/app/components/DiscordWidget"), {
   ssr: false,
   loading: () => (
-    <div className="flex flex-col gap-4 md:flex-row">
-      <div className="flex items-center gap-3">
-        <div className="h-12 w-12 shrink-0 animate-pulse rounded-full bg-[#1a1a1a]" />
-        <div className="space-y-2">
-          <div className="h-4 w-28 animate-pulse rounded bg-[#1a1a1a]" />
-          <div className="h-3 w-20 animate-pulse rounded bg-[#1a1a1a]" />
-        </div>
-      </div>
+    <div className="flex justify-center">
+      <LoadingSquares />
     </div>
   ),
 });

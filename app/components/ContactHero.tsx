@@ -1,27 +1,20 @@
 "use client";
 
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
 import { useDiscordPresence } from "@/app/hooks/useDiscordPresence";
 import { normalizeDiscordCdnUrl } from "@/app/lib/discord/url";
 import CopyButton from "@/app/components/CopyButton";
+import LoadingSquares from "@/app/components/LoadingSquares";
 
 export default function ContactHero() {
   const { presence, loading } = useDiscordPresence();
 
   if (loading) {
     return (
-      <div className="flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
+      <div className="flex w-full items-center justify-center rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
         style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
       >
-        <div className="h-[36px] w-[36px] animate-pulse rounded-full bg-[#2a2a2a]" />
-        <div className="flex flex-col gap-1">
-          <div className="h-5 w-28 animate-pulse rounded bg-[#2a2a2a]" />
-          <div className="mt-1 flex gap-2">
-            <div className="h-8 w-28 animate-pulse rounded-lg bg-[#2a2a2a]" />
-            <div className="h-8 w-28 animate-pulse rounded-lg bg-[#2a2a2a]" />
-          </div>
-        </div>
+        <LoadingSquares />
       </div>
     );
   }
@@ -31,10 +24,7 @@ export default function ContactHero() {
   const profileUrl = presence ? `https://discord.com/users/${presence.id}` : null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+    <div
       className="group flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
@@ -69,6 +59,6 @@ export default function ContactHero() {
           </a>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
