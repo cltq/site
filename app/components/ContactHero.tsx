@@ -11,7 +11,8 @@ export default function ContactHero() {
 
   if (loading) {
     return (
-      <div className="flex w-full items-center justify-center rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
+      <div
+        className="flex w-full items-center justify-center rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
         style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
       >
         <LoadingSquares />
@@ -40,7 +41,7 @@ export default function ContactHero() {
         }}
       />
 
-      <h1 className="min-w-0 flex-1 text-base font-bold leading-none tracking-tight text-white">
+      <h1 className="min-w-0 flex-1 text-base leading-none font-bold tracking-tight text-white">
         @{handle}
       </h1>
 
@@ -52,7 +53,7 @@ export default function ContactHero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Discord profile"
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-[#9C9C9C] outline-none transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-[#c4c4c4] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white/40"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-[#9C9C9C] transition-all duration-200 ease-out outline-none hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-[#c4c4c4] focus-visible:ring-2 focus-visible:ring-white/40 active:scale-[0.98]"
           >
             <ExternalLink size={14} />
             Open

@@ -13,7 +13,9 @@ export default function DevelopmentPage() {
     <div className="flex flex-col">
       <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
         <div className="flex w-full max-w-4xl flex-col items-center gap-12 text-center sm:gap-16">
-          <p className="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">ー development</p>
+          <p className="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">
+            ー development
+          </p>
 
           <div className="flex w-full flex-col items-center gap-3 sm:gap-4">
             <p className="text-xs tracking-widest text-[#737373]">stacks</p>

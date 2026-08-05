@@ -6,7 +6,6 @@ import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
 import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
 
-import TitleUpdater from "@/app/components/TitleUpdater";
 import UtmTracker from "@/app/components/UtmTracker";
 import { Navbar } from "@/components/navbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";

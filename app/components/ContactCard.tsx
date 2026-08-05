@@ -16,7 +16,16 @@ interface ContactCardProps {
 
 function GitHubIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
     </svg>
   );
@@ -85,9 +94,7 @@ export default function ContactCard({ platform }: ContactCardProps) {
       className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-5 py-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
-      <div className={iconContainerClass}>
-        {platform.icon}
-      </div>
+      <div className={iconContainerClass}>{platform.icon}</div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-sm font-medium text-white">{platform.username}</span>
@@ -100,7 +107,7 @@ export default function ContactCard({ platform }: ContactCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${platform.name} profile`}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-[#9C9C9C] outline-none transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-[#c4c4c4] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white/40"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-[#9C9C9C] transition-all duration-200 ease-out outline-none hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-[#c4c4c4] focus-visible:ring-2 focus-visible:ring-white/40 active:scale-[0.98]"
         >
           <ExternalLink size={16} />
         </a>

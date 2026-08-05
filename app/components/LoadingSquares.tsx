@@ -1,10 +1,6 @@
 export default function LoadingSquares({ className = "" }: { className?: string }) {
   return (
-    <div
-      role="status"
-      aria-label="Loading"
-      className={`grid grid-cols-3 gap-1.5 ${className}`}
-    >
+    <div role="status" aria-label="Loading" className={`grid grid-cols-3 gap-1.5 ${className}`}>
       {Array.from({ length: 6 }).map((_, i) => (
         <span
           key={i}

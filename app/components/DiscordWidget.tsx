@@ -125,7 +125,7 @@ export default function DiscordWidget({
         </div>
 
         {(showSpotifySection || showActivitySection) && (
-          <div className="w-full max-w-xs rounded-xl p-4 max-md:p-3 md:absolute md:right-full md:top-1/2 md:mr-6 md:w-80 md:-translate-y-1/2">
+          <div className="w-full max-w-xs rounded-xl p-4 max-md:p-3 md:absolute md:top-1/2 md:right-full md:mr-6 md:w-80 md:-translate-y-1/2">
             <div className="flex flex-col items-center gap-4 max-md:gap-3">
               <AnimatePresence mode="sync">
                 {showSpotifySection && (

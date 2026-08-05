@@ -16,7 +16,9 @@ export default function ProjectPage() {
     <div className="flex flex-col">
       <section className="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
         <div className="flex w-full max-w-4xl flex-col items-center gap-12 text-center sm:gap-16">
-          <p className="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">ー projects</p>
+          <p className="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">
+            ー projects
+          </p>
 
           <p className="max-w-lg text-sm text-[#a3a3a3] sm:text-base">
             Most of my projects are on{" "}
