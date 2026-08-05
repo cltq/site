@@ -31,7 +31,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
   Zig: "#ec915c",
 };
 
-function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
+function RepoCard({ repo, index, animate }: { repo: GitHubRepo; index: number; animate: boolean }) {
   const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#a3a3a3") : "#a3a3a3";
 
   return (
@@ -39,7 +39,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0 }}
+      initial={animate ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
       className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:max-w-none sm:p-5 sm:text-left"
@@ -122,8 +122,9 @@ export default function GitHubRepos({
   username: string;
   blacklist?: string[];
 }) {
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [repos, setRepos] = useState<GitHubRepo[]>(() => getCached(CACHE_KEY) ?? []);
+  const [loading, setLoading] = useState(() => !getCached(CACHE_KEY));
+  const [fromCache] = useState(() => !!getCached(CACHE_KEY));
 
   useEffect(() => {
     if (!username) {
@@ -131,10 +132,7 @@ export default function GitHubRepos({
       return;
     }
 
-    const cached = getCached<GitHubRepo[]>(CACHE_KEY);
-    if (cached) {
-      setRepos(cached);
-      setLoading(false);
+    if (getCached(CACHE_KEY)) {
       return;
     }
 
@@ -180,7 +178,7 @@ export default function GitHubRepos({
       ) : (
         <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
           {repos.map((repo, i) => (
-            <RepoCard key={repo.id} repo={repo} index={i} />
+            <RepoCard key={repo.id} repo={repo} index={i} animate={!fromCache} />
           ))}
         </div>
       )}
