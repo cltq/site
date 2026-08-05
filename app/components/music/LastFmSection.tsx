@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchTopTracks, fetchTopArtists } from "@/app/lib/lastfm/api";
 import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from "@/app/lib/lastfm/types";
+import { getCached, setCached } from "@/app/lib/data-cache";
 import Skeleton from "@/app/components/Skeleton";
+
+const CACHE_KEY = "lastfm-top";
+const CACHE_TTL = 30 * 60 * 1000;
 
 function proxyImage(src: string) {
   return `/api/lastfm?img=${encodeURIComponent(src)}`;
@@ -95,13 +99,23 @@ export default function LastFmSection({ username }: { username: string }) {
 
   useEffect(() => {
     (async () => {
+      const cached = getCached<{ tracks: LastFmTrack[]; artists: LastFmArtist[] }>(CACHE_KEY);
+      if (cached) {
+        setTracks(cached.tracks);
+        setArtists(cached.artists);
+        setLoading(false);
+        return;
+      }
       try {
         const [tracksRes, artistsRes] = await Promise.all([
           fetchTopTracks("1month", 20),
           fetchTopArtists("1month", 10),
         ]);
-        setTracks(tracksRes.toptracks.track);
-        setArtists(artistsRes.topartists.artist);
+        const tracks = tracksRes.toptracks.track;
+        const artists = artistsRes.topartists.artist;
+        setTracks(tracks);
+        setArtists(artists);
+        setCached(CACHE_KEY, { tracks, artists }, CACHE_TTL);
       } catch {
         // ignore
       } finally {

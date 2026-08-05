@@ -3,7 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import Heatmap from "./heatmap/Heatmap";
 import type { ContributionDay } from "./heatmap/utils";
+import { getCached, setCached } from "@/app/lib/data-cache";
 import Skeleton from "@/app/components/Skeleton";
+
+const CACHE_TTL = 6 * 60 * 60 * 1000;
 
 export default function GitHubContributions({ username }: { username: string }) {
   const [data, setData] = useState<ContributionDay[]>([]);
@@ -11,9 +14,19 @@ export default function GitHubContributions({ username }: { username: string }) 
 
   useEffect(() => {
     if (!username) return;
+    const cacheKey = `github-contributions:${username}`;
+    const cached = getCached<ContributionDay[]>(cacheKey);
+    if (cached) {
+      setData(cached);
+      setLoading(false);
+      return;
+    }
     fetch(`/api/github/contributions?username=${encodeURIComponent(username)}`)
       .then((r) => r.json())
-      .then(setData)
+      .then((data) => {
+        setData(data);
+        setCached(cacheKey, data, CACHE_TTL);
+      })
       .catch(() => setData([]))
       .finally(() => setLoading(false));
   }, [username]);

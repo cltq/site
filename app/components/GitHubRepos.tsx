@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fetchPublicRepos } from "@/app/lib/github/api";
 import type { GitHubRepo } from "@/app/lib/github/types";
+import { getCached, setCached } from "@/app/lib/data-cache";
 import Skeleton from "@/app/components/Skeleton";
+
+const CACHE_KEY = "github-repos";
+const CACHE_TTL = 60 * 60 * 1000;
 
 const LANGUAGE_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",
@@ -127,8 +131,19 @@ export default function GitHubRepos({
       return;
     }
 
+    const cached = getCached<GitHubRepo[]>(CACHE_KEY);
+    if (cached) {
+      setRepos(cached);
+      setLoading(false);
+      return;
+    }
+
     fetchPublicRepos(username, 12)
-      .then((all) => setRepos(all.filter((r) => !blacklist.includes(r.name)).slice(0, 6)))
+      .then((all) => {
+        const filtered = all.filter((r) => !blacklist.includes(r.name)).slice(0, 6);
+        setRepos(filtered);
+        setCached(CACHE_KEY, filtered, CACHE_TTL);
+      })
       .catch(() => setRepos([]))
       .finally(() => setLoading(false));
   }, [username, blacklist]);
