@@ -2,13 +2,13 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import LoadingSquares from "@/app/components/LoadingSquares";
+import DiscordSkeleton from "@/app/components/DiscordSkeleton";
 
 const DiscordWidget = dynamic(() => import("@/app/components/DiscordWidget"), {
   ssr: false,
   loading: () => (
     <div className="flex justify-center">
-      <LoadingSquares />
+      <DiscordSkeleton />
     </div>
   ),
 });

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fetchPublicRepos } from "@/app/lib/github/api";
 import type { GitHubRepo } from "@/app/lib/github/types";
-import LoadingSquares from "@/app/components/LoadingSquares";
+import Skeleton from "@/app/components/Skeleton";
 
 const LANGUAGE_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",
@@ -144,8 +144,23 @@ export default function GitHubRepos({
   return (
     <div>
       {loading ? (
-        <div className="flex justify-center py-12">
-          <LoadingSquares />
+        <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center sm:max-w-none sm:p-5 sm:text-left"
+            >
+              <div>
+                <Skeleton className="mx-auto h-4 w-24 sm:mx-0" />
+                <Skeleton className="mt-2 h-3 w-full" />
+                <Skeleton className="mt-1.5 h-3 w-3/4" />
+              </div>
+              <div className="mt-3 flex items-center justify-center gap-4 sm:justify-start">
+                <Skeleton className="h-3 w-16" />
+                <Skeleton className="h-3 w-10" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="grid w-full grid-cols-1 justify-items-center gap-3 sm:grid-cols-2 sm:justify-items-stretch lg:grid-cols-3">

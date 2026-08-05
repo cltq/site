@@ -9,7 +9,7 @@ import { SpotifyCard } from "@/app/components/discord/SpotifyCard";
 import { ActivityCycle } from "@/app/components/discord/ActivityCard";
 import type { DiscordWidgetProps } from "@/app/lib/discord/types";
 import { normalizeDiscordCdnUrl } from "@/app/lib/discord/url";
-import LoadingSquares from "@/app/components/LoadingSquares";
+import DiscordSkeleton from "@/app/components/DiscordSkeleton";
 
 function parseCustomStatus(
   cs: string | { text?: string; emoji?: { name?: string } | null } | null | undefined,
@@ -45,7 +45,7 @@ export default function DiscordWidget({
   if (loading) {
     return (
       <div className={`flex items-center justify-center ${className}`}>
-        <LoadingSquares />
+        <DiscordSkeleton />
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function DiscordWidget({
           </div>
 
           {customStatus && (
-            <p className="truncate text-center text-[13px] leading-tight text-[#a3a3a3]">
+            <p className="mt-1 truncate text-center text-sm leading-tight text-[#a3a3a3]">
               {customStatus.emoji && <span className="mr-1">{customStatus.emoji}</span>}
               {customStatus.text}
             </p>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchTopTracks, fetchTopArtists } from "@/app/lib/lastfm/api";
 import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from "@/app/lib/lastfm/types";
-import LoadingSquares from "@/app/components/LoadingSquares";
+import Skeleton from "@/app/components/Skeleton";
 
 function proxyImage(src: string) {
   return `/api/lastfm?img=${encodeURIComponent(src)}`;
@@ -143,8 +143,18 @@ export default function LastFmSection({ username }: { username: string }) {
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-8">
-          <LoadingSquares />
+        <div className="space-y-2">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <Skeleton className="h-3.5 w-5" />
+              <Skeleton className="h-12 w-12 shrink-0 rounded" />
+              <div className="min-w-0 flex-1">
+                <Skeleton className="h-4 w-40" />
+                <Skeleton className="mt-1 h-3 w-24" />
+              </div>
+              <Skeleton className="h-3.5 w-8" />
+            </div>
+          ))}
         </div>
       ) : type === "tracks" ? (
         <TopTracksList tracks={tracks} />

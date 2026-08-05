@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { useDiscordPresence } from "@/app/hooks/useDiscordPresence";
 import { normalizeDiscordCdnUrl } from "@/app/lib/discord/url";
 import CopyButton from "@/app/components/CopyButton";
-import LoadingSquares from "@/app/components/LoadingSquares";
+import Skeleton from "@/app/components/Skeleton";
 
 export default function ContactHero() {
   const { presence, loading } = useDiscordPresence();
@@ -12,10 +12,15 @@ export default function ContactHero() {
   if (loading) {
     return (
       <div
-        className="flex w-full items-center justify-center rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
+        className="flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
         style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
       >
-        <LoadingSquares />
+        <Skeleton className="h-9 w-9 shrink-0 rounded-full" />
+        <Skeleton className="h-4 w-32" />
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <Skeleton className="h-8 w-14 rounded-lg" />
+          <Skeleton className="h-8 w-16 rounded-lg" />
+        </div>
       </div>
     );
   }
