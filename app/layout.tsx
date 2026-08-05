@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans, GeistMono } from "geist/font";
-import { Chakra_Petch } from "next/font/google";
+import { GeistMono } from "geist/font";
+import { Chakra_Petch, Instrument_Sans } from "next/font/google";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
@@ -16,6 +16,13 @@ const chakraPetch = Chakra_Petch({
   subsets: ["thai", "latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-chakra-petch",
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-instrument-sans",
   display: "swap",
 });
 
@@ -39,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}
+      className={`${GeistMono.variable} ${chakraPetch.variable} ${instrumentSans.variable} h-svh antialiased`}
     >
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />

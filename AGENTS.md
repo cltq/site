@@ -5,7 +5,7 @@
 - **Framework**: Next.js 16.2.9 (App Router only — no Pages Router)
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS v4 (PostCSS)
-- **Font**: Geist Mono (via `geist/font/mono` — local, not Google Fonts)
+- **Font**: Instrument Sans (via `next/font/google`), Geist Mono (via `geist/font/mono` — local, not Google Fonts)
 - **Animation**: framer-motion
 - **Runtime**: Bun
 
@@ -63,7 +63,7 @@ export interface AppRoute {
 - **Desktop**: `fixed left-1/2 top-4 -translate-x-1/2`, centered pill at top
 - **Mobile**: `fixed bottom-6 left-1/2 -translate-x-1/2`, centered pill at bottom
 - **Style**: `rounded-full` pill with `border border-white/10`, `bg-[#0b0b0f]/80`, `backdrop-blur-xl`
-- **Font**: Geist Mono (`font-mono`, set via `GeistMono.variable` CSS variable)
+- **Font**: Instrument Sans (`font-sans`, set via `Instrument_Sans.variable` CSS variable)
 - **Active indicator**: Animated pill (`bg-white/10`) via framer-motion `layoutId` — `"nav-pill"` on desktop, `"nav-pill-mobile"` on mobile
 - **Active text**: `text-white`
 - **Inactive text**: `text-zinc-500`
@@ -146,7 +146,7 @@ the tracked target is fixed at `user/1` via rewrites.
 
 ## Styling Conventions
 
-- **Global font**: Geist Mono (`--font-sans` and `--font-mono` both point to `--font-geist-mono`)
+- **Global font**: Instrument Sans (`--font-sans` points to `--font-instrument-sans`; `--font-mono` points to `--font-geist-mono`)
 - **Background**: `#0b0b0f` (body), `#020817` (CSS variable)
 - **Text**: `#9ca3af` (default), `#ffffff` (active/white)
 - **Accent**: `#ffffff` for active nav items
