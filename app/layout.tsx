@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistMono.variable} ${chakraPetch.variable} ${instrumentSans.variable} h-svh antialiased`}
+      className={`dark ${GeistMono.variable} ${chakraPetch.variable} ${instrumentSans.variable} h-svh antialiased`}
     >
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />

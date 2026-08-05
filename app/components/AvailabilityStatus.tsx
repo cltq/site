@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 function useTime(timeZone?: string) {
   const [time, setTime] = useState("");
@@ -30,13 +31,15 @@ export default function AvailabilityStatus() {
   const visitorTime = useTime();
 
   return (
-    <div className="flex items-center justify-center gap-1 text-sm text-gray-500">
+    <div className="flex items-center justify-center gap-2">
       {visitorTime && (
-        <>
-          <span className="text-gray-500">your {visitorTime}</span>
-        </>
+        <Badge variant="outline" className="h-6 px-2.5 text-xs font-normal text-gray-500">
+          your {visitorTime}
+        </Badge>
       )}
-      <span className="text-gray-500">is my {myTime || "--:--"}</span>
+      <Badge variant="outline" className="h-6 px-2.5 text-xs font-normal text-gray-500">
+        is my {myTime || "--:--"}
+      </Badge>
     </div>
   );
 }
