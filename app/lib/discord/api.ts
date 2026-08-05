@@ -3,8 +3,8 @@ import type {
   DiscordPresence,
   DiscordProfile,
   DiscordStatusData,
-  DiscordBadge,
-  DiscordGuild,
+  DiscordBadgeData,
+  DiscordGuildData,
 } from "@/app/lib/discord/types";
 
 const DEFAULT_BASE = "/api/discord";
@@ -55,21 +55,18 @@ export async function fetchDiscordStatus(
 export async function fetchDiscordBadges(
   baseUrl?: string,
   signal?: AbortSignal,
-): Promise<{ badges: DiscordBadge[]; publicFlags: number }> {
+): Promise<DiscordBadgeData> {
   const url = `${getBaseUrl(baseUrl)}/badges`;
-  const json = await fetchJson<ApiResponse<{ badges: DiscordBadge[]; publicFlags: number }>>(
-    url,
-    signal,
-  );
+  const json = await fetchJson<ApiResponse<DiscordBadgeData>>(url, signal);
   return json.data;
 }
 
 export async function fetchDiscordGuild(
   baseUrl?: string,
   signal?: AbortSignal,
-): Promise<DiscordGuild> {
+): Promise<DiscordGuildData> {
   const url = `${getBaseUrl(baseUrl)}/guild`;
-  const json = await fetchJson<ApiResponse<DiscordGuild>>(url, signal);
+  const json = await fetchJson<ApiResponse<DiscordGuildData>>(url, signal);
   return json.data;
 }
 
@@ -78,6 +75,9 @@ export async function fetchDiscordHealth(
   signal?: AbortSignal,
 ): Promise<{ status: string }> {
   const url = `${getBaseUrl(baseUrl)}/../health`;
-  const json = await fetchJson<ApiResponse<{ status: string }>>(url, signal);
-  return json.data;
+  const res = await fetch(url, { signal });
+  if (!res.ok) {
+    throw new Error(`API error: ${res.status} ${res.statusText}`);
+  }
+  return { status: await res.text() };
 }

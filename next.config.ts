@@ -33,11 +33,15 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/discord",
-        destination: "https://api.applefumi.xyz/v2/discord/",
+        destination: "https://api.applefumi.xyz/v2/discord/user/1/",
       },
       {
         source: "/api/discord/:path+",
-        destination: "https://api.applefumi.xyz/v2/discord/:path+",
+        destination: "https://api.applefumi.xyz/v2/discord/user/1/:path+",
+      },
+      {
+        source: "/api/health",
+        destination: "https://api.applefumi.xyz/health",
       },
       {
         source: "/api/spotify",

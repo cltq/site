@@ -81,20 +81,31 @@ export interface AppRoute {
 
 - Home page shows `<DiscordWidget showSpotify={false} />` at right center
 - Uses `flex min-h-screen items-center justify-end`
-- `userId` is passed from server-side `process.env.DISCORD_USERID`
 
 ## Discord Integration
 
 ### API Proxy
 
-Configured in `next.config.ts` via rewrites — no route handler:
+Configured in `next.config.ts` via rewrites — no route handler. The upstream API
+tracks targets at fixed indices — this site uses tracked target `1` (Maple):
 
 ```ts
 {
-  source: "/api/discord/:path*",
-  destination: "https://api.applefumi.xyz/v2/discord/:path*",
+  source: "/api/discord",
+  destination: "https://api.applefumi.xyz/v2/discord/user/1/",
+}
+{
+  source: "/api/discord/:path+",
+  destination: "https://api.applefumi.xyz/v2/discord/user/1/:path+",
 }
 ```
+
+- `GET /api/discord` → `/v2/discord/user/1/` (full user: profile + presence)
+- `GET /api/discord/profile` → `/v2/discord/user/1/profile`
+- `GET /api/discord/status` → `/v2/discord/user/1/status`
+- `GET /api/discord/badges` → `/v2/discord/user/1/badges`
+- `GET /api/discord/guild` → `/v2/discord/user/1/guild`
+- `GET /api/discord/live` → `/v2/discord/user/1/live` (SSE)
 
 ### Environment Variables
 
@@ -104,22 +115,23 @@ Configured in `next.config.ts` via rewrites — no route handler:
 DISCORD_USERID=969088519161139270
 ```
 
-Exposed globally via `next.config.ts` `env` block.
+Exposed globally via `next.config.ts` `env` block. No longer used in API paths —
+the tracked target is fixed at `user/1` via rewrites.
 
 ### Components
 
-- **DiscordWidget**: Main widget — shows avatar, username, status, custom status. Accepts `showSpotify`, `showActivities`, `userId`, etc.
+- **DiscordWidget**: Main widget — shows avatar, username, status, custom status. Accepts `showSpotify`, `showActivities`, `apiBaseUrl`, etc.
 - **StatusBadge**: Colored dot with pulse animation for online status
 - **SpotifyCard**: Album art + song/artist/album (hidden on home page)
 - **ActivityCard**: Activity icon + name + details + timestamps
 
 ### Data Flow
 
-1. `DiscordWidget` → `useDiscordPresence(userId)`
-2. Hook fetches initial presence via `fetchDiscordPresence()` → `GET /api/discord/users/{id}`
-3. Opens SSE connection to `/api/discord/users/{id}/live` for real-time updates
-4. Polls every 5s as fallback
-5. Proxy rewrites `/api/discord/*` → `https://api.applefumi.xyz/v2/discord/*`
+1. `DiscordWidget` → `useDiscordPresence()`
+2. Hook fetches initial presence via `fetchDiscordPresence()` → `GET /api/discord` (full user)
+3. Opens SSE connection to `/api/discord/live` for real-time updates
+4. Polls every 60s as fallback
+5. Proxy rewrites `/api/discord/*` → `https://api.applefumi.xyz/v2/discord/user/1/*`
 
 ## Mobile Safari Viewport
 

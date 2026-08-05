@@ -58,7 +58,7 @@ export interface ActivityAssets {
 }
 
 export interface ActivityData {
-  id: string;
+  id?: string;
   name: string;
   type: number | string;
   details?: string;
@@ -71,43 +71,73 @@ export interface ActivityData {
   smallText?: string;
   assets?: ActivityAssets;
   timestamps?: ActivityTimestamps;
-  emoji?: ActivityEmoji;
+  emoji?: ActivityEmoji | null;
   party?: ActivityParty;
 }
 
-export interface DiscordBadge {
-  id: string;
-  description: string;
+export interface DiscordGuild {
+  identityGuildId?: string | null;
+  identityEnabled?: boolean;
+  tag?: string | null;
+  badge?: string | null;
 }
 
-export interface DiscordGuild {
-  tag: string;
-  badge: string;
+export interface DiscordBadgeData {
+  id: string;
+  badges: string[];
+  publicFlags: number;
+}
+
+export interface DiscordGuildData {
+  id: string;
+  guildId?: string;
+  guildName?: string;
+  primaryGuild?: DiscordGuild;
 }
 
 export interface DiscordProfile {
   id: string;
   username: string;
   displayName: string;
+  globalName?: string;
   avatar: string;
   banner?: string;
-  accentColor?: number;
-  badges?: DiscordBadge[];
-  guild?: DiscordGuild;
+  accentColor?: string;
+  badges?: string[];
+  premiumType?: number | null;
+  premiumBadge?: string | null;
+  boostBadge?: string | null;
+  guildId?: string;
+  guildName?: string;
+  primaryGuild?: DiscordGuild;
+  createdAt?: string;
 }
 
 export interface DiscordPresence {
   id: string;
   username: string;
   displayName: string;
+  globalName?: string;
   avatar: string;
   banner?: string;
+  accentColor?: string;
+  badges?: string[];
+  premiumType?: number | null;
+  premiumBadge?: string | null;
+  boostBadge?: string | null;
+  boostedSince?: string | null;
   status: DiscordStatus;
-  globalName?: string;
   customStatus?: string | DiscordCustomStatus | null;
   spotify?: SpotifyData | null;
   activities: ActivityData[];
+  mobile?: boolean;
+  desktop?: boolean;
+  web?: boolean;
+  guildId?: string;
+  guildName?: string;
   primaryGuild?: DiscordGuild;
+  publicFlags?: number;
+  createdAt?: string;
   updatedAt?: number;
 }
 
