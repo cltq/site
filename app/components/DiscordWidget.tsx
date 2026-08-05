@@ -81,8 +81,8 @@ export default function DiscordWidget({
       <motion.div
         key={presence.id}
         className={`relative flex flex-col items-center gap-4 ${className}`}
-        initial={animated ? { opacity: 0, y: 20 } : undefined}
-        animate={animated ? { opacity: 1, y: 0 } : undefined}
+        initial={animated ? { opacity: 0 } : undefined}
+        animate={animated ? { opacity: 1 } : undefined}
         transition={animated ? { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } : undefined}
       >
         <div className="flex flex-col items-center gap-2">

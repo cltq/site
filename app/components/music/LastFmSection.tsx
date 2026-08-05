@@ -47,8 +47,8 @@ function TopTracksList({ tracks }: { tracks: LastFmTrack[] }) {
         {tracks.map((track, i) => (
           <motion.div
             key={track.name + track.artist.name}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >
@@ -73,8 +73,8 @@ function TopArtistsList({ artists }: { artists: LastFmArtist[] }) {
         {artists.map((artist, i) => (
           <motion.div
             key={artist.name}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >

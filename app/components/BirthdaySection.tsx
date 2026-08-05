@@ -22,9 +22,9 @@ function FlipDigit({ value, label }: { value: string; label: string }) {
           <AnimatePresence mode="popLayout">
             <motion.span
               key={value}
-              initial={{ y: 20, opacity: 0, scale: 0.9 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: -20, opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               className="absolute text-3xl font-bold text-[#fafafa] tabular-nums sm:text-5xl"
             >

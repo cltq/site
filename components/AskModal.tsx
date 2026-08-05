@@ -79,9 +79,9 @@ export default function AskModal({ open, onClose }: AskModalProps) {
 
           <motion.div
             className="relative w-full max-w-md rounded-2xl border border-white/20 bg-[#0a0a0a]/90 p-8 shadow-[0_0_80px_rgba(17,17,27,0.5)] backdrop-blur-2xl"
-            initial={{ opacity: 0, scale: 0.96, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 500, damping: 35 }}
             role="dialog"
             aria-modal="true"
