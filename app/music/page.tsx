@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import LastFmSection from "@/app/components/music/LastFmSection";
+
+export const metadata: Metadata = {
+  title: "Music - Maple",
+};
 
 export default function MusicPage() {
   return (

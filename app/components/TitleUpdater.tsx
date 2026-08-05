@@ -13,6 +13,7 @@ export default function TitleUpdater() {
 
   useEffect(() => {
     if (!host) return;
+    if (window.location.pathname !== "/") return;
     document.title = `${NAME}@${host}`;
   }, [host]);
 

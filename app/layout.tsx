@@ -21,6 +21,7 @@ const chakraPetch = Chakra_Petch({
 });
 
 export const metadata: Metadata = {
+  title: "Maple",
   description: "Maple's Portfolio/Personal Website",
   icons: { icon: "/favicon.png" },
 };
@@ -41,9 +42,6 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} ${chakraPetch.variable} h-svh antialiased`}
     >
-      <head>
-        <title>Maple</title>
-      </head>
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />
         <Navbar />

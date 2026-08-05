@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import TechStack from "@/app/components/TechStack";
 import GitHubContributions from "@/app/components/GitHubContributions";
+
+export const metadata: Metadata = {
+  title: "Development - Maple",
+};
 
 export default function DevelopmentPage() {
   const githubUser = process.env.GITHUB_USERNAME ?? "";

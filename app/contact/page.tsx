@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import ContactHero from "@/app/components/ContactHero";
 import ContactCard, { githubPlatform, hauntPlatform } from "@/app/components/ContactCard";
 import AvailabilityStatus from "@/app/components/AvailabilityStatus";
+
+export const metadata: Metadata = {
+  title: "Contact - Maple",
+};
 
 export default function ContactPage() {
   const platforms = [githubPlatform, hauntPlatform];

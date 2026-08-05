@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { appRoutes } from "@/app/routes";
 
 export function generateStaticParams() {
   return appRoutes.filter((r) => r.href !== "/").map((r) => ({ route: r.href.replace("/", "") }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ route: string }>;
+}): Promise<Metadata> {
+  const { route } = await params;
+  const matched = appRoutes.find((r) => r.href === `/${route}`);
+  return { title: matched ? `${matched.name} - Maple` : "Maple" };
 }
 
 export default async function NavbarRoutePage({ params }: { params: Promise<{ route: string }> }) {

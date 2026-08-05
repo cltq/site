@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import BirthdaySection from "@/app/components/BirthdaySection";
+
+export const metadata: Metadata = {
+  title: "Birthday - Maple",
+};
 
 export default function BirthdayPage() {
   return (

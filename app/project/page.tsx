@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import GitHubRepos from "@/app/components/GitHubRepos";
+
+export const metadata: Metadata = {
+  title: "Project - Maple",
+};
 
 export default function ProjectPage() {
   const githubUser = process.env.GITHUB_USERNAME ?? "";
