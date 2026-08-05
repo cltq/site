@@ -13,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { route } = await params;
   const matched = appRoutes.find((r) => r.href === `/${route}`);
-  return { title: matched ? `${matched.name} - Maple` : "Maple" };
+  return { title: matched ? `${matched.name.toLowerCase()} - maple` : "maple" };
 }
 
 export default async function NavbarRoutePage({ params }: { params: Promise<{ route: string }> }) {
@@ -26,7 +26,9 @@ export default async function NavbarRoutePage({ params }: { params: Promise<{ ro
 
   return (
     <main className="p-8">
-      <h1 className="mb-2 text-2xl font-semibold tracking-tight text-white">{matched.name}</h1>
+      <h1 className="mb-2 text-2xl font-semibold tracking-tight text-white">
+        {matched.name.toLowerCase()}
+      </h1>
       {matched.description && <p className="text-[#a3a3a3]">{matched.description}</p>}
     </main>
   );

@@ -20,7 +20,7 @@ const chakraPetch = Chakra_Petch({
 });
 
 export const metadata: Metadata = {
-  title: "Maple",
+  title: "maple",
   description: "Maple's Portfolio/Personal Website",
   icons: { icon: "/favicon.png" },
 };

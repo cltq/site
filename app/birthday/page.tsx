@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import BirthdaySection from "@/app/components/BirthdaySection";
 
 export const metadata: Metadata = {
-  title: "Birthday - Maple",
+  title: "birthday - maple",
 };
 
 export default function BirthdayPage() {

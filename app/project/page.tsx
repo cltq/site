@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import GitHubRepos from "@/app/components/GitHubRepos";
 
 export const metadata: Metadata = {
-  title: "Project - Maple",
+  title: "project - maple",
 };
 
 export default function ProjectPage() {

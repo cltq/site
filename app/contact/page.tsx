@@ -4,7 +4,7 @@ import ContactCard, { githubPlatform, hauntPlatform } from "@/app/components/Con
 import AvailabilityStatus from "@/app/components/AvailabilityStatus";
 
 export const metadata: Metadata = {
-  title: "Contact - Maple",
+  title: "contact - maple",
 };
 
 export default function ContactPage() {

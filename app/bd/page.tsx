@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import BirthdayCountdown from "@/app/components/BirthdayCountdown";
 
 export const metadata: Metadata = {
-  title: "Birthday Countdown - Maple",
+  title: "birthday countdown - maple",
 };
 
 export default function BdPage() {
