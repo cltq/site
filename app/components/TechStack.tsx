@@ -90,9 +90,9 @@ export default function TechStack() {
   return (
     <div className="flex w-full max-w-2xl flex-col items-center gap-6">
       {grouped.map((group) => (
-        <div key={group.category} className="flex w-full flex-col items-center gap-2">
+        <div key={group.category} className="flex w-full flex-col items-start gap-2">
           <p className="text-[11px] tracking-widest text-[#737373] uppercase">{group.category}</p>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-start gap-2">
             {group.items.map((item) => (
               <a
                 key={item.name}
