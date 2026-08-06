@@ -5,6 +5,7 @@ import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
 import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
+import CursorTrail from "@/app/components/CursorTrail";
 
 import UtmTracker from "@/app/components/UtmTracker";
 import { Navbar } from "@/components/navbar";
@@ -50,6 +51,7 @@ export default function RootLayout({
     >
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
         <DynamicBackgrounds />
+        <CursorTrail />
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
