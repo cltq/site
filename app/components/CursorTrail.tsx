@@ -12,7 +12,7 @@ interface Particle {
   size: number;
 }
 
-const MAX_PARTICLES = 3000;
+const MAX_PARTICLES = 1200;
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
