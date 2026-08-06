@@ -12,7 +12,7 @@ interface Particle {
   size: number;
 }
 
-const MAX_PARTICLES = 1200;
+const MAX_PARTICLES = 3000;
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -89,7 +89,9 @@ export default function CursorTrail() {
       const dist = lastX >= 0 && lastY >= 0 ? Math.hypot(e.clientX - lastX, e.clientY - lastY) : 0;
       lastX = e.clientX;
       lastY = e.clientY;
-      emit(e.clientX, e.clientY, Math.max(3, Math.min(40, Math.round(dist / 1.5) + 3)));
+      if (dist > 1) {
+        emit(e.clientX, e.clientY, Math.min(40, Math.max(8, Math.round(dist / 1.5))));
+      }
     };
 
     const onDown = (e: MouseEvent) => emit(e.clientX, e.clientY, 50);
