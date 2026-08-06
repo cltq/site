@@ -41,20 +41,33 @@ export default function CursorTrail() {
     sprite.height = spriteSize;
     const spriteCtx = sprite.getContext("2d");
     if (!spriteCtx) return;
-    const gradient = spriteCtx.createRadialGradient(
-      spriteSize / 2,
-      spriteSize / 2,
-      0,
-      spriteSize / 2,
-      spriteSize / 2,
-      spriteSize / 2,
-    );
-    gradient.addColorStop(0, "rgba(255,255,255,1)");
-    gradient.addColorStop(0.25, "rgba(255,255,255,0.8)");
-    gradient.addColorStop(0.6, "rgba(255,255,255,0.25)");
-    gradient.addColorStop(1, "rgba(255,255,255,0)");
-    spriteCtx.fillStyle = gradient;
-    spriteCtx.fillRect(0, 0, spriteSize, spriteSize);
+    const cx = spriteSize / 2;
+    const cy = spriteSize / 2;
+    const armLen = 13;
+    const branchLen = 5;
+    const branchPos = 7;
+    spriteCtx.strokeStyle = "rgba(255,255,255,0.9)";
+    spriteCtx.lineWidth = 1.5;
+    spriteCtx.lineCap = "round";
+    spriteCtx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const angle = (i * Math.PI) / 3;
+      spriteCtx.moveTo(cx, cy);
+      spriteCtx.lineTo(cx + Math.cos(angle) * armLen, cy + Math.sin(angle) * armLen);
+    }
+    spriteCtx.stroke();
+    for (let i = 0; i < 6; i++) {
+      const angle = (i * Math.PI) / 3;
+      const bx = cx + Math.cos(angle) * branchPos;
+      const by = cy + Math.sin(angle) * branchPos;
+      for (const side of [-1, 1]) {
+        const branchAngle = angle + (Math.PI / 3) * side;
+        spriteCtx.beginPath();
+        spriteCtx.moveTo(bx, by);
+        spriteCtx.lineTo(bx + Math.cos(branchAngle) * branchLen, by + Math.sin(branchAngle) * branchLen);
+        spriteCtx.stroke();
+      }
+    }
 
     const resize = () => {
       width = window.innerWidth;
@@ -76,8 +89,8 @@ export default function CursorTrail() {
           vx: (Math.random() - 0.5) * 0.6,
           vy: (Math.random() - 0.5) * 0.6,
           life: 0,
-          maxLife: 80 + Math.random() * 120,
-          size: 1.5 + Math.random() * 4,
+          maxLife: 60 + Math.random() * 90,
+          size: 1 + Math.random() * 2.5,
         });
       }
       if (particles.length > MAX_PARTICLES) {
@@ -90,11 +103,9 @@ export default function CursorTrail() {
       lastX = e.clientX;
       lastY = e.clientY;
       if (dist > 1) {
-        emit(e.clientX, e.clientY, Math.min(40, Math.max(8, Math.round(dist / 1.5))));
+        emit(e.clientX, e.clientY, Math.min(10, Math.max(2, Math.round(dist / 6))));
       }
     };
-
-    const onDown = (e: MouseEvent) => emit(e.clientX, e.clientY, 50);
 
     const frame = () => {
       rafId = requestAnimationFrame(frame);
@@ -108,8 +119,8 @@ export default function CursorTrail() {
         p.life += 1;
         p.x += p.vx;
         p.y += p.vy;
-        p.vx *= 0.97;
-        p.vy *= 0.97;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
         const t = 1 - p.life / p.maxLife;
         const size = p.size * (0.6 + t * 1.2);
         ctx.globalAlpha = t * 0.5;
@@ -120,13 +131,11 @@ export default function CursorTrail() {
     rafId = requestAnimationFrame(frame);
 
     window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerdown", onDown);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerdown", onDown);
     };
   }, []);
 
