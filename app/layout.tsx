@@ -4,7 +4,6 @@ import { Chakra_Petch, Instrument_Sans } from "next/font/google";
 import ErrorBoundary from "@/app/components/ErrorBoundary";
 import ContextMenuGuard from "@/app/components/ContextMenuGuard";
 import WebMCP from "@/app/components/WebMCP";
-import DynamicBackgrounds from "@/app/components/DynamicBackgrounds";
 import CursorTrail from "@/app/components/CursorTrail";
 
 import UtmTracker from "@/app/components/UtmTracker";
@@ -50,7 +49,6 @@ export default function RootLayout({
       className={`${GeistMono.variable} ${chakraPetch.variable} ${instrumentSans.variable} h-svh antialiased`}
     >
       <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
-        <DynamicBackgrounds />
         <CursorTrail />
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
