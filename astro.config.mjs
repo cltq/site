@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
+import tailwindcss from "@tailwindcss/vite";
 
 // @ts-check
 export default defineConfig({
@@ -12,8 +13,6 @@ export default defineConfig({
     "/projects": { destination: "/project", status: 308 },
   },
   vite: {
-    css: {
-      postcss: "./postcss.config.mjs",
-    },
+    plugins: [tailwindcss()],
   },
 });
