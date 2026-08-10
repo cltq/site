@@ -21,6 +21,7 @@ function TrackImage({ images }: { images: LastFmImage[] }) {
     <img
       src={proxyImage(src)}
       alt=""
+      referrerPolicy="no-referrer"
       loading="lazy"
       className="h-12 w-12 shrink-0 rounded object-cover"
     />
@@ -34,6 +35,7 @@ function ArtistImage({ images }: { images: LastFmImage[] }) {
     <img
       src={proxyImage(src)}
       alt=""
+      referrerPolicy="no-referrer"
       loading="lazy"
       className="h-12 w-12 shrink-0 rounded-full object-cover"
     />
