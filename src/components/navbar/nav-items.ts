@@ -1,0 +1,11 @@
+import { Home, Music, Code, Cake, Folder, Mail } from "lucide-react";
+import type { NavbarItem } from "./types";
+
+export const defaultNavItems: NavbarItem[] = [
+  { label: "Home", href: "/", icon: Home },
+  { label: "Music", href: "/music", icon: Music },
+  { label: "Development", href: "/development", icon: Code },
+  { label: "Project", href: "/project", icon: Folder },
+  { label: "Birthday", href: "/birthday", icon: Cake },
+  { label: "Contact", href: "/contact", icon: Mail },
+];

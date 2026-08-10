@@ -1,0 +1,52 @@
+---
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/geist-mono";
+import "@fontsource/chakra-petch/300.css";
+import "@fontsource/chakra-petch/400.css";
+import "@fontsource/chakra-petch/500.css";
+import "@fontsource/chakra-petch/600.css";
+import "@fontsource/chakra-petch/700.css";
+
+import "@/styles/global.css";
+
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
+
+import CursorTrail from "@/components/CursorTrail";
+import Navbar from "@/components/navbar/Navbar";
+import ContextMenuGuard from "@/components/ContextMenuGuard";
+import WebMCP from "@/components/WebMCP";
+import UtmTracker from "@/components/UtmTracker";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "maple", description = "Maple's Portfolio/Personal Website" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-svh antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href="/favicon.png" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
+    <CursorTrail client:load />
+    <Navbar client:load />
+    <div class="relative z-10 flex h-full flex-col">
+      <div id="scroll-container" class="flex-1 overflow-y-auto">
+        <slot />
+      </div>
+    </div>
+    <ContextMenuGuard client:load />
+    <WebMCP client:load />
+    <SpeedInsights />
+    <Analytics />
+    <UtmTracker client:load />
+  </body>
+</html>

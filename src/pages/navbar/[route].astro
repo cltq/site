@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { appRoutes } from "@/lib/routes";
+
+export function getStaticPaths() {
+  return appRoutes
+    .filter((r) => r.href !== "/")
+    .map((r) => ({ params: { route: r.href.replace("/", "") } }));
+}
+
+const { route } = Astro.params;
+const matched = appRoutes.find((r) => r.href === `/${route}`);
+---
+
+<Layout title={matched ? `${matched.name.toLowerCase()} - maple` : "maple"}>
+  <main class="p-8">
+    <h1 class="mb-2 text-2xl font-semibold tracking-tight text-white">
+      {matched?.name.toLowerCase()}
+    </h1>
+    {matched?.description && <p class="text-[#a3a3a3]">{matched.description}</p>}
+  </main>
+</Layout>

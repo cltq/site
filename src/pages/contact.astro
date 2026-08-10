@@ -1,0 +1,31 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ContactHero from "@/components/ContactHero";
+import ContactCard, { githubPlatform, hauntPlatform } from "@/components/ContactCard";
+import AvailabilityStatus from "@/components/AvailabilityStatus";
+
+const platforms = [githubPlatform, hauntPlatform];
+---
+
+<Layout title="contact - maple">
+  <div class="flex flex-col">
+    <section class="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
+      <div class="flex w-full max-w-2xl flex-col items-start gap-12">
+        <div class="flex flex-col items-start gap-2">
+          <p class="mb-2 text-xs tracking-widest text-[#737373]">ー contact</p>
+          <p class="text-sm text-gray-400">Reach out anytime. Just a hi is okay...</p>
+        </div>
+
+        <div class="flex w-full flex-col gap-6">
+          <ContactHero client:load />
+
+          <div class="flex flex-col gap-4">
+            {platforms.map((platform) => <ContactCard platform={platform} client:load />)}
+          </div>
+
+          <AvailabilityStatus client:load />
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

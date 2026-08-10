@@ -1,0 +1,49 @@
+{
+  "rewrites": [
+    {
+      "source": "/ask",
+      "destination": "/?modal=ask"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/biolinks",
+      "destination": "/bio",
+      "statusCode": 308
+    },
+    {
+      "source": "/projects",
+      "destination": "/project",
+      "statusCode": 308
+    }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</robots.txt>; rel=\"robots\", </sitemap.xml>; rel=\"sitemap\", </.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/mcp/server-card.json>; rel=\"mcp-server-card\""
+        }
+      ]
+    },
+    {
+      "source": "/static/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

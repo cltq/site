@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import GitHubRepos from "@/components/GitHubRepos";
+
+const githubUser = import.meta.env.GITHUB_USERNAME ?? "";
+const githubBlacklist =
+  import.meta.env.GITHUB_BLACKLIST?.split(",")
+    .map((s: string) => s.trim())
+    .filter(Boolean) ?? [];
+---
+
+<Layout title="project - maple">
+  <div class="flex flex-col">
+    <section class="flex min-h-svh items-center justify-center px-4 pt-24 pb-16 sm:px-8">
+      <div class="flex w-full max-w-4xl flex-col items-center gap-12 text-center sm:gap-16">
+        <p class="mb-2 w-full text-left text-xs tracking-widest text-[#737373]">ー projects</p>
+
+        <p class="max-w-lg text-sm text-[#a3a3a3] sm:text-base">
+          Most of my projects are on{" "}
+          <a
+            href={`https://github.com/${githubUser}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[#fafafa] underline underline-offset-2 transition-colors hover:text-white"
+          >
+            GitHub
+          </a>
+          .
+        </p>
+
+        <GitHubRepos username={githubUser} blacklist={githubBlacklist} client:load />
+      </div>
+    </section>
+  </div>
+</Layout>
