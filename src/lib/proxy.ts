@@ -55,6 +55,10 @@ async function fetchWithTimeout(
 /**
  * Proxy a GET request to an upstream URL, preserving query params and headers.
  */
+export async function proxy(upstream: string, request: Request): Promise<Response> {
+  return proxyGet(upstream, request);
+}
+
 export async function proxyGet(
   upstream: string,
   request: Request
