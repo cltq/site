@@ -41,19 +41,36 @@ export async function proxyGet(
   const url = new URL(upstream);
   url.search = new URL(request.url).search;
 
-  const res = await fetch(url, {
-    method: "GET",
-    headers: getForwardedHeaders(request),
-  });
+  const forwardedHeaders = getForwardedHeaders(request);
 
-  return new Response(res.body, {
-    status: res.status,
-    statusText: res.statusText,
-    headers: {
-      "Content-Type": res.headers.get("Content-Type") ?? "application/octet-stream",
-      "Cache-Control": res.headers.get("Cache-Control") ?? "no-store",
-    },
-  });
+  console.log(`[proxyGet] Upstream: ${url.toString()}`);
+  console.log(`[proxyGet] Headers:`, Object.fromEntries(
+    Array.from(forwardedHeaders.entries()).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
+  ));
+
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: forwardedHeaders,
+    });
+
+    console.log(`[proxyGet] Response status: ${res.status}`);
+    return new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers: {
+        "Content-Type": res.headers.get("Content-Type") ?? "application/octet-stream",
+        "Cache-Control": res.headers.get("Cache-Control") ?? "no-store",
+      },
+    });
+  } catch (error) {
+    console.error(`[proxyGet] Error fetching ${url}:`, error);
+    return new Response(JSON.stringify({ error: "Upstream service unavailable", details: String(error) }), {
+      status: 502,
+      statusText: "Bad Gateway",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 /**
@@ -80,11 +97,28 @@ export async function proxy(
     body = await request.blob();
   }
 
-  const res = await fetch(url, {
-    method: request.method,
-    headers: forwardedHeaders,
-    body,
-  });
+  let res: Response;
+  try {
+    console.log(`[proxy] ${request.method} Upstream: ${url.toString()}`);
+    console.log(`[proxy] Headers:`, Object.fromEntries(
+      Array.from(forwardedHeaders.entries()).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
+    ));
+
+    res = await fetch(url, {
+      method: request.method,
+      headers: forwardedHeaders,
+      body,
+    });
+
+    console.log(`[proxy] Response status: ${res.status}`);
+  } catch (error) {
+    console.error(`[proxy] Error fetching ${url}:`, error);
+    return new Response(JSON.stringify({ error: "Upstream service unavailable", details: String(error) }), {
+      status: 502,
+      statusText: "Bad Gateway",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   // Forward response headers (selectively)
   const responseHeaders = new Headers();
