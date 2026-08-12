@@ -3,10 +3,6 @@
     {
       "source": "/ask",
       "destination": "/?modal=ask"
-    },
-    {
-      "source": "/api/:path*",
-      "destination": "https://api.applefumi.xyz/:path*"
     }
   ],
   "redirects": [
