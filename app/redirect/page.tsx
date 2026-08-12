@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const TARGET_DOMAIN = "mapleji.xyz";
-const NEXTJS_DOMAIN = "v2.fumi.xyz"; // The Next.js site domain
+const NEXTJS_DOMAIN = "site-nextjs.mapleji.xyz"; // The old Next.js site domain
 
 export default function RedirectPage() {
   const [showNextjsLink, setShowNextjsLink] = useState(false);
