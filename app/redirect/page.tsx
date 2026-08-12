@@ -37,7 +37,7 @@ export default function RedirectPage() {
         {showNextjsLink && (
           <p className="mt-8">
             <a
-              href="https://{NEXTJS_DOMAIN}"
+              href={`https://${NEXTJS_DOMAIN}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[9ca3af] underline underline-offset-2 transition-colors hover:text-white"
