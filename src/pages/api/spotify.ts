@@ -1,7 +1,8 @@
 import { proxyGet } from "@/lib/proxy";
+import { getSpotifyUrl } from "@/lib/api-config";
 
 export const prerender = false;
 
 export async function GET({ request }: { request: Request }) {
-  return proxyGet("https://spotify.applefumi.xyz/api/spotify", request);
+  return proxyGet(getSpotifyUrl("api/spotify"), request);
 }

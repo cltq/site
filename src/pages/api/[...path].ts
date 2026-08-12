@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { proxy } from "@/lib/proxy";
+import { getApiUrl } from "@/lib/api-config";
 
 export const prerender = false;
 
@@ -8,15 +9,14 @@ export const prerender = false;
  * Forwards all HTTP methods to the upstream API.
  * 
  * This route is a fallback for requests not handled by specific API routes.
- * Specific routes (like /api/discord/[...path].ts) take precedence over this catch-all.
+ * Specific routes (like /api/discord/[...path].ts, /api/spotify.ts) take precedence over this catch-all.
  * 
- * If you need to proxy to a different API, update the UPSTREAM_API constant.
+ * To change the upstream API, update the `base` value in src/lib/api-config.ts or set UPSTREAM_API env var.
  */
-const UPSTREAM_API = "https://api.applefumi.xyz";
 
 export const ALL: APIRoute = async ({ request, params }) => {
   const path = Array.isArray(params.path) ? params.path.join("/") : (params.path ?? "");
-  const upstreamUrl = `${UPSTREAM_API}/${path}`;
+  const upstreamUrl = getApiUrl(path);
 
   return proxy(upstreamUrl, request);
 };
