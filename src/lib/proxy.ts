@@ -32,6 +32,27 @@ function getForwardedHeaders(request: Request): Record<string, string> {
 }
 
 /**
+ * Fetch with timeout and retries for resilience against slow upstreams
+ */
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit,
+  timeoutMs: number = 30000
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(url, {
+      ...init,
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+/**
  * Proxy a GET request to an upstream URL, preserving query params and headers.
  */
 export async function proxyGet(
@@ -49,7 +70,7 @@ export async function proxyGet(
   ));
 
   try {
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url.toString(), {
       method: "GET",
       headers: forwardedHeaders,
     });
@@ -104,7 +125,7 @@ export async function proxy(
       Array.from(forwardedHeaders.entries()).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
     ));
 
-    res = await fetch(url, {
+    res = await fetchWithTimeout(url.toString(), {
       method: request.method,
       headers: forwardedHeaders,
       body,
