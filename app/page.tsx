@@ -30,28 +30,26 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[0b0b0f] text-[9ca3af]">
-      <div className="text-center">
-        <p className="mb-6 text-3xl font-semibold tracking-wider">
+    <div className="min-h-screen flex items-center justify-center bg-[0b0b0f] text-[9ca3af]">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <p className="mb-2 text-3xl font-semibold tracking-wider">
           Redirecting to {TARGET_DOMAIN}
         </p>
 
-        <div className="mb-8 flex flex-col items-center gap-3">
-          <span className="text-4xl font-bold text-zinc-500">{countdown}</span>
-          <div className="flex gap-2">
-            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
-            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
-            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
-          </div>
+        <div className="flex flex-row items-center gap-2 animate-bounce">
+          <span className="text-5xl font-bold text-zinc-500">{countdown}</span>
+          <span className="text-3xl font-bold text-zinc-500 rotate-90 animate-ping">.</span>
+          <span className="text-3xl font-bold text-zinc-500 rotate-90 animate-ping">.</span>
+          <span className="text-3xl font-bold text-zinc-500 rotate-90 animate-ping">.</span>
         </div>
 
-        <p className="mb-8 text-lg text-zinc-400">
+        <p className="mt-4 text-lg text-zinc-400">
           Please wait while we redirect you to the main site...
         </p>
 
         {/* Clickable link to Next.js site */}
         {showNextjsLink && (
-          <p className="mt-8">
+          <p className="mt-6">
             <a
               href={`https://${NEXTJS_DOMAIN}`}
               target="_blank"
@@ -69,7 +67,7 @@ export default function Home() {
             window.location.href = `https://${NEXTJS_DOMAIN}`;
             setShowNextjsLink(true);
           }}
-          className="mt-6 cursor-pointer text-zinc-400 hover:text-[9ca3af] transition-colors text-sm"
+          className="mt-3 cursor-pointer text-zinc-400 hover:text-[9ca3af] transition-colors text-sm"
         >
           Click here to visit the Next.js site instead
         </p>
