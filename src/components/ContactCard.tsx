@@ -1,9 +1,12 @@
 "use client";
 
 import { ExternalLink, Mail } from "lucide-react";
+
+type ContactCardIcon = "github" | "haunt" | "discord" | "email";
+
 interface ContactCardPlatform {
   name: string;
-  icon: React.ReactNode;
+  icon: ContactCardIcon;
   username: string;
   description: string;
   href: string;
@@ -49,9 +52,22 @@ function DiscordIcon() {
   );
 }
 
+function PlatformIcon({ icon }: { icon: ContactCardIcon }) {
+  switch (icon) {
+    case "github":
+      return <GitHubIcon />;
+    case "haunt":
+      return <HauntIcon />;
+    case "discord":
+      return <DiscordIcon />;
+    case "email":
+      return <Mail size={20} />;
+  }
+}
+
 export const githubPlatform: ContactCardPlatform = {
   name: "GitHub",
-  icon: <GitHubIcon />,
+  icon: "github",
   username: "@cltq",
   description: "repos & projects",
   href: "https://github.com/cltq",
@@ -60,7 +76,7 @@ export const githubPlatform: ContactCardPlatform = {
 
 export const hauntPlatform: ContactCardPlatform = {
   name: "Haunt",
-  icon: <HauntIcon />,
+  icon: "haunt",
   username: "haunt.gg/fumi",
   description: "all of my links and socials",
   href: "https://haunt.gg/fumi",
@@ -69,7 +85,7 @@ export const hauntPlatform: ContactCardPlatform = {
 
 export const discordPlatform: ContactCardPlatform = {
   name: "Discord",
-  icon: <DiscordIcon />,
+  icon: "discord",
   username: "@fumiiz",
   description: "fastest way to reach me",
   href: "https://discord.com/users/969088519161139270",
@@ -78,7 +94,7 @@ export const discordPlatform: ContactCardPlatform = {
 
 export const emailPlatform: ContactCardPlatform = {
   name: "Email",
-  icon: <Mail size={20} />,
+  icon: "email",
   username: "me@applefumi.xyz",
   description: "email me anytime",
   href: "mailto:me@applefumi.xyz",
@@ -94,7 +110,9 @@ export default function ContactCard({ platform }: ContactCardProps) {
       className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-5 py-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
-      <div className={iconContainerClass}>{platform.icon}</div>
+      <div className={iconContainerClass}>
+        <PlatformIcon icon={platform.icon} />
+      </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-sm font-medium text-white">{platform.username}</span>

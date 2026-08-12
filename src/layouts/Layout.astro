@@ -7,6 +7,8 @@ import "@fontsource/chakra-petch/500.css";
 import "@fontsource/chakra-petch/600.css";
 import "@fontsource/chakra-petch/700.css";
 
+import { ClientRouter } from "astro:transitions";
+
 import "@/styles/global.css";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -31,13 +33,14 @@ const { title = "maple", description = "Maple's Portfolio/Personal Website" } = 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <ClientRouter />
     <link rel="icon" href="/favicon.png" />
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
   <body class="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
     <CursorTrail client:load />
-    <Navbar client:load />
+    <Navbar client:load transition:persist />
     <div class="relative z-10 flex h-full flex-col">
       <div id="scroll-container" class="flex-1 overflow-y-auto">
         <slot />

@@ -21,9 +21,9 @@ export function useSpotify(pollInterval = 30000, enabled = true): UseSpotifyRetu
   const lastRequestTime = useRef<number>(0);
 
   const load = useCallback(async (signal?: AbortSignal) => {
-    // Prevent too frequent requests (minimum 5 seconds between requests)
+    // Prevent too frequent requests (minimum 2 seconds between requests)
     const now = Date.now();
-    if (now - lastRequestTime.current < 5000) {
+    if (now - lastRequestTime.current < 2000) {
       // If we're called too frequently, just return the last known data
       return;
     }

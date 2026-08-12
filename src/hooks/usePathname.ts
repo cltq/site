@@ -9,7 +9,11 @@ export function usePathname(): string {
     const update = () => setPathname(window.location.pathname);
     update();
     window.addEventListener("popstate", update);
-    return () => window.removeEventListener("popstate", update);
+    document.addEventListener("astro:page-load", update);
+    return () => {
+      window.removeEventListener("popstate", update);
+      document.removeEventListener("astro:page-load", update);
+    };
   }, []);
 
   return pathname;

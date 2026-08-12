@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { useSpotify } from "@/hooks/useSpotify";
 
 export default function NowPlayingPanel() {
-  // Increased polling interval from 5s to 20s for better performance
-  const { spotify } = useSpotify(20000);
+  // Poll every 2s so the currently-playing track stays fresh
+  const { spotify } = useSpotify(2000);
 
   if (!spotify) return null;
 
