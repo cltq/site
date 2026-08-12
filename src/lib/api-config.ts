@@ -9,6 +9,9 @@ export const API_CONFIG = {
   
   // Spotify API upstream (different host)
   spotify: process.env.SPOTIFY_API || "https://spotify.mapleji.xyz",
+
+  // Lanyard API - Discord presence backup
+  lanyard: "https://api.lanyard.rest/v1",
 };
 
 /**
@@ -20,4 +23,8 @@ export function getApiUrl(path: string): string {
 
 export function getSpotifyUrl(path: string): string {
   return `${API_CONFIG.spotify}/${path}`.replace(/\/+/g, "/").replace(/:\/$/, "");
+}
+
+export function getLanyardUrl(path: string): string {
+  return `${API_CONFIG.lanyard}/${path}`.replace(/\/+/g, "/").replace(/:\/$/, "");
 }

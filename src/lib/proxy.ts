@@ -95,10 +95,128 @@ export async function proxyGet(
 }
 
 /**
- * Generic proxy function that supports all HTTP methods and forwards request body.
- * Use this for proxying any method (POST, PUT, DELETE, PATCH, etc).
+ * Proxy to one of multiple upstream URLs, trying them in order until one succeeds.
+ * Useful for having backup/fallback APIs.
+ * 
+ * @param upstreams - Array of upstream URLs to try in order
+ * @param request - The original request
+ * @returns Response from first successful upstream, or 502 if all fail
  */
-export async function proxy(
+export async function proxyWithFallback(
+  upstreams: string[],
+  request: Request
+): Promise<Response> {
+  if (upstreams.length === 0) {
+    return new Response(JSON.stringify({ error: "No upstream URLs configured" }), {
+      status: 502,
+      statusText: "Bad Gateway",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const errors: string[] = [];
+
+  for (let i = 0; i < upstreams.length; i++) {
+    const upstream = upstreams[i];
+    console.log(`[proxyWithFallback] Trying upstream ${i + 1}/${upstreams.length}: ${upstream}`);
+
+    try {
+      const url = new URL(upstream);
+      // Preserve query parameters from original request
+      url.search = new URL(request.url).search;
+
+      const forwardedHeaders = getForwardedHeaders(request);
+
+      // For methods that can have a body, read and forward it
+      let body: BodyInit | undefined;
+      if (
+        request.method !== "GET" &&
+        request.method !== "HEAD" &&
+        request.method !== "OPTIONS"
+      ) {
+        body = await request.blob();
+      }
+
+      const res = await fetchWithTimeout(url.toString(), {
+        method: request.method,
+        headers: forwardedHeaders,
+        body,
+      });
+
+      // Check if we got a successful response (2xx status)
+      if (res.status >= 200 && res.status < 300) {
+        console.log(`[proxyWithFallback] Success on upstream ${i + 1}: ${res.status}`);
+
+        // Forward response headers (selectively)
+        const responseHeaders = new Headers();
+        const headersToForward = [
+          "content-type",
+          "content-length",
+          "cache-control",
+          "etag",
+          "last-modified",
+          "set-cookie",
+          "access-control-allow-origin",
+          "access-control-allow-methods",
+          "access-control-allow-headers",
+          "access-control-allow-credentials",
+        ];
+
+        for (const header of headersToForward) {
+          const value = res.headers.get(header);
+          if (value !== null) {
+            responseHeaders.set(header, value);
+          }
+        }
+
+        return new Response(res.body, {
+          status: res.status,
+          statusText: res.statusText,
+          headers: responseHeaders,
+        });
+      }
+
+      // If we got a 4xx error, don't try the next one (likely a client error)
+      if (res.status >= 400 && res.status < 500) {
+        console.log(`[proxyWithFallback] Client error ${res.status}, not trying next upstream`);
+        const responseHeaders = new Headers();
+        const headersToForward = ["content-type", "cache-control"];
+
+        for (const header of headersToForward) {
+          const value = res.headers.get(header);
+          if (value !== null) {
+            responseHeaders.set(header, value);
+          }
+        }
+
+        return new Response(res.body, {
+          status: res.status,
+          statusText: res.statusText,
+          headers: responseHeaders,
+        });
+      }
+
+      // 5xx errors, try next upstream
+      errors.push(`Upstream ${i + 1} (${upstream}): ${res.status}`);
+      console.log(`[proxyWithFallback] Server error ${res.status}, trying next upstream...`);
+    } catch (error) {
+      errors.push(`Upstream ${i + 1} (${upstream}): ${String(error)}`);
+      console.error(`[proxyWithFallback] Error on upstream ${i + 1}:`, error);
+    }
+  }
+
+  // All upstreams failed
+  console.error(`[proxyWithFallback] All upstreams failed:`, errors);
+  return new Response(
+    JSON.stringify({ error: "All upstream services unavailable", details: errors }),
+    {
+      status: 502,
+      statusText: "Bad Gateway",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
+
   upstream: string,
   request: Request
 ): Promise<Response> {
