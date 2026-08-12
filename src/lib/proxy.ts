@@ -59,17 +59,17 @@ export async function proxyGet(
   upstream: string,
   request: Request
 ): Promise<Response> {
-  const url = new URL(upstream);
-  url.search = new URL(request.url).search;
-
-  const forwardedHeaders = getForwardedHeaders(request);
-
-  console.log(`[proxyGet] Upstream: ${url.toString()}`);
-  console.log(`[proxyGet] Headers:`, Object.fromEntries(
-    Array.from(forwardedHeaders.entries()).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
-  ));
-
   try {
+    const url = new URL(upstream);
+    url.search = new URL(request.url).search;
+
+    const forwardedHeaders = getForwardedHeaders(request);
+
+    console.log(`[proxyGet] Upstream: ${url.toString()}`);
+    console.log(`[proxyGet] Headers:`, Object.fromEntries(
+      Object.entries(forwardedHeaders).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
+    ));
+
     const res = await fetchWithTimeout(url.toString(), {
       method: "GET",
       headers: forwardedHeaders,
@@ -85,7 +85,7 @@ export async function proxyGet(
       },
     });
   } catch (error) {
-    console.error(`[proxyGet] Error fetching ${url}:`, error);
+    console.error(`[proxyGet] Error:`, error);
     return new Response(JSON.stringify({ error: "Upstream service unavailable", details: String(error) }), {
       status: 502,
       statusText: "Bad Gateway",
@@ -102,70 +102,69 @@ export async function proxy(
   upstream: string,
   request: Request
 ): Promise<Response> {
-  const url = new URL(upstream);
-  // Preserve query parameters from original request
-  url.search = new URL(request.url).search;
-
-  const forwardedHeaders = getForwardedHeaders(request);
-
-  // For methods that can have a body, read and forward it
-  let body: BodyInit | undefined;
-  if (
-    request.method !== "GET" &&
-    request.method !== "HEAD" &&
-    request.method !== "OPTIONS"
-  ) {
-    body = await request.blob();
-  }
-
-  let res: Response;
   try {
+    const url = new URL(upstream);
+    // Preserve query parameters from original request
+    url.search = new URL(request.url).search;
+
+    const forwardedHeaders = getForwardedHeaders(request);
+
+    // For methods that can have a body, read and forward it
+    let body: BodyInit | undefined;
+    if (
+      request.method !== "GET" &&
+      request.method !== "HEAD" &&
+      request.method !== "OPTIONS"
+    ) {
+      body = await request.blob();
+    }
+
     console.log(`[proxy] ${request.method} Upstream: ${url.toString()}`);
     console.log(`[proxy] Headers:`, Object.fromEntries(
-      Array.from(forwardedHeaders.entries()).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
+      Object.entries(forwardedHeaders).filter(([k]) => !k.toLowerCase().startsWith("authorization"))
     ));
 
-    res = await fetchWithTimeout(url.toString(), {
+    const res = await fetchWithTimeout(url.toString(), {
       method: request.method,
       headers: forwardedHeaders,
       body,
     });
 
     console.log(`[proxy] Response status: ${res.status}`);
+
+    // Forward response headers (selectively)
+    const responseHeaders = new Headers();
+    const headersToForward = [
+      "content-type",
+      "content-length",
+      "cache-control",
+      "etag",
+      "last-modified",
+      "set-cookie",
+      "access-control-allow-origin",
+      "access-control-allow-methods",
+      "access-control-allow-headers",
+      "access-control-allow-credentials",
+    ];
+
+    for (const header of headersToForward) {
+      const value = res.headers.get(header);
+      if (value !== null) {
+        responseHeaders.set(header, value);
+      }
+    }
+
+    return new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers: responseHeaders,
+    });
   } catch (error) {
-    console.error(`[proxy] Error fetching ${url}:`, error);
+    console.error(`[proxy] Error:`, error);
     return new Response(JSON.stringify({ error: "Upstream service unavailable", details: String(error) }), {
       status: 502,
       statusText: "Bad Gateway",
       headers: { "Content-Type": "application/json" },
     });
   }
-
-  // Forward response headers (selectively)
-  const responseHeaders = new Headers();
-  const headersToForward = [
-    "content-type",
-    "content-length",
-    "cache-control",
-    "etag",
-    "last-modified",
-    "set-cookie",
-    "access-control-allow-origin",
-    "access-control-allow-methods",
-    "access-control-allow-headers",
-    "access-control-allow-credentials",
-  ];
-
-  for (const header of headersToForward) {
-    const value = res.headers.get(header);
-    if (value !== null) {
-      responseHeaders.set(header, value);
-    }
-  }
-
-  return new Response(res.body, {
-    status: res.status,
-    statusText: res.statusText,
-    headers: responseHeaders,
-  });
 }
