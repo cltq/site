@@ -8,6 +8,7 @@ import type {
 } from "@/lib/discord/types";
 
 const DEFAULT_BASE = "/api/discord";
+const REQUEST_TIMEOUT = 10000; // 10 second timeout
 
 export function getBaseUrl(customBase?: string): string {
   if (customBase) return customBase;
@@ -15,17 +16,35 @@ export function getBaseUrl(customBase?: string): string {
 }
 
 async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
-  const res = await fetch(url, {
-    signal,
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+  
+  const mergedSignal = signal || controller.signal;
+  // Handle both signals - if either aborts, we abort
+  if (signal) {
+    signal.addEventListener("abort", () => controller.abort());
   }
-  return res.json() as Promise<T>;
+
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${res.statusText}`);
+    }
+    return res.json() as Promise<T>;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error("API request timeout or was cancelled");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 export async function fetchDiscordPresence(
