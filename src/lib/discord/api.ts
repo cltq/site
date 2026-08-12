@@ -34,7 +34,7 @@ async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
       },
     });
     if (!res.ok) {
-      throw new Error(`API error: ${res.status} ${res.statusText}`);
+throw new Error(`API error: ${res.status}`);
     }
     return res.json() as Promise<T>;
   } catch (error) {
@@ -99,7 +99,7 @@ export async function fetchDiscordHealth(
   const url = `${getBaseUrl(baseUrl)}/../health`;
   const res = await fetch(url, { signal });
   if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`);
+    throw new Error(`API error: ${res.status}`);
   }
   return { status: await res.text() };
 }

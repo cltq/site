@@ -10,18 +10,6 @@ export const appRoutes: AppRoute[] = [
     href: "/",
   },
   {
-    name: "Development",
-    href: "/development",
-  },
-  {
-    name: "Project",
-    href: "/project",
-  },
-  {
-    name: "Birthday",
-    href: "/birthday",
-  },
-  {
     name: "Contact",
     href: "/contact",
   },

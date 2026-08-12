@@ -80,7 +80,9 @@ export function useDiscordPresence(
           setPresence(data);
           setError(null);
         },
-        onError: () => {},
+        onError: (err) => {
+          setError(err instanceof Error ? err : new Error(String(err)));
+        },
       },
       "presence_update",
     );
