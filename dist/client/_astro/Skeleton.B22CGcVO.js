@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime.Dshd5hIJ.js";var t=e();function n({className:e=``}){return(0,t.jsx)(`div`,{className:`animate-pulse rounded bg-white/[0.08] ${e}`})}export{n as t};
