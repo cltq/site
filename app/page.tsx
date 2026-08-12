@@ -36,11 +36,13 @@ export default function Home() {
           Redirecting to {TARGET_DOMAIN}
         </p>
 
-        <div className="mb-8 flex flex-col items-center gap-2">
+        <div className="mb-8 flex flex-col items-center gap-3">
           <span className="text-4xl font-bold text-zinc-500">{countdown}</span>
-          <span className="text-2xl text-zinc-500">.</span>
-          <span className="text-2xl text-zinc-500">.</span>
-          <span className="text-2xl text-zinc-500">.</span>
+          <div className="flex gap-2">
+            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
+            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
+            <span className="text-2xl font-bold text-zinc-500 rotate-90">.</span>
+          </div>
         </div>
 
         <p className="mb-8 text-lg text-zinc-400">
