@@ -81,7 +81,11 @@ export function useDiscordPresence(
           setError(null);
         },
         onError: (err) => {
-          setError(err instanceof Error ? err : new Error(String(err)));
+          if (err instanceof Event) {
+            setError(new Error("Discord presence connection failed"));
+          } else {
+            setError(err instanceof Error ? err : new Error(String(err)));
+          }
         },
       },
       "presence_update",
