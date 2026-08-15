@@ -5,12 +5,25 @@ import { useState, useEffect } from "react";
 const TARGET_DOMAIN = "mapleji.xyz";
 
 export default function Home() {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      window.location.href = `https://${TARGET_DOMAIN}`;
-    }, 2000);
+  const [countdown, setCountdown] = useState(3);
 
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    let seconds = 3;
+    const display = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(display);
+          // Auto-redirect after countdown
+          const redirectTimer = setTimeout(() => {
+            window.location.href = `https://${TARGET_DOMAIN}`;
+          }, 500);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(display);
   }, []);
 
   return (
@@ -37,6 +50,14 @@ export default function Home() {
             <span
               className="w-2 h-2 rounded-full bg-zinc-500 animate-pulse"
             />
+          </div>
+
+          <div className="text-center mb-6">
+            {countdown > 0 && (
+              <p className="text-5xl font-bold text-zinc-500">
+                {countdown}
+              </p>
+            )}
           </div>
 
           <p className="text-xs text-zinc-600/60">
