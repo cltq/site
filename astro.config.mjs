@@ -6,7 +6,11 @@ import tailwindcss from "@tailwindcss/vite";
 // @ts-check
 export default defineConfig({
   site: "https://applefumi.xyz",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   integrations: [react()],
   redirects: {
     "/biolinks": { destination: "/bio", status: 308 },
