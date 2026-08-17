@@ -128,13 +128,8 @@ export default function LastFmSection({ username }: { username: string }) {
 
   return (
     <div>
-      <p className="mb-2 text-xs tracking-widest text-[#737373]">ー music</p>
+      <p className="mb-2 text-xs tracking-widest text-[#737373]">&mdash; music</p>
       <p className="mb-1 text-base text-[#a3a3a3]">songs that ive been listening</p>
-      {tracks[0] && type === "tracks" && (
-        <p className="mb-3 text-sm text-[#737373]">
-          {tracks[0].name} &mdash; {tracks[0].artist.name}
-        </p>
-      )}
       <div className="mb-4 inline-flex rounded-lg border border-white/10 p-0.5">
         <button
           onClick={() => setType("tracks")}

@@ -16,7 +16,6 @@ import Analytics from "@vercel/analytics/astro";
 
 import CursorTrail from "@/components/CursorTrail";
 import Navbar from "@/components/navbar/Navbar";
-import ContextMenuGuard from "@/components/ContextMenuGuard";
 import WebMCP from "@/components/WebMCP";
 import UtmTracker from "@/components/UtmTracker";
 
@@ -46,7 +45,6 @@ const { title = "maple", description = "Maple's Portfolio/Personal Website" } = 
         <slot />
       </div>
     </div>
-    <ContextMenuGuard client:load />
     <WebMCP client:load />
     <SpeedInsights />
     <Analytics />
