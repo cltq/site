@@ -3,6 +3,8 @@ import Layout from "@/layouts/Layout.astro";
 import ContactHero from "@/components/ContactHero";
 import ContactCard, { githubPlatform, hauntPlatform } from "@/components/ContactCard";
 import AvailabilityStatus from "@/components/AvailabilityStatus";
+import DiscordWidget from "@/components/DiscordWidget";
+import DiscordSkeleton from "@/components/DiscordSkeleton";
 
 const platforms = [githubPlatform, hauntPlatform];
 ---
@@ -24,6 +26,12 @@ const platforms = [githubPlatform, hauntPlatform];
           </div>
 
           <AvailabilityStatus client:load />
+
+          <div class="flex flex-col items-center gap-4 pt-8">
+            <DiscordWidget apiBaseUrl="https://api.applefumi.xyz/v2/discord/user/2" client:only="react">
+              <DiscordSkeleton slot="fallback" />
+            </DiscordWidget>
+          </div>
         </div>
       </div>
     </section>
