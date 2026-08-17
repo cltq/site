@@ -2,6 +2,7 @@
 dist/
 .output/
 .vercel/
+.next/
 
 # generated types
 .astro/
