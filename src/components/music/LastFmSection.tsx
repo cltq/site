@@ -174,8 +174,10 @@ export default function LastFmSection({ username }: { username: string }) {
         </div>
       ) : type === "tracks" ? (
         <TopTracksList tracks={tracks} />
-      ) : (
+      ) : type === "artists" ? (
         <TopArtistsList artists={artists} />
+      ) : (
+        <div className="mt-4"></div>
       )}
 
       <a

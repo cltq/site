@@ -2,7 +2,6 @@
 import Layout from "@/layouts/Layout.astro";
 import DiscordWidget from "@/components/DiscordWidget";
 import DiscordSkeleton from "@/components/DiscordSkeleton";
-import HeroText from "@/components/HeroText";
 import SocialIcons from "@/components/SocialIcons.astro";
 import NowPlayingPanel from "@/components/NowPlayingPanel";
 import AskModalController from "@/components/AskModalController";
@@ -23,7 +22,7 @@ import AskModalController from "@/components/AskModalController";
             <NowPlayingPanel client:load />
           </div>
         </div>
-        <HeroText client:load />
+        
         <SocialIcons />
       </div>
       <div class="mx-auto mt-16 block w-full max-w-xs md:hidden">

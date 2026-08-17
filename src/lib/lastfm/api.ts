@@ -25,3 +25,4 @@ export async function fetchTopArtists(
   if (!res.ok) throw new Error("Failed to fetch top artists");
   return res.json();
 }
+
