@@ -37,7 +37,7 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
           size={16}
           strokeWidth={2}
           style={{
-            color: isActive ? "#ffffff" : "#8E8E93",
+            color: isActive ? "#ffffff" : "#8a78a8",
             opacity: isActive ? 1 : 0.65,
             transition: "color 0.22s ease-out, opacity 0.22s ease-out",
           }}

@@ -1,0 +1,268 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    },
+    {
+      "source": "/biolinks",
+      "destination": "/bio",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/biolinks(?:/)?$"
+    },
+    {
+      "source": "/projects",
+      "destination": "/project",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/projects(?:/)?$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</robots.txt>; rel=\"robots\", </sitemap.xml>; rel=\"sitemap\", </.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/mcp/server-card.json>; rel=\"mcp-server-card\""
+        }
+      ],
+      "regex": "^/(?:/)?$"
+    },
+    {
+      "source": "/static/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ],
+      "regex": "^/static(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    },
+    {
+      "source": "/_next/static/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ],
+      "regex": "^/_next/static(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    },
+    {
+      "source": "/(.*\\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ],
+      "regex": "^(?:/(.*\\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico)))(?:/)?$"
+    }
+  ],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [
+      {
+        "source": "/api/discord",
+        "destination": "https://api.applefumi.xyz/v2/discord/user/1/",
+        "regex": "^/api/discord(?:/)?$"
+      },
+      {
+        "source": "/api/discord/:path+",
+        "destination": "https://api.applefumi.xyz/v2/discord/user/1/:path+",
+        "regex": "^/api/discord(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
+      },
+      {
+        "source": "/api/health",
+        "destination": "https://api.applefumi.xyz/health",
+        "regex": "^/api/health(?:/)?$"
+      },
+      {
+        "source": "/api/spotify",
+        "destination": "https://spotify.applefumi.xyz/api/spotify",
+        "regex": "^/api/spotify(?:/)?$"
+      }
+    ],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/redirector/[name]",
+      "regex": "^/api/redirector/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPname": "nxtPname"
+      },
+      "namedRegex": "^/api/redirector/(?<nxtPname>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/navbar/[route]",
+      "regex": "^/navbar/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtProute": "nxtProute"
+      },
+      "namedRegex": "^/navbar/(?<nxtProute>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/.well-known/agent-skills/index",
+      "regex": "^/\\.well\\-known/agent\\-skills/index(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/\\.well\\-known/agent\\-skills/index(?:/)?$"
+    },
+    {
+      "page": "/.well-known/api-catalog",
+      "regex": "^/\\.well\\-known/api\\-catalog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/\\.well\\-known/api\\-catalog(?:/)?$"
+    },
+    {
+      "page": "/.well-known/mcp/server-card",
+      "regex": "^/\\.well\\-known/mcp/server\\-card(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/\\.well\\-known/mcp/server\\-card(?:/)?$"
+    },
+    {
+      "page": "/.well-known/oauth-authorization-server",
+      "regex": "^/\\.well\\-known/oauth\\-authorization\\-server(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/\\.well\\-known/oauth\\-authorization\\-server(?:/)?$"
+    },
+    {
+      "page": "/.well-known/oauth-protected-resource",
+      "regex": "^/\\.well\\-known/oauth\\-protected\\-resource(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/\\.well\\-known/oauth\\-protected\\-resource(?:/)?$"
+    },
+    {
+      "page": "/api/ask",
+      "regex": "^/api/ask(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/ask(?:/)?$"
+    },
+    {
+      "page": "/api/github/contributions",
+      "regex": "^/api/github/contributions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/github/contributions(?:/)?$"
+    },
+    {
+      "page": "/api/lastfm",
+      "regex": "^/api/lastfm(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/lastfm(?:/)?$"
+    },
+    {
+      "page": "/api/markdown",
+      "regex": "^/api/markdown(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/markdown(?:/)?$"
+    },
+    {
+      "page": "/bd",
+      "regex": "^/bd(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bd(?:/)?$"
+    },
+    {
+      "page": "/birthday",
+      "regex": "^/birthday(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/birthday(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/development",
+      "regex": "^/development(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/development(?:/)?$"
+    },
+    {
+      "page": "/music",
+      "regex": "^/music(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/music(?:/)?$"
+    },
+    {
+      "page": "/project",
+      "regex": "^/project(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/project(?:/)?$"
+    },
+    {
+      "page": "/redirect",
+      "regex": "^/redirect(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/redirect(?:/)?$"
+    },
+    {
+      "page": "/s/arch/kde",
+      "regex": "^/s/arch/kde(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/s/arch/kde(?:/)?$"
+    },
+    {
+      "page": "/s/arch/vanilla",
+      "regex": "^/s/arch/vanilla(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/s/arch/vanilla(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

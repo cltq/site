@@ -12,11 +12,11 @@ export type CalendarDay = {
 };
 
 export const LEVEL_COLORS: Record<number, string> = {
-  0: "#000000",
-  1: "#1a1a1a",
-  2: "#404040",
-  3: "#525252",
-  4: "#737373",
+  0: "#06000d",
+  1: "#160a24",
+  2: "#3d2860",
+  3: "#523880",
+  4: "#6848a0",
 };
 
 export function getContributionLevel(count: number): number {

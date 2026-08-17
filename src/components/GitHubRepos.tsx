@@ -32,7 +32,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 function RepoCard({ repo, index, animate }: { repo: GitHubRepo; index: number; animate: boolean }) {
-  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#a3a3a3") : "#a3a3a3";
+  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#c8b8e0") : "#c8b8e0";
 
   return (
     <motion.a
@@ -45,14 +45,14 @@ function RepoCard({ repo, index, animate }: { repo: GitHubRepo; index: number; a
       className="group flex w-full max-w-xs flex-col justify-between rounded-xl border border-white/10 p-3 text-center transition-all duration-200 hover:border-white/60 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] sm:max-w-none sm:p-5 sm:text-left"
     >
       <div>
-        <p className="truncate text-[15px] font-medium text-[#fafafa] transition-colors duration-200 group-hover:text-[#fafafa]">
+        <p className="truncate text-[15px] font-medium text-[#f0e8ff] transition-colors duration-200 group-hover:text-[#f0e8ff]">
           {repo.name}
         </p>
-        <p className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[13px] text-[#a3a3a3]">
+        <p className="mt-1.5 line-clamp-2 min-h-[2.6em] text-[13px] text-[#c8b8e0]">
           {repo.description ?? "No description"}
         </p>
       </div>
-      <div className="mt-3 flex items-center justify-center gap-4 text-[12px] text-[#737373] sm:justify-start">
+      <div className="mt-3 flex items-center justify-center gap-4 text-[12px] text-[#7868a0] sm:justify-start">
         {repo.language && (
           <span className="flex items-center gap-1.5">
             <span
@@ -103,7 +103,7 @@ function RepoCard({ repo, index, animate }: { repo: GitHubRepo; index: number; a
             {repo.topics.slice(0, 2).map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] whitespace-nowrap text-[#a3a3a3]"
+                className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] whitespace-nowrap text-[#c8b8e0]"
               >
                 {t}
               </span>
@@ -149,7 +149,7 @@ export default function GitHubRepos({
   if (!username) {
     return (
       <div>
-        <p className="text-sm text-[#a3a3a3]">Configure GITHUB_USERNAME to show repos</p>
+        <p className="text-sm text-[#c8b8e0]">Configure GITHUB_USERNAME to show repos</p>
       </div>
     );
   }

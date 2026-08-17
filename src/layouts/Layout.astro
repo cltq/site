@@ -37,11 +37,11 @@ const { title = "maple", description = "Maple's Portfolio/Personal Website" } = 
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body class="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
+  <body class="relative h-full bg-[#06000d] font-sans text-[#c8b8e0]">
     <CursorTrail client:load />
     <Navbar client:load transition:persist />
     <div class="relative z-10 flex h-full flex-col">
-      <div id="scroll-container" class="flex-1 overflow-y-auto pb-20">
+      <div id="scroll-container" class="flex-1 overflow-y-auto">
         <slot />
       </div>
     </div>

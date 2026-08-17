@@ -74,19 +74,19 @@ export default function BirthdayCountdown() {
   ];
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-[#000000] px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-svh flex-col items-center justify-center bg-[#06000d] px-4 sm:px-6 lg:px-8">
       <div className="flex w-full max-w-5xl flex-col items-center gap-10 sm:gap-14">
         <div className="text-center">
-          <p className="mb-2 text-xs tracking-widest text-[#a3a3a3] uppercase">
+          <p className="mb-2 text-xs tracking-widest text-[#c8b8e0] uppercase">
             {currentDate} &mdash; {currentTime}
           </p>
         </div>
 
         <div className="text-center">
-          <p className="mb-2 text-xs tracking-widest text-[#a3a3a3]">
+          <p className="mb-2 text-xs tracking-widest text-[#c8b8e0]">
             — Fumi&apos;s Birthday &amp; New Year Countdown
           </p>
-          <p className="mt-3 text-sm text-[#a3a3a3]">Until 31/12/{new Date().getFullYear() + 1}</p>
+          <p className="mt-3 text-sm text-[#c8b8e0]">Until 31/12/{new Date().getFullYear() + 1}</p>
         </div>
 
         <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
@@ -97,11 +97,11 @@ export default function BirthdayCountdown() {
             >
               <span
                 key={unit.value}
-                className="text-3xl font-bold text-[#fafafa] tabular-nums sm:text-5xl lg:text-6xl"
+                className="text-3xl font-bold text-[#f0e8ff] tabular-nums sm:text-5xl lg:text-6xl"
               >
                 {unit.value}
               </span>
-              <span className="text-[10px] tracking-widest text-[#a3a3a3] uppercase sm:text-xs">
+              <span className="text-[10px] tracking-widest text-[#c8b8e0] uppercase sm:text-xs">
                 {unit.label}
               </span>
             </div>

@@ -13,7 +13,7 @@ export default function Navbar({
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   const containerStyle = {
-    background: "rgba(20,20,20,0.8)",
+    background: "rgba(18,8,30,0.8)",
     backdropFilter: "blur(24px)",
     WebkitBackdropFilter: "blur(24px)",
     border: "1px solid rgba(255,255,255,0.08)",

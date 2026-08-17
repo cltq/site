@@ -19,7 +19,7 @@ export default function NowPlayingPanel() {
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       className="group mx-auto flex w-full items-center gap-3 px-4 py-3 transition-all duration-300 ease-out hover:opacity-80"
     >
-      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-[#1a1a1a]">
+      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-[#160a24]">
         <img
           src={spotify.albumArt || spotify.cover || ""}
           alt=""

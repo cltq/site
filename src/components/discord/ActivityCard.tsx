@@ -132,10 +132,10 @@ export function ActivityCard({ activity, animated = true, compact = false }: Act
 
       <div className="min-w-0 flex-1">
         {!compact && (
-          <p className="text-[12px] font-medium tracking-wider text-[#a3a3a3] uppercase">{label}</p>
+          <p className="text-[12px] font-medium tracking-wider text-[#c8b8e0] uppercase">{label}</p>
         )}
         <p
-          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-[#fafafa]`}
+          className={`${compact ? "text-[13px]" : "text-[15px]"} truncate leading-tight font-semibold text-[#f0e8ff]`}
         >
           {activity.emoji && (
             <span className="mr-1">
@@ -154,21 +154,21 @@ export function ActivityCard({ activity, animated = true, compact = false }: Act
         </p>
         {(compact ? activity.details : activity.details || activity.state) && (
           <p
-            className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-[#a3a3a3]`}
+            className={`${compact ? "text-[12px]" : "text-[14px]"} truncate leading-tight text-[#c8b8e0]`}
           >
             {compact ? activity.details : activity.details || activity.state}
           </p>
         )}
         {!compact && activity.state && activity.details && (
-          <p className="truncate text-[14px] text-[#a3a3a3]">{activity.state}</p>
+          <p className="truncate text-[14px] text-[#c8b8e0]">{activity.state}</p>
         )}
         {!compact && activity.timestamps?.end && (
-          <p className="mt-0.5 text-[13px] text-[#a3a3a3] tabular-nums">
+          <p className="mt-0.5 text-[13px] text-[#c8b8e0] tabular-nums">
             {formatActivityTime(activity.timestamps.end)}
           </p>
         )}
         {!compact && activity.party && (
-          <p className="mt-0.5 text-[13px] text-[#a3a3a3]">
+          <p className="mt-0.5 text-[13px] text-[#c8b8e0]">
             {activity.party.size}/{activity.party.max}
           </p>
         )}

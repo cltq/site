@@ -107,16 +107,16 @@ const defaultGroup = grouped;
   {
     defaultGroup.map((group) => (
       <div class="flex w-full flex-col items-start gap-2">
-        <p class="text-[11px] tracking-widest text-[#737373] uppercase">{group.category}</p>
+        <p class="text-[11px] tracking-widest text-[#7868a0] uppercase">{group.category}</p>
         <div class="flex flex-wrap justify-start gap-2">
           {group.items.map((item) => (
             <a
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-[#d4d4d4] transition-colors duration-200 hover:border-white/25 hover:text-[#fafafa]"
+              class="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-[#ddd0f0] transition-colors duration-200 hover:border-white/25 hover:text-[#f0e8ff]"
             >
-              <svg class="h-4 w-4 shrink-0 fill-current text-[#a3a3a3]" viewBox="0 0 24 24">
+              <svg class="h-4 w-4 shrink-0 fill-current text-[#c8b8e0]" viewBox="0 0 24 24">
                 <path d={item.icon} />
               </svg>
               {item.name}

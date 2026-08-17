@@ -107,7 +107,7 @@ const iconContainerClass =
 export default function ContactCard({ platform }: ContactCardProps) {
   return (
     <div
-      className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-5 py-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
+      className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-gradient-to-br from-[#0f0618] via-[#120820] to-[#160a24] px-5 py-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
       <div className={iconContainerClass}>

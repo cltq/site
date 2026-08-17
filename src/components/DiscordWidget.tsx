@@ -55,14 +55,14 @@ export default function DiscordWidget({
     return (
       <div className={`flex flex-col items-center gap-4 ${className}`}>
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-lg text-[#a3a3a3]">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#160a24] text-lg text-[#c8b8e0]">
             ?
           </div>
           <div>
-            <p className="text-[13px] text-[#a3a3a3]">
+            <p className="text-[13px] text-[#c8b8e0]">
               {error ? "Failed to load presence" : "No presence data"}
             </p>
-            <p className="mt-0.5 text-[11px] text-[#a3a3a3]">
+            <p className="mt-0.5 text-[11px] text-[#c8b8e0]">
               {error?.message ?? "User may not exist"}
             </p>
           </div>
@@ -107,17 +107,17 @@ export default function DiscordWidget({
             </div>
 
             <div>
-              <p className="text-[15px] leading-tight font-semibold text-[#fafafa]">
+              <p className="text-[15px] leading-tight font-semibold text-[#f0e8ff]">
                 {presence.displayName || presence.username}
               </p>
               {presence.displayName && presence.displayName !== presence.username && (
-                <p className="text-[14px] leading-tight text-[#a3a3a3]">@{presence.username}</p>
+                <p className="text-[14px] leading-tight text-[#c8b8e0]">@{presence.username}</p>
               )}
             </div>
           </div>
 
           {customStatus && (
-            <p className="mt-1 truncate text-center text-sm leading-tight text-[#a3a3a3]">
+            <p className="mt-1 truncate text-center text-sm leading-tight text-[#c8b8e0]">
               {customStatus.emoji && <span className="mr-1">{customStatus.emoji}</span>}
               {customStatus.text}
             </p>

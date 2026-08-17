@@ -12,7 +12,7 @@ export default function ContactHero() {
   if (loading) {
     return (
       <div
-        className="flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3"
+        className="flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#0f0618] via-[#120820] to-[#160a24] px-4 py-3"
         style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
       >
         <Skeleton className="h-9 w-9 shrink-0 rounded-full" />
@@ -31,7 +31,7 @@ export default function ContactHero() {
 
   return (
     <div
-      className="group flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#111] via-[#151515] to-[#1a1a1a] px-4 py-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
+      className="group flex w-full items-center gap-3 rounded-xl border border-white/[0.06] bg-gradient-to-br from-[#0f0618] via-[#120820] to-[#160a24] px-4 py-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/[0.12]"
       style={{ boxShadow: "0 10px 40px rgba(0,0,0,.35)" }}
     >
       <img

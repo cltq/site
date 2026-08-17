@@ -16,7 +16,7 @@ function proxyImage(src: string) {
 
 function TrackImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
-  if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#1a1a1a]" />;
+  if (!src) return <div className="h-12 w-12 shrink-0 rounded bg-[#160a24]" />;
   return (
     <img
       src={proxyImage(src)}
@@ -30,7 +30,7 @@ function TrackImage({ images }: { images: LastFmImage[] }) {
 
 function ArtistImage({ images }: { images: LastFmImage[] }) {
   const src = images?.find((i) => i["#text"])?.["#text"];
-  if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#1a1a1a]" />;
+  if (!src) return <div className="h-12 w-12 shrink-0 rounded-full bg-[#160a24]" />;
   return (
     <img
       src={proxyImage(src)}
@@ -54,13 +54,13 @@ function TopTracksList({ tracks }: { tracks: LastFmTrack[] }) {
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >
-            <span className="w-5 shrink-0 text-right text-sm text-[#737373]">{i + 1}</span>
+            <span className="w-5 shrink-0 text-right text-sm text-[#7868a0]">{i + 1}</span>
             <TrackImage images={track.image} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-base text-[#fafafa]">{track.name}</p>
-              <p className="truncate text-sm text-[#a3a3a3]">{track.artist.name}</p>
+              <p className="truncate text-base text-[#f0e8ff]">{track.name}</p>
+              <p className="truncate text-sm text-[#c8b8e0]">{track.artist.name}</p>
             </div>
-            <span className="shrink-0 text-sm text-[#737373]">{track.playcount}</span>
+            <span className="shrink-0 text-sm text-[#7868a0]">{track.playcount}</span>
           </motion.div>
         ))}
       </AnimatePresence>
@@ -80,12 +80,12 @@ function TopArtistsList({ artists }: { artists: LastFmArtist[] }) {
             transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-3"
           >
-            <span className="w-5 shrink-0 text-right text-sm text-[#737373]">{i + 1}</span>
+            <span className="w-5 shrink-0 text-right text-sm text-[#7868a0]">{i + 1}</span>
             <ArtistImage images={artist.image} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-base text-[#fafafa]">{artist.name}</p>
+              <p className="truncate text-base text-[#f0e8ff]">{artist.name}</p>
             </div>
-            <span className="shrink-0 text-sm text-[#737373]">{artist.playcount}</span>
+            <span className="shrink-0 text-sm text-[#7868a0]">{artist.playcount}</span>
           </motion.div>
         ))}
       </AnimatePresence>
@@ -128,15 +128,15 @@ export default function LastFmSection({ username }: { username: string }) {
 
   return (
     <div>
-      <p className="mb-2 text-xs tracking-widest text-[#737373]">&mdash; music</p>
-      <p className="mb-1 text-base text-[#a3a3a3]">songs that ive been listening</p>
+      <p className="mb-2 text-xs tracking-widest text-[#7868a0]">&mdash; music</p>
+      <p className="mb-1 text-base text-[#c8b8e0]">songs that ive been listening</p>
       <div className="mb-4 inline-flex rounded-lg border border-white/10 p-0.5">
         <button
           onClick={() => setType("tracks")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
             type === "tracks"
-              ? "bg-[#1a1a1a] text-[#fafafa]"
-              : "text-[#a3a3a3] hover:text-[#d4d4d4]"
+              ? "bg-[#160a24] text-[#f0e8ff]"
+              : "text-[#c8b8e0] hover:text-[#ddd0f0]"
           }`}
         >
           tracks
@@ -145,8 +145,8 @@ export default function LastFmSection({ username }: { username: string }) {
           onClick={() => setType("artists")}
           className={`rounded-md px-3 py-1 text-xs transition-colors duration-200 ${
             type === "artists"
-              ? "bg-[#1a1a1a] text-[#fafafa]"
-              : "text-[#a3a3a3] hover:text-[#d4d4d4]"
+              ? "bg-[#160a24] text-[#f0e8ff]"
+              : "text-[#c8b8e0] hover:text-[#ddd0f0]"
           }`}
         >
           artists
@@ -179,7 +179,7 @@ export default function LastFmSection({ username }: { username: string }) {
         href={`https://www.last.fm/user/${username}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-block text-xs text-[#737373] transition-colors duration-200 hover:text-[#a3a3a3]"
+        className="mt-4 inline-block text-xs text-[#7868a0] transition-colors duration-200 hover:text-[#c8b8e0]"
       >
         tracked via last.fm
       </a>
