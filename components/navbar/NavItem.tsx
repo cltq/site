@@ -24,7 +24,7 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
       {isActive && (
         <motion.span
           layoutId={pillId}
-          className="absolute inset-0 rounded-lg border border-white/50"
+          className="absolute inset-0 rounded-lg border border-white/50 bg-white/25"
           transition={{ type: "spring", stiffness: 450, damping: 32, mass: 0.7 }}
         />
       )}
@@ -36,7 +36,7 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
         transition={{ duration: 0.22, ease: "easeOut" }}
       >
         <Icon
-          size={16}
+          size={18}
           strokeWidth={2}
           style={{
             color: isActive ? "#ffffff" : "#a3a3a3",
