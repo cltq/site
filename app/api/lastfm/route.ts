@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const LASTFM_API = "https://ws.audioscrobbler.com/2.0/";
 
@@ -8,7 +8,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "*",
 };
 
-const cache = new Map<string, { data: any; expires: number }>();
+const cache = new Map<string, { data: unknown; expires: number }>();
 const CACHE_TTL = 30 * 60 * 1000;
 
 function cacheGet(key: string) {
@@ -18,12 +18,8 @@ function cacheGet(key: string) {
   return null;
 }
 
-function cacheSet(key: string, data: any) {
+function cacheSet(key: string, data: unknown) {
   cache.set(key, { data, expires: Date.now() + CACHE_TTL });
-}
-
-export async function OPTIONS() {
-  return NextResponse.json(null, { headers: corsHeaders });
 }
 
 function lastfmUrl(method: string, apiKey: string, extra: Record<string, string> = {}) {
@@ -35,8 +31,8 @@ function isAlbumPlaceholder(url: string) {
   return url.includes("2a96cbd8b46e442fc41c2b86b821562f") || !url;
 }
 
-function filterImages(images: any[]) {
-  return images.filter((i: any) => i["#text"] && !isAlbumPlaceholder(i["#text"]));
+function filterImages(images: { "#text"?: string }[]) {
+  return images.filter((i) => i["#text"] && !isAlbumPlaceholder(i["#text"]));
 }
 
 async function fetchItunesArtwork(artist: string, track: string): Promise<string | null> {
@@ -55,48 +51,53 @@ async function fetchItunesArtwork(artist: string, track: string): Promise<string
   }
 }
 
-export async function GET(request: NextRequest) {
-  const headers = { ...corsHeaders };
-  const { searchParams } = new URL(request.url);
+export async function OPTIONS(): Promise<Response> {
+  return new Response(null, { headers: corsHeaders });
+}
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export async function GET(request: NextRequest): Promise<Response> {
+  const searchParams = request.nextUrl.searchParams;
+  const headers = { "Content-Type": "application/json", ...corsHeaders };
 
   if (searchParams.has("img")) {
     const imgUrl = searchParams.get("img")!;
-    const cached = cacheGet(`img:${imgUrl}`);
+    const cached = cacheGet(`img:${imgUrl}`) as { buffer: ArrayBuffer; type: string } | null;
     if (cached) {
-      return new NextResponse(cached.buffer, {
+      return new Response(cached.buffer, {
         headers: {
-          ...headers,
           "Content-Type": cached.type,
           "Cache-Control": "public, max-age=86400",
+          ...corsHeaders,
         },
       });
     }
     try {
       const res = await fetch(imgUrl);
-      if (!res.ok) return new NextResponse(null, { status: 404, headers });
+      if (!res.ok) return new Response(null, { status: 404, headers: corsHeaders });
       const contentType = res.headers.get("Content-Type") || "image/jpeg";
       const buffer = await res.arrayBuffer();
-      cacheSet(`img:${imgUrl}`, { buffer: new Uint8Array(buffer), type: contentType });
-      return new NextResponse(buffer, {
+      cacheSet(`img:${imgUrl}`, { buffer, type: contentType });
+      return new Response(buffer, {
         headers: {
-          ...headers,
           "Content-Type": contentType,
           "Cache-Control": "public, max-age=86400",
+          ...corsHeaders,
         },
       });
     } catch {
-      return new NextResponse(null, { status: 404, headers });
+      return new Response(null, { status: 404, headers: corsHeaders });
     }
   }
 
   const apiKey = process.env.LASTFM_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: "Last.fm API key not configured" }, { status: 500, headers });
+    return Response.json({ error: "Last.fm API key not configured" }, { status: 500, headers });
   }
 
   const user = process.env.LASTFM_USER;
   if (!user) {
-    return NextResponse.json({ error: "Last.fm user not configured" }, { status: 500, headers });
+    return Response.json({ error: "Last.fm user not configured" }, { status: 500, headers });
   }
 
   const method = searchParams.get("method") || "user.gettoptracks";
@@ -105,16 +106,16 @@ export async function GET(request: NextRequest) {
 
   const cacheKey = `${method}:${period}:${limit}`;
   const cached = cacheGet(cacheKey);
-  if (cached) return NextResponse.json(cached, { headers });
+  if (cached) return Response.json(cached, { headers });
 
   const dataUrl = lastfmUrl(method, apiKey, { user, period, limit: String(limit) });
 
   try {
     const res = await fetch(dataUrl);
     if (!res.ok) {
-      return NextResponse.json({ error: "Last.fm API error" }, { status: res.status, headers });
+      return Response.json({ error: "Last.fm API error" }, { status: res.status, headers });
     }
-    const data = await res.json();
+    const data = (await res.json()) as any;
 
     if (method === "user.gettoptracks" && data.toptracks?.track) {
       const enriched = await Promise.all(
@@ -180,8 +181,8 @@ export async function GET(request: NextRequest) {
     }
 
     cacheSet(cacheKey, data);
-    return NextResponse.json(data, { headers });
+    return Response.json(data, { headers });
   } catch {
-    return NextResponse.json({ error: "Failed to fetch from Last.fm" }, { status: 500, headers });
+    return Response.json({ error: "Failed to fetch from Last.fm" }, { status: 500, headers });
   }
 }

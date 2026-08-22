@@ -1,1 +1,0 @@
-"use client";import{o as e,t}from"./react.0T9Avz-T.js";var n=e(t(),1);function r(){return(0,n.useEffect)(()=>{let e=e=>{e.preventDefault()};return document.addEventListener(`contextmenu`,e),()=>document.removeEventListener(`contextmenu`,e)},[]),null}export{r as default};

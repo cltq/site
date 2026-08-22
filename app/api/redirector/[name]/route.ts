@@ -1,4 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+interface RedirectorParams {
+  params: Promise<{ name: string }>;
+}
 
 const links: Record<string, string> = {
   github: "https://github.com/cltq",
@@ -8,16 +10,16 @@ const links: Record<string, string> = {
   instagram: "https://www.instagram.com/lnfumi._",
 };
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ name: string }> },
-) {
+export async function GET(_request: Request, { params }: RedirectorParams): Promise<Response> {
   const { name } = await params;
   const url = links[name.toLowerCase()];
 
   if (!url) {
-    return NextResponse.json({ error: "Unknown link" }, { status: 404 });
+    return Response.json({ error: "Unknown link" }, { status: 404 });
   }
 
-  return NextResponse.redirect(url, 302);
+  return new Response(null, {
+    status: 302,
+    headers: { Location: url },
+  });
 }

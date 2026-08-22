@@ -1,9 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-
-export async function POST(request: NextRequest) {
+export async function POST(request: Request): Promise<Response> {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
   if (!webhookUrl) {
-    return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
+    return Response.json({ error: "Webhook not configured" }, { status: 500 });
   }
 
   const body = await request.json();
@@ -11,7 +9,7 @@ export async function POST(request: NextRequest) {
   const message = (body.message as string)?.trim();
 
   if (!message) {
-    return NextResponse.json({ error: "Message is required" }, { status: 400 });
+    return Response.json({ error: "Message is required" }, { status: 400 });
   }
 
   const embed: Record<string, unknown> = {
@@ -30,8 +28,8 @@ export async function POST(request: NextRequest) {
 
   if (!res.ok) {
     const text = await res.text();
-    return NextResponse.json({ error: "Failed to send webhook", detail: text }, { status: 502 });
+    return Response.json({ error: "Failed to send webhook", detail: text }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true });
+  return Response.json({ ok: true });
 }

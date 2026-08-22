@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
 import TurndownService from "turndown";
 
 const turndown = new TurndownService({
@@ -8,17 +7,18 @@ const turndown = new TurndownService({
 
 turndown.remove(["script", "style", "nav", "footer", "noscript"]);
 
-export async function GET(request: NextRequest) {
-  const path = request.nextUrl.searchParams.get("path") || "/";
+export async function GET(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  const path = url.searchParams.get("path") || "/";
 
   try {
-    const origin = request.nextUrl.origin;
+    const origin = url.origin;
     const res = await fetch(`${origin}${path}`, {
       headers: { Accept: "text/html" },
     });
 
     if (!res.ok) {
-      return new NextResponse("Not Found", { status: 404 });
+      return new Response("Not Found", { status: 404 });
     }
 
     const html = await res.text();
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const markdown = turndown.turndown(bodyHtml);
     const tokens = markdown.split(/\s+/).length;
 
-    return new NextResponse(markdown, {
+    return new Response(markdown, {
       headers: {
         "Content-Type": "text/markdown; charset=utf-8",
         "x-markdown-tokens": String(tokens),
@@ -36,6 +36,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch {
-    return new NextResponse("Conversion failed", { status: 500 });
+    return new Response("Conversion failed", { status: 500 });
   }
 }

@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-
-Sitemap: https://applefumi.xyz/sitemap.xml
-Sitemap: https://w.vreni.xyz/sitemap.xml

@@ -1,5 +1,3 @@
-import { NextResponse } from "next/server";
-
 const text = `sudo pacman -S --needed --noconfirm \
   base-devel gcc cmake make fakeroot doas pkgconf automake autoconf \
   boost openssl clang clang-tools-extra gdb valgrind strace \
@@ -18,8 +16,10 @@ const text = `sudo pacman -S --needed --noconfirm \
   noto-fonts noto-fonts-emoji ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-fira-code ttf-roboto ttf-dejavu \
   noto-fonts-cjk ttf-liberation ttf-ubuntu-font-family`;
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
-  return new NextResponse(text, {
+  return new Response(text, {
     headers: { "Content-Type": "text/plain" },
   });
 }

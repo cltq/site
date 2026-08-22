@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+export const dynamic = "force-static";
 
 export async function GET() {
   const body = {
@@ -13,8 +13,9 @@ export async function GET() {
     },
   };
 
-  return NextResponse.json(body, {
+  return new Response(JSON.stringify(body), {
     headers: {
+      "Content-Type": "application/json",
       "Cache-Control": "public, max-age=3600",
     },
   });

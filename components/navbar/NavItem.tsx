@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { NavbarItem } from "./types";
 
@@ -14,9 +13,8 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
   const Icon = item.icon;
 
   return (
-    <Link
+    <a
       href={item.href}
-      prefetch={true}
       aria-label={item.label}
       title={item.label}
       className="relative flex h-9 w-9 items-center justify-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/40"
@@ -39,12 +37,12 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
           size={16}
           strokeWidth={2}
           style={{
-            color: isActive ? "#ffffff" : "#8E8E93",
+            color: isActive ? "#ffffff" : "#a3a3a3",
             opacity: isActive ? 1 : 0.65,
             transition: "color 0.22s ease-out, opacity 0.22s ease-out",
           }}
         />
       </motion.span>
-    </Link>
+    </a>
   );
 }

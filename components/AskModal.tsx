@@ -78,7 +78,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
           />
 
           <motion.div
-            className="relative w-full max-w-md rounded-2xl border border-white/20 bg-[#0a0a0a]/90 p-8 shadow-[0_0_80px_rgba(17,17,27,0.5)] backdrop-blur-2xl"
+            className="relative w-full max-w-md rounded-2xl border border-white/20 bg-[#0f0f0f]/90 p-8 shadow-[0_0_80px_rgba(10,10,10,0.5)] backdrop-blur-2xl"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
@@ -93,7 +93,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
               </h2>
               <button
                 onClick={handleClose}
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-[#a3a3a3] transition-colors hover:bg-white/[0.06] hover:text-[#fafafa]/80"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-[#d4d4d4] transition-colors hover:bg-white/[0.06] hover:text-[#fafafa]/80"
                 aria-label="ปิด"
               >
                 <svg
@@ -139,7 +139,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="ชื่อ (ถ้าอยากใส่)"
-                      className="w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2.5 text-sm text-[#fafafa]/90 placeholder-[#737373] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
+                      className="w-full rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2.5 text-sm text-[#fafafa]/90 placeholder-[#a3a3a3] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
                     />
                   </div>
 
@@ -149,7 +149,7 @@ export default function AskModal({ open, onClose }: AskModalProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="อยากถามอะไร?"
-                    className="w-full resize-none rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm leading-relaxed text-[#fafafa]/90 placeholder-[#737373] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
+                    className="w-full resize-none rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm leading-relaxed text-[#fafafa]/90 placeholder-[#a3a3a3] transition-colors outline-none focus:border-white/[0.12] focus:bg-white/[0.05]"
                   />
 
                   <div className="mt-4 flex justify-end">

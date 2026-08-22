@@ -1,35 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { GeistMono } from "geist/font";
-import { Chakra_Petch, Instrument_Sans } from "next/font/google";
-import ErrorBoundary from "@/app/components/ErrorBoundary";
-import ContextMenuGuard from "@/app/components/ContextMenuGuard";
-import WebMCP from "@/app/components/WebMCP";
-import CursorTrail from "@/app/components/CursorTrail";
 
-import UtmTracker from "@/app/components/UtmTracker";
-import { Navbar } from "@/components/navbar";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/geist-mono";
+import "@fontsource/chakra-petch/300.css";
+import "@fontsource/chakra-petch/400.css";
+import "@fontsource/chakra-petch/500.css";
+import "@fontsource/chakra-petch/600.css";
+import "@fontsource/chakra-petch/700.css";
+
+import "@/styles/global.css";
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
-import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
-const chakraPetch = Chakra_Petch({
-  subsets: ["thai", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-chakra-petch",
-  display: "swap",
-});
-
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-instrument-sans",
-  display: "swap",
-});
+import CursorTrail from "@/components/CursorTrail";
+import Navbar from "@/components/navbar/Navbar";
+import WebMCP from "@/components/WebMCP";
+import UtmTracker from "@/components/UtmTracker";
 
 export const metadata: Metadata = {
   title: "maple",
   description: "Maple's Portfolio/Personal Website",
-  icons: { icon: "/favicon.png" },
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -44,19 +38,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${GeistMono.variable} ${chakraPetch.variable} ${instrumentSans.variable} h-svh antialiased`}
-    >
-      <body className="relative h-full bg-[#000000] font-sans text-[#a3a3a3]">
-        <CursorTrail />
+    <html lang="en" className="h-svh antialiased">
+      <body className="relative h-full bg-[#0a0a0a] font-sans text-[#d4d4d4]">
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
           <div id="scroll-container" className="flex-1 overflow-y-auto">
-            <ErrorBoundary>{children}</ErrorBoundary>
+            {children}
           </div>
         </div>
-        <ContextMenuGuard />
         <WebMCP />
         <SpeedInsights />
         <Analytics />

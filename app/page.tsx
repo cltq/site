@@ -1,81 +1,44 @@
-"use client";
+import { Suspense } from "react";
 
-import { useState, useEffect } from "react";
-
-const TARGET_DOMAIN = "mapleji.xyz";
+import DiscordWidget from "@/components/DiscordWidget";
+import DiscordSkeleton from "@/components/DiscordSkeleton";
+import SocialIcons from "@/components/SocialIcons";
+import NowPlayingPanel from "@/components/NowPlayingPanel";
+import AskModalController from "@/components/AskModalController";
 
 export default function Home() {
-  const [countdown, setCountdown] = useState(3);
-
-  useEffect(() => {
-    let seconds = 3;
-    const display = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(display);
-          // Auto-redirect after countdown
-          const redirectTimer = setTimeout(() => {
-            window.location.href = `https://${TARGET_DOMAIN}`;
-          }, 500);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(display);
-  }, []);
-
   return (
-    <div
-      className="min-h-screen bg-[0b0b0f] overflow-hidden relative"
-    >
-      <div
-        className="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-12"
+    <div className="flex flex-col">
+      <section
+        id="root"
+        className="relative flex h-svh flex-col items-center justify-center overflow-hidden px-6 sm:px-8"
       >
-        <div
-          className="bg-[#1a1a2e] rounded-xl border border-white/10 border-t border-b w-full max-w-md mx-auto p-8 sm:p-10 lg:p-12"
-        >
-          <p className="text-base text-zinc-400 mb-6 text-center">
-            Redirecting to <span className="text-white font-medium">{TARGET_DOMAIN}</span>
-          </p>
-
-          <div className="flex items-center justify-center gap-2 mb-8">
-            <span
-              className="w-2 h-2 rounded-full bg-zinc-500 animate-pulse"
-            />
-            <span
-              className="w-2 h-2 rounded-full bg-zinc-500 animate-pulse"
-            />
-            <span
-              className="w-2 h-2 rounded-full bg-zinc-500 animate-pulse"
-            />
-          </div>
-
-          <div className="text-center mb-6">
-            {countdown > 0 && (
-              <p className="text-5xl font-bold text-zinc-500">
-                {countdown}
-              </p>
-            )}
-          </div>
-
-          <p className="text-xs text-zinc-600/60">
-            Click
-            <a
-              href="#"
-              className="underline cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = `https://${TARGET_DOMAIN}`;
-              }}
+        <div className="flex flex-col items-center gap-6">
+          <div className="relative">
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center">
+                  <DiscordSkeleton />
+                </div>
+              }
             >
-              here
-            </a>
-            if redirect does not work
-          </p>
+              <DiscordWidget showSpotify={false} />
+            </Suspense>
+            <div className="absolute top-1/2 left-full ml-6 hidden w-80 -translate-y-1/2 md:block">
+              <NowPlayingPanel />
+            </div>
+          </div>
+
+          <SocialIcons />
         </div>
-      </div>
+        <div className="mx-auto mt-16 block w-full max-w-xs md:hidden">
+          <NowPlayingPanel />
+        </div>
+      </section>
+
+      <Suspense fallback={null}>
+        <AskModalController />
+      </Suspense>
     </div>
   );
 }

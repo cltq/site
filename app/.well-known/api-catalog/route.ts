@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-
 const domains = ["https://applefumi.xyz", "https://w.vreni.xyz"];
+
+export const dynamic = "force-static";
 
 export async function GET() {
   const body = {
@@ -38,7 +38,7 @@ export async function GET() {
     ],
   };
 
-  return NextResponse.json(body, {
+  return new Response(JSON.stringify(body), {
     headers: {
       "Content-Type": "application/linkset+json",
       "Content-Disposition": 'attachment; filename="api-catalog.json"',
