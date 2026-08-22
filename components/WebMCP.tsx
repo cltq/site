@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function WebMCP() {
+  const router = useRouter();
+
   useEffect(() => {
     const mcp = (navigator as unknown as Record<string, unknown>).modelContext as
       { registerTool?: (tool: unknown) => void } | undefined;
@@ -53,14 +56,14 @@ export default function WebMCP() {
         required: ["path"],
       },
       execute: async (input: { path: string }) => {
-        window.location.href = input.path;
+        router.push(input.path);
         return { navigated: input.path };
       },
       signal: controller.signal,
     });
 
     return () => controller.abort();
-  }, []);
+  }, [router]);
 
   return null;
 }

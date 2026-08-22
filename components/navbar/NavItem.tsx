@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type { NavbarItem } from "./types";
 
 interface NavItemProps {
@@ -13,10 +14,11 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
   const Icon = item.icon;
 
   return (
-    <a
+    <Link
       href={item.href}
       aria-label={item.label}
       title={item.label}
+      prefetch
       className="relative flex h-9 w-9 items-center justify-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/40"
     >
       {isActive && (
@@ -43,6 +45,6 @@ export default function NavItem({ item, isActive, pillId }: NavItemProps) {
           }}
         />
       </motion.span>
-    </a>
+    </Link>
   );
 }
