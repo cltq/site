@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
 
-import "@fontsource-variable/instrument-sans";
-import "@fontsource-variable/geist-mono";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+
+import "@fontsource/noto-sans-thai/300.css";
+import "@fontsource/noto-sans-thai/400.css";
+import "@fontsource/noto-sans-thai/500.css";
+import "@fontsource/noto-sans-thai/600.css";
+import "@fontsource/noto-sans-thai/700.css";
 import "@fontsource/chakra-petch/300.css";
 import "@fontsource/chakra-petch/400.css";
 import "@fontsource/chakra-petch/500.css";
@@ -38,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-svh antialiased">
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} h-svh antialiased`}
+    >
       <body className="relative h-full bg-[#0a0a0a] font-sans text-[#d4d4d4]">
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
