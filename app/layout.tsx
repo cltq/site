@@ -21,6 +21,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import CursorTrail from "@/components/CursorTrail";
 import Navbar from "@/components/navbar/Navbar";
+import PageFade from "@/components/PageFade";
 import WebMCP from "@/components/WebMCP";
 import UtmTracker from "@/components/UtmTracker";
 
@@ -51,9 +52,9 @@ export default function RootLayout({
       <body className="relative h-full bg-[#0a0a0a] font-sans text-[#d4d4d4]">
         <Navbar />
         <div className="relative z-10 flex h-full flex-col">
-          <div id="scroll-container" className="flex-1 overflow-y-auto">
-            {children}
-          </div>
+            <div id="scroll-container" className="flex-1 overflow-y-auto">
+              <PageFade>{children}</PageFade>
+            </div>
         </div>
         <WebMCP />
         <SpeedInsights />
