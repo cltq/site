@@ -1,0 +1,59 @@
+---
+import Navbar from '../components/Navbar.astro';
+import DotsBackground from '../components/DotsBackground.astro';
+import '../styles/global.css';
+import geistSans from '../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2?url';
+import geistMono from '../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2?url';
+import '@fontsource/noto-sans-thai/400.css';
+import '@fontsource/noto-sans-thai/500.css';
+import '@fontsource/noto-sans-thai/700.css';
+
+interface Props {
+	title?: string;
+}
+
+const { title = 'Maple\'s site' } = Astro.props;
+
+const fontFaces = `
+@font-face {
+	font-family: 'Geist';
+	src: url('${geistSans}') format('woff2');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Geist Mono';
+	src: url('${geistMono}') format('woff2');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<style is:inline set:html={fontFaces} />
+	</head>
+	<body>
+		<DotsBackground />
+		<Navbar />
+		<main class="content">
+			<slot />
+		</main>
+		<footer class="site-footer">
+			<p class="site-footer__line">
+				<span>© {new Date().getFullYear()} maple</span>
+				<img class="site-footer__logo" src="/logo_hori_cropped.png" alt="maple" />
+				<a href="https://github.com/cltq/site" target="_blank" rel="noopener noreferrer">view source</a>
+			</p>
+		</footer>
+	</body>
+</html>
+

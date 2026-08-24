@@ -1,0 +1,15 @@
+---
+import LastFmSection from '../components/music/LastFmSection';
+import Layout from '../layouts/Layout.astro';
+
+const lastfmUser = import.meta.env.LASTFM_USER ?? '';
+---
+
+<Layout title="music - maple">
+	<main class="music-page">
+		<div class="music-content">
+			<LastFmSection username={lastfmUser} client:load />
+		</div>
+	</main>
+</Layout>
+
