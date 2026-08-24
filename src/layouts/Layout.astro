@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import DotsBackground from '../components/DotsBackground.astro';
 import '../styles/global.css';
@@ -40,6 +41,7 @@ const fontFaces = `
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<style is:inline set:html={fontFaces} />
+		<ClientRouter />
 	</head>
 	<body>
 		<DotsBackground />
@@ -49,7 +51,7 @@ const fontFaces = `
 		</main>
 		<footer class="site-footer">
 			<p class="site-footer__line">
-				<span>© {new Date().getFullYear()} maple</span>
+				<span>© {new Date().getFullYear()} Mapleji</span>
 				<img class="site-footer__logo" src="/logo_hori_cropped.png" alt="maple" />
 				<a href="https://github.com/cltq/site" target="_blank" rel="noopener noreferrer">view source</a>
 			</p>

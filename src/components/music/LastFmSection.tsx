@@ -47,6 +47,7 @@ function Row({
 	primary,
 	secondary,
 	count,
+	href,
 }: {
 	index: number;
 	image: string | null;
@@ -54,10 +55,11 @@ function Row({
 	primary: string;
 	secondary?: string;
 	count?: string;
+	href?: string;
 }) {
 	const cls = `lastfm__art${round ? ' lastfm__art--round' : ''}`;
-	return (
-		<div className="lastfm__row" style={{ animationDelay: `${index * 50}ms` }}>
+	const row = (
+		<>
 			<span className="lastfm__rank">{index + 1}</span>
 			{image ? (
 				<img className={cls} src={proxyImage(image)} alt="" referrerPolicy="no-referrer" loading="lazy" />
@@ -69,6 +71,27 @@ function Row({
 				{secondary && <p className="lastfm__artist">{secondary}</p>}
 			</div>
 			{count !== undefined && <span className="lastfm__count">{count}</span>}
+		</>
+	);
+	const style = { animationDelay: `${index * 50}ms` } as const;
+
+	if (href) {
+		return (
+			<a
+				className="lastfm__row lastfm__row--link"
+				href={href}
+				target="_blank"
+				rel="noopener noreferrer"
+				style={style}
+			>
+				{row}
+			</a>
+		);
+	}
+
+	return (
+		<div className="lastfm__row" style={style}>
+			{row}
 		</div>
 	);
 }
@@ -215,6 +238,7 @@ export default function LastFmSection({ username }: { username: string }) {
 							primary={track.name}
 							secondary={track.artist.name}
 							count={track.playcount}
+							href={track.url}
 						/>
 					))}
 				</div>
@@ -228,6 +252,7 @@ export default function LastFmSection({ username }: { username: string }) {
 							round
 							primary={artist.name}
 							count={artist.playcount}
+							href={artist.url}
 						/>
 					))}
 				</div>
@@ -253,7 +278,7 @@ export default function LastFmSection({ username }: { username: string }) {
 						))}
 					</div>
 					{topOverall.length > 0 && (
-						<div className={`lastfm__list${enterAnim ? ' lastfm__list--enter' : ''}`}>
+						<div className={`lastfm__list lastfm__list--overall${enterAnim ? ' lastfm__list--enter' : ''}`}>
 							{topOverall.map((track, i) => (
 								<Row
 									key={`overall-${track.name}-${track.artist.name}`}
@@ -262,6 +287,7 @@ export default function LastFmSection({ username }: { username: string }) {
 									primary={track.name}
 									secondary={track.artist.name}
 									count={track.playcount}
+									href={track.url}
 								/>
 							))}
 						</div>

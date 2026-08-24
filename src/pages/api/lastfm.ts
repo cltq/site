@@ -16,7 +16,8 @@ interface CacheEntry {
 }
 
 const cache = new Map<string, CacheEntry>();
-const CACHE_TTL = 30 * 60 * 1000;
+const CACHE_TTL_IMAGE = 30 * 60 * 1000;
+const CACHE_TTL_JSON = 60 * 1000;
 
 function cacheGet(key: string): unknown | null {
 	const entry = cache.get(key);
@@ -25,8 +26,8 @@ function cacheGet(key: string): unknown | null {
 	return null;
 }
 
-function cacheSet(key: string, data: unknown) {
-	cache.set(key, { data, expires: Date.now() + CACHE_TTL });
+function cacheSet(key: string, data: unknown, ttl = CACHE_TTL_JSON) {
+	cache.set(key, { data, expires: Date.now() + ttl });
 }
 
 function lastfmUrl(method: string, apiKey: string, extra: Record<string, string> = {}) {
@@ -84,7 +85,7 @@ export const GET: APIRoute = async ({ url }) => {
 			if (!res.ok) return new Response(null, { status: 404, headers: corsHeaders });
 			const contentType = res.headers.get('Content-Type') || 'image/jpeg';
 			const buffer = await res.arrayBuffer();
-			cacheSet(`img:${imgUrl}`, { buffer, type: contentType });
+			cacheSet(`img:${imgUrl}`, { buffer, type: contentType }, CACHE_TTL_IMAGE);
 			return new Response(buffer, {
 				headers: {
 					'Content-Type': contentType,
@@ -119,7 +120,10 @@ export const GET: APIRoute = async ({ url }) => {
 
 	const cacheKey = `${method}:${period}:${limit}`;
 	const cached = cacheGet(cacheKey);
-	if (cached) return new Response(JSON.stringify(cached), { headers });
+	if (cached)
+		return new Response(JSON.stringify(cached), {
+			headers: { ...headers, 'Cache-Control': 'public, max-age=30' },
+		});
 
 	if (searchParams.has('debug')) {
 		return new Response(JSON.stringify({ method, period, limit, user }), { headers });
@@ -201,7 +205,9 @@ export const GET: APIRoute = async ({ url }) => {
 		}
 
 		cacheSet(cacheKey, data);
-		return new Response(JSON.stringify(data), { headers });
+		return new Response(JSON.stringify(data), {
+			headers: { ...headers, 'Cache-Control': 'public, max-age=30' },
+		});
 	} catch {
 		return new Response(JSON.stringify({ error: 'Failed to fetch from Last.fm' }), {
 			status: 500,

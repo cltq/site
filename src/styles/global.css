@@ -471,7 +471,6 @@ samp {
 .lastfm {
 	width: 100%;
 	max-width: 640px;
-	min-height: 1235px;
 	margin-inline: auto;
 	text-align: center;
 }
@@ -792,3 +791,61 @@ samp {
 	background-size: 26px 26px;
 	background-attachment: fixed;
 }
+
+.lastfm__list--overall {
+	margin-top: 24px;
+	gap: 6px;
+}
+
+.lastfm__list--overall .lastfm__art {
+	width: 38px;
+	height: 38px;
+}
+
+a.lastfm__row {
+	text-decoration: none;
+	color: inherit;
+	padding: 6px 8px;
+	margin: -6px -8px;
+	border-radius: 10px;
+	transition: background-color 0.15s ease-out;
+}
+
+a.lastfm__row:hover {
+	background-color: #161616;
+}
+
+/* ---------- Presence transitions (now playing / activity) ---------- */
+.now-playing--in,
+.discord-activity--in {
+	animation: presence-in 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+.now-playing--out,
+.discord-activity--out {
+	animation: presence-out 0.24s ease-in both;
+	pointer-events: none;
+}
+
+@keyframes presence-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes presence-out {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+}
+
