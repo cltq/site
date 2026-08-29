@@ -7,6 +7,8 @@ import '@fontsource/noto-sans-thai/700.css';
 import DotsBackground from './components/DotsBackground';
 import Navbar from './components/Navbar';
 import AccentColor from './components/AccentColor';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import '../styles/global.css';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://maplenan.org';
@@ -53,6 +55,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<DotsBackground />
 				<Navbar />
 				<main className="content">{children}</main>
+				<SpeedInsights />
+				<Analytics />
 			</body>
 		</html>
 	);
