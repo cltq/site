@@ -71,11 +71,12 @@ async function load(active: AbortController) {
 	}
 }
 
-function startPolling() {
+function startPolling(pollInterval = POLL_INTERVAL) {
 	if (intervalId) return;
+	lastRequestTime = 0;
 	controller = new AbortController();
 	load(controller);
-	intervalId = setInterval(() => load(controller!), POLL_INTERVAL);
+	intervalId = setInterval(() => load(controller!), pollInterval);
 	document.addEventListener('visibilitychange', handleVisibility);
 }
 
@@ -84,6 +85,7 @@ function stopPolling() {
 		clearInterval(intervalId);
 		intervalId = null;
 	}
+	lastRequestTime = 0;
 	controller?.abort();
 	controller = null;
 	document.removeEventListener('visibilitychange', handleVisibility);
@@ -98,19 +100,18 @@ function handleVisibility() {
 }
 
 export function useSpotify(pollInterval = POLL_INTERVAL, enabled = true) {
-	void pollInterval;
 	const [, setVersion] = useState(0);
 
 	useEffect(() => {
 		if (!enabled) return;
 		const listener = () => setVersion((v) => v + 1);
 		listeners.add(listener);
-		startPolling();
+		startPolling(pollInterval);
 		return () => {
 			listeners.delete(listener);
 			if (listeners.size === 0) stopPolling();
 		};
-	}, [enabled]);
+	}, [enabled, pollInterval]);
 
 	return { spotify: sharedData, error: sharedError };
 }
