@@ -168,6 +168,11 @@ samp {
 		flex-direction: row;
 	}
 
+	.profile-section {
+		justify-content: flex-start;
+		padding-top: 96px;
+	}
+
 	.social-links {
 		gap: 8px;
 	}
