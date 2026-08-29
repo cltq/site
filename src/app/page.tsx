@@ -13,7 +13,7 @@ export default function HomePage() {
 				<div className="info-box">
 					<NowPlayingPanel />
 					<p>
-						I'm Maple, self-trught developer and linux enthusiast. I love to make silly
+						I'm Maple, self-taught developer and linux enthusiast. I love to make silly
 						projects and learning new things.
 					</p>
 				</div>

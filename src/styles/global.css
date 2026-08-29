@@ -265,7 +265,7 @@ samp {
 
 .discord-profile__name {
 	margin: 0;
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: 700;
 	line-height: 1.3;
 	overflow-wrap: anywhere;
@@ -751,15 +751,16 @@ samp {
 /* ---------- Social links (below info box) ---------- */
 .social-links {
 	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: flex-start;
 	gap: 12px;
-	margin-top: -12px;
+	margin-top: -8px;
 }
 
 .social-links__btn {
 	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	gap: 8px;
 	padding: 6px 16px;
 	background: #161616;
@@ -776,6 +777,15 @@ samp {
 		transform 0.15s ease-out;
 }
 
+.social-links__btn:nth-child(1) {
+	flex: 3;
+}
+
+.social-links__btn:nth-child(2),
+.social-links__btn:nth-child(3) {
+	flex: 1;
+}
+
 .social-links__btn:hover {
 	color: #ffffff;
 	border-color: #3a3a3a;
@@ -786,6 +796,18 @@ samp {
 	transform: scale(0.97);
 }
 
+.social-links__btn:nth-child(2) {
+	border-color: #5865f2;
+}
+
+.social-links__btn:nth-child(2):hover {
+	border-color: #7c89ff;
+}
+
+.social-links__btn:nth-child(3) {
+	border-color: #ffffff;
+}
+
 .social-links__btn--haunt {
 	padding: 6px 28px;
 	border-color: #ffb6e0;
@@ -793,6 +815,10 @@ samp {
 
 .social-links__btn--haunt:hover {
 	border-color: #ffd1ec;
+}
+
+.social-links__btn span {
+	text-transform: lowercase;
 }
 
 .social-links svg {
@@ -812,13 +838,17 @@ samp {
 
 /* ---------- Footer ---------- */
 .site-footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
 	width: auto;
-	max-width: 720px;
-	margin: 0 auto;
-	padding: 20px 12px 20px 8px;
 	box-sizing: border-box;
-	text-align: left;
 	background-color: transparent;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 16px;
 }
 
 .site-footer__logo {
@@ -828,14 +858,17 @@ samp {
 	margin: 0;
 }
 
-.site-footer__line {
+.site-footer__right {
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 12px;
-	margin: 0;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+}
+
+.site-footer__copyright {
 	font-size: 13px;
 	color: #6b7280;
+	line-height: 1.2;
 }
 
 .site-footer a {

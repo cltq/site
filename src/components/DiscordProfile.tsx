@@ -18,7 +18,10 @@ export default function DiscordProfile() {
 			<div className="discord-profile">
 				<div className="discord-profile__header">
 					<div className="discord-profile__skeleton discord-profile__skeleton--avatar" />
-					<div className="discord-profile__skeleton discord-profile__skeleton--username" />
+					<div>
+						<div className="discord-profile__skeleton discord-profile__skeleton--name" />
+						<div className="discord-profile__skeleton discord-profile__skeleton--username" />
+					</div>
 				</div>
 			</div>
 		);
@@ -41,6 +44,7 @@ export default function DiscordProfile() {
 					</div>
 				)}
 				<div className="discord-profile__identity">
+					<h3 className="discord-profile__name">{name}</h3>
 					<a
 						className="discord-profile__username"
 						href={`https://discord.com/users/${user.id}`}

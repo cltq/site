@@ -25,13 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<Navbar />
 				<main className="content">{children}</main>
 				<footer className="site-footer">
-					<p className="site-footer__line">
-						<span>© {new Date().getFullYear()} Mapleji</span>
-						<img className="site-footer__logo" src="/logo_hori_cropped.png" alt="maple" />
+					<img className="site-footer__logo" src="/logo_hori_cropped.png" alt="maple" />
+					<div className="site-footer__right">
+						<span className="site-footer__copyright">© {new Date().getFullYear()} Mapleji</span>
 						<a href="https://github.com/cltq/site" target="_blank" rel="noopener noreferrer">
 							view source
 						</a>
-					</p>
+					</div>
 				</footer>
 			</body>
 		</html>
