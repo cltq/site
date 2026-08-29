@@ -167,6 +167,38 @@ samp {
 	.dock {
 		flex-direction: row;
 	}
+
+	.profile-section {
+		text-align: center;
+	}
+
+	.discord-activity {
+		align-self: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.pre-box-row {
+		justify-content: center;
+	}
+
+	.discord-profile__header {
+		justify-content: center;
+	}
+
+	.info-box {
+		text-align: center;
+	}
+
+	.social-links {
+		justify-content: center;
+	}
+
+	.social-links__btn:nth-child(1),
+	.social-links__btn:nth-child(2),
+	.social-links__btn:nth-child(3) {
+		flex: none;
+	}
 }
 
 /* ---------- Home page ---------- */
@@ -620,10 +652,6 @@ samp {
 	border-radius: 6px;
 }
 
-.lastfm__list--enter .lastfm__row {
-	animation: lastfm-fade-in 0.25s ease-out backwards;
-}
-
 .lastfm__row {
 	display: flex;
 	align-items: center;
@@ -700,7 +728,6 @@ samp {
 .skeleton {
 	display: block;
 	background: #161616;
-	animation: lastfm-pulse 1.5s ease-in-out infinite;
 }
 
 .skeleton--rank {
@@ -731,25 +758,6 @@ samp {
 .skeleton--count {
 	width: 32px;
 	height: 14px;
-}
-
-@keyframes lastfm-fade-in {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-@keyframes lastfm-pulse {
-	0%,
-	100% {
-		opacity: 1;
-	}
-	50% {
-		opacity: 0.45;
-	}
 }
 
 /* ---------- Social links (below info box) ---------- */
@@ -823,6 +831,23 @@ samp {
 
 .social-links__btn span {
 	text-transform: lowercase;
+}
+
+.social-links__btn-text {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	gap: 6px;
+	line-height: 1.2;
+}
+
+.social-links__btn-label {
+	font-weight: 500;
+}
+
+.social-links__btn-handle {
+	font-size: 11px;
+	color: #8a8a8a;
 }
 
 .social-links svg {

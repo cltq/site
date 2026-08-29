@@ -75,7 +75,6 @@ function Row({
 			{count !== undefined && <span className="lastfm__count">{count}</span>}
 		</>
 	);
-	const style = { animationDelay: `${index * 50}ms` } as const;
 
 	if (href) {
 		return (
@@ -84,7 +83,6 @@ function Row({
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
-				style={style}
 			>
 				{row}
 			</a>
@@ -92,7 +90,7 @@ function Row({
 	}
 
 	return (
-		<div className="lastfm__row" style={style}>
+		<div className="lastfm__row">
 			{row}
 		</div>
 	);
@@ -105,13 +103,6 @@ export default function LastFmSection({ username }: { username: string }) {
 	const [stats, setStats] = useState<UserStats | null>(null);
 	const [topOverall, setTopOverall] = useState<LastFmTrack[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [enterAnim, setEnterAnim] = useState(true);
-
-	useEffect(() => {
-		if (loading) return;
-		const t = setTimeout(() => setEnterAnim(false), 1200);
-		return () => clearTimeout(t);
-	}, [loading]);
 
 	useEffect(() => {
 		if (!username) {
@@ -231,7 +222,7 @@ export default function LastFmSection({ username }: { username: string }) {
 					))}
 				</div>
 			) : type === 'tracks' ? (
-				<div className={`lastfm__list${enterAnim ? ' lastfm__list--enter' : ''}`}>
+				<div className="lastfm__list">
 					{tracks.map((track, i) => (
 						<Row
 							key={`${track.name}-${track.artist.name}`}
@@ -245,7 +236,7 @@ export default function LastFmSection({ username }: { username: string }) {
 					))}
 				</div>
 			) : type === 'artists' ? (
-				<div className={`lastfm__list${enterAnim ? ' lastfm__list--enter' : ''}`}>
+				<div className="lastfm__list">
 					{artists.map((artist, i) => (
 						<Row
 							key={artist.name}
@@ -280,7 +271,7 @@ export default function LastFmSection({ username }: { username: string }) {
 						))}
 					</div>
 					{topOverall.length > 0 && (
-						<div className={`lastfm__list lastfm__list--overall${enterAnim ? ' lastfm__list--enter' : ''}`}>
+						<div className="lastfm__list lastfm__list--overall">
 							{topOverall.map((track, i) => (
 								<Row
 									key={`overall-${track.name}-${track.artist.name}`}
