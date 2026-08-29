@@ -35,7 +35,6 @@ function mapSpotify(raw: Record<string, any> | null): SpotifyData | null {
 }
 
 const POLL_INTERVAL = 2000;
-const HIDDEN_POLL_INTERVAL = 5000;
 
 type Listener = () => void;
 
@@ -45,10 +44,6 @@ let sharedError: Error | null = null;
 let controller: AbortController | null = null;
 let intervalId: ReturnType<typeof setInterval> | null = null;
 let lastRequestTime = 0;
-
-function getPollInterval() {
-	return document.hidden ? HIDDEN_POLL_INTERVAL : POLL_INTERVAL;
-}
 
 function notify() {
 	for (const listener of listeners) listener();
@@ -76,13 +71,12 @@ async function load(active: AbortController, pollInterval: number) {
 	}
 }
 
-function startPolling(pollInterval = getPollInterval()) {
+function startPolling(pollInterval = POLL_INTERVAL) {
 	if (intervalId) return;
 	lastRequestTime = 0;
 	controller = new AbortController();
 	load(controller, pollInterval);
-	intervalId = setInterval(() => load(controller!, getPollInterval()), pollInterval);
-	document.addEventListener('visibilitychange', handleVisibility);
+	intervalId = setInterval(() => load(controller!, pollInterval), pollInterval);
 }
 
 function stopPolling() {
@@ -93,15 +87,6 @@ function stopPolling() {
 	lastRequestTime = 0;
 	controller?.abort();
 	controller = null;
-	document.removeEventListener('visibilitychange', handleVisibility);
-}
-
-function handleVisibility() {
-	if (intervalId) {
-		const nextInterval = getPollInterval();
-		clearInterval(intervalId);
-		intervalId = setInterval(() => load(controller!, getPollInterval()), nextInterval);
-	}
 }
 
 export function useSpotify(pollInterval = POLL_INTERVAL, enabled = true) {
