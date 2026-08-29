@@ -296,8 +296,8 @@ samp {
 }
 
 .discord-profile__skeleton--avatar {
-	width: 48px;
-	height: 48px;
+	width: 32px;
+	height: 32px;
 	border-radius: 50%;
 	flex-shrink: 0;
 }
@@ -487,6 +487,10 @@ samp {
 	font-size: 20px;
 	font-weight: 600;
 	color: #d1d5db;
+}
+
+.discord-activity--empty {
+	min-height: 48px;
 }
 
 .discord-activity__text {
@@ -855,6 +859,7 @@ samp {
 	display: block;
 	height: 20px;
 	width: auto;
+	aspect-ratio: 689 / 258;
 	margin: 0;
 }
 

@@ -34,7 +34,7 @@ export default function DiscordProfile() {
 		<div className="discord-profile">
 			<div className="discord-profile__header">
 				{user.avatar ? (
-					<img className="discord-profile__avatar" src={user.avatar} alt={name} />
+					<img className="discord-profile__avatar" src={user.avatar} alt={name} width={32} height={32} />
 				) : (
 					<div
 						className="discord-profile__avatar discord-profile__avatar--fallback"

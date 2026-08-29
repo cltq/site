@@ -8,13 +8,40 @@ import DotsBackground from '../components/DotsBackground';
 import Navbar from '../components/Navbar';
 import '../styles/global.css';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://maplenan.org';
+
 export const metadata: Metadata = {
-	title: "Maple's site",
-	icons: { icon: [{ url: '/link-icon.svg', type: 'image/svg+xml' }] },
+	metadataBase: new URL(BASE_URL),
+	title: {
+		default: 'maple',
+		template: '%s - maple',
+	},
+	description:
+		"maple's personal site — self-taught developer, linux enthusiast, and silly project maker. current discord activity, now playing, and last.fm charts.",
+	applicationName: 'maple',
+	icons: {
+		icon: [{ url: '/link-icon.svg', type: 'image/svg+xml' }],
+	},
+	openGraph: {
+		type: 'website',
+		url: BASE_URL,
+		siteName: 'maple',
+		title: 'maple',
+		description:
+			"maple's personal site — self-taught developer, linux enthusiast, and silly project maker.",
+	},
+	twitter: {
+		card: 'summary',
+		title: 'maple',
+		description:
+			"maple's personal site — self-taught developer, linux enthusiast, and silly project maker.",
+	},
 };
 
 export const viewport: Viewport = {
 	width: 'device-width',
+	initialScale: 1,
+	themeColor: '#000000',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,7 +52,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<Navbar />
 				<main className="content">{children}</main>
 				<footer className="site-footer">
-					<img className="site-footer__logo" src="/logo_hori_cropped.png" alt="maple" />
+					<img
+						className="site-footer__logo"
+						src="/logo_hori_cropped.png"
+						alt="maple"
+						width={689}
+						height={258}
+						fetchPriority="high"
+					/>
 					<div className="site-footer__right">
 						<span className="site-footer__copyright">© {new Date().getFullYear()} Mapleji</span>
 						<a href="https://github.com/cltq/site" target="_blank" rel="noopener noreferrer">

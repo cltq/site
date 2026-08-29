@@ -67,7 +67,7 @@ export default function NowPlayingPanel() {
 		<div className={`now-playing ${leaving ? 'now-playing--out' : 'now-playing--in'}`}>
 			<div className="now-playing__art">
 				{displayed.albumArt && (
-					<img src={displayed.albumArt} alt="" referrerPolicy="no-referrer" />
+					<img src={displayed.albumArt} alt="" width={32} height={32} referrerPolicy="no-referrer" />
 				)}
 				<div className="now-playing__ring" />
 			</div>

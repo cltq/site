@@ -57,7 +57,7 @@ export default function DiscordActivity({ activity: prop }: { activity?: Activit
 		};
 	}, [signature(latest)]);
 
-	if (!displayed) return null;
+	if (!displayed) return <div className="discord-activity discord-activity--empty" aria-hidden="true" />;
 
 	const iconUrl = resolveIcon(displayed.icon);
 	const emojiUrl =
@@ -72,6 +72,8 @@ export default function DiscordActivity({ activity: prop }: { activity?: Activit
 					className="discord-activity__icon"
 					src={iconUrl}
 					alt=""
+					width={48}
+					height={48}
 					onError={() => setIconFailed(true)}
 				/>
 			) : emojiUrl ? (
@@ -79,6 +81,8 @@ export default function DiscordActivity({ activity: prop }: { activity?: Activit
 					className="discord-activity__icon discord-activity__icon--emoji"
 					src={emojiUrl}
 					alt=""
+					width={48}
+					height={48}
 					onError={() => setIconFailed(true)}
 				/>
 			) : (
