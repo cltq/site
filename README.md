@@ -37,28 +37,28 @@ All optional — the site runs fine without them; the widgets just won't have da
 
 ## Structure
 
-- `src/app/` — routes, layout, metadata, and API routes
+- `app/` — routes, layout, metadata, and API routes
   - `api/discord-user` — Discord presence proxy
   - `api/spotify` — Spotify now-playing proxy
   - `api/lastfm` — Last.fm charts/images proxy with caching
   - `sitemap.ts` — generated sitemap
-- `src/components/` — React components (navbar, presence widgets, Last.fm sections)
-- `src/hooks/` — data-fetching hooks (`useDiscordUser`, `useSpotify`)
-- `src/styles/global.css` — all site styling
+- `components/` — React components (navbar, presence widgets, Last.fm sections)
+- `hooks/` — data-fetching hooks (`useDiscordUser`, `useSpotify`)
+- `styles/global.css` — all site styling
 - `public/` — static assets (favicons, logo)
 
 ## Agent discovery
 
 The site is reachable by AI agents via several standards:
 
-- **robots.txt** — generated from `src/app/robots.txt/route.ts`, with explicit
+- **robots.txt** — generated from `app/robots.txt/route.ts`, with explicit
   `User-agent` groups for AI crawlers and a `Content-Signal` declaration
   (`ai-train=no, search=yes, ai-input=no`).
 - **Link headers** — every page sends `Link` headers (see `next.config.ts`)
   pointing at `/sitemap.xml` (`rel="sitemap"`) and `/.well-known/api-catalog`
   (`rel="api-catalog"`).
 - **Markdown for agents** — requests with `Accept: text/markdown` (see
-  `src/proxy.ts`) get a markdown version of `/` and `/music` with
+  `proxy.ts`) get a markdown version of `/` and `/music` with
   `Content-Type: text/markdown` and an `x-markdown-tokens` header.
 
 ### DNS-AID (requires DNS provider access)

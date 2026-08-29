@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import LastFmSection from '../../components/music/LastFmSection';
+import LastFmSection from '../components/music/LastFmSection';
 
 export const metadata: Metadata = {
 	title: 'music',

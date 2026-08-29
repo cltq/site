@@ -1,6 +1,6 @@
 'use client';
 
-import { useDiscordUser } from '../hooks/useDiscordUser';
+import { useDiscordUser } from '../../hooks/useDiscordUser';
 
 export default function DiscordProfile() {
 	const { user, error } = useDiscordUser();
@@ -19,7 +19,6 @@ export default function DiscordProfile() {
 				<div className="discord-profile__header">
 					<div className="discord-profile__skeleton discord-profile__skeleton--avatar" />
 					<div>
-						<div className="discord-profile__skeleton discord-profile__skeleton--name" />
 						<div className="discord-profile__skeleton discord-profile__skeleton--username" />
 					</div>
 				</div>
@@ -27,24 +26,23 @@ export default function DiscordProfile() {
 		);
 	}
 
-	const name = user.displayName ?? user.globalName ?? user.username;
 	const customText = user.customStatus?.text ?? user.customStatus?.state;
 
 	return (
 		<div className="discord-profile">
+			<h3 className="discord-profile__name">maple</h3>
 			<div className="discord-profile__header">
 				{user.avatar ? (
-					<img className="discord-profile__avatar" src={user.avatar} alt={name} width={32} height={32} />
+					<img className="discord-profile__avatar" src={user.avatar} alt="maple" width={32} height={32} />
 				) : (
 					<div
 						className="discord-profile__avatar discord-profile__avatar--fallback"
 						style={{ background: user.accentColor ?? '#5865f2' }}
 					>
-						{name.charAt(0).toUpperCase()}
+						{'M'}
 					</div>
 				)}
 				<div className="discord-profile__identity">
-					<h3 className="discord-profile__name">{name}</h3>
 					<a
 						className="discord-profile__username"
 						href={`https://discord.com/users/${user.id}`}

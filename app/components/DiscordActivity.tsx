@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useDiscordUser, type DiscordActivity as Activity } from '../hooks/useDiscordUser';
+import { useDiscordUser, type DiscordActivity as Activity } from '../../hooks/useDiscordUser';
 
 function resolveIcon(icon?: string | null): string | null {
 	if (!icon) return null;

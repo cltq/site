@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from '../../lib/lastfm-types';
+import type { LastFmTrack, LastFmArtist, LastFmImage, TopItemType } from '../../../lib/lastfm-types';
 
 type Tab = TopItemType | 'stats';
 
