@@ -167,6 +167,15 @@ samp {
 	.dock {
 		flex-direction: row;
 	}
+
+	.social-links {
+		gap: 8px;
+	}
+
+	.social-links__btn,
+	.social-links__btn--haunt {
+		padding: 6px 12px;
+	}
 }
 
 /* ---------- Home page ---------- */
@@ -744,6 +753,7 @@ samp {
 	justify-content: center;
 	gap: 8px;
 	padding: 6px 16px;
+	min-width: 0;
 	background: rgba(22, 22, 22, 0.65);
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
@@ -789,16 +799,23 @@ samp {
 	flex-direction: row;
 	align-items: baseline;
 	gap: 6px;
+	min-width: 0;
+	overflow: hidden;
 	line-height: 1.2;
 }
 
 .social-links__btn-label {
 	font-weight: 500;
+	white-space: nowrap;
 }
 
 .social-links__btn-handle {
 	font-size: 11px;
 	color: #8a8a8a;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
 }
 
 .social-links svg {
