@@ -206,8 +206,9 @@ samp {
 	width: 100%;
 	max-width: 720px;
 	box-sizing: border-box;
-	background: #0f0f0f;
-	border: 1px solid #222222;
+	background: rgba(15, 15, 15, 0.65);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
 	border-radius: 10px;
 	padding: 20px 20px;
 	position: relative;
@@ -743,8 +744,9 @@ samp {
 	justify-content: center;
 	gap: 8px;
 	padding: 6px 16px;
-	background: #161616;
-	border: 1px solid #222222;
+	background: rgba(22, 22, 22, 0.65);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
 	border-radius: 10px;
 	font-size: 13px;
 	font-weight: 500;
@@ -752,7 +754,6 @@ samp {
 	text-decoration: none;
 	transition:
 		color 0.2s,
-		border-color 0.2s,
 		background-color 0.2s,
 		transform 0.15s ease-out;
 }
@@ -768,33 +769,15 @@ samp {
 
 .social-links__btn:hover {
 	color: #ffffff;
-	border-color: #3a3a3a;
-	background-color: #1c1c1c;
+	background-color: rgba(28, 28, 28, 0.8);
 }
 
 .social-links__btn:active {
 	transform: scale(0.97);
 }
 
-.social-links__btn:nth-child(2) {
-	border-color: #5865f2;
-}
-
-.social-links__btn:nth-child(2):hover {
-	border-color: #7c89ff;
-}
-
-.social-links__btn:nth-child(3) {
-	border-color: #ffffff;
-}
-
 .social-links__btn--haunt {
 	padding: 6px 28px;
-	border-color: #ffb6e0;
-}
-
-.social-links__btn--haunt:hover {
-	border-color: #ffd1ec;
 }
 
 .social-links__btn span {
