@@ -52,55 +52,21 @@ samp {
 	flex-direction: column;
 }
 
-/* ---------- Dots background ---------- */
-.dots-bg {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	pointer-events: none;
-	background-image: radial-gradient(
-		circle,
-		rgba(var(--accent-rgb), 0.6) 1px,
-		transparent 1px
-	);
-	background-size: 26px 26px;
-	background-position: center;
-	-webkit-mask-image: radial-gradient(
-		circle,
-		rgba(0, 0, 0, 1) 0%,
-		rgba(0, 0, 0, 0.8) 40%,
-		rgba(0, 0, 0, 0) 75%
-	);
-	mask-image: radial-gradient(
-		circle,
-		rgba(0, 0, 0, 1) 0%,
-		rgba(0, 0, 0, 0.8) 40%,
-		rgba(0, 0, 0, 0) 75%
-	);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-	mask-position: center;
-}
-
 /* ---------- Dock navbar ---------- */
 .dock-nav {
 	position: fixed;
-	left: 20px;
+	left: 10px;
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 50;
 }
-
 .dock {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
-	padding: 6px;
-	border-radius: 12px;
+	gap: 5px;
+	padding: 5px;
+	border-radius: 9px;
 	background: rgba(10, 10, 10, 0.8);
 	backdrop-filter: blur(24px);
 	-webkit-backdrop-filter: blur(24px);
@@ -132,12 +98,12 @@ samp {
 
 .dock-label {
 	position: absolute;
-	left: calc(100% + 10px);
+	left: calc(100% + 6px);
 	top: var(--tip-top, 50%);
 	transform: translateY(-50%) translateX(-6px);
 	z-index: 20;
 	white-space: nowrap;
-	padding: 4px 10px;
+	padding: 3px 6px;
 	border-radius: 8px;
 	font-size: 12px;
 	font-weight: 500;
@@ -155,12 +121,6 @@ samp {
 		top 0.22s ease-out,
 		border-color 0.5s ease;
 }
-
-.dock-label--show {
-	opacity: 1;
-	transform: translateY(-50%) translateX(0);
-}
-
 .dock .pill {
 	position: absolute;
 	border-radius: 8px;
@@ -320,7 +280,7 @@ samp {
 	color: #f3f4f6;
 	background: #161616;
 	border: 1px solid #222222;
-	border-radius: 6px;
+	border-radius: 8px;
 	padding: 1px 6px;
 }
 
@@ -402,7 +362,7 @@ samp {
 .discord-profile__skeleton--username {
 	width: 80px;
 	height: 11px;
-	border-radius: 6px;
+	border-radius: 8px;
 	margin-top: 8px;
 }
 
@@ -707,9 +667,9 @@ samp {
 
 .skeleton--stat {
 	width: 80px;
-	height: 28px;
+	height: 36px;
 	margin: 0 auto;
-	border-radius: 6px;
+	border-radius: 8px;
 }
 
 .lastfm__row {
@@ -971,3 +931,32 @@ a.lastfm__row:hover {
 	}
 }
 
+
+
+
+
+.mask-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  mask-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      white 19px,
+      white 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      white 19px,
+      white 20px
+    );
+  pointer-events: none;
+}

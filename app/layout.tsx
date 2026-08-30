@@ -4,9 +4,9 @@ import { GeistMono } from 'geist/font/mono';
 import '@fontsource/noto-sans-thai/400.css';
 import '@fontsource/noto-sans-thai/500.css';
 import '@fontsource/noto-sans-thai/700.css';
-import DotsBackground from './components/DotsBackground';
 import Navbar from './components/Navbar';
 import AccentColor from './components/AccentColor';
+import DynamicDotBackground from './components/DynamicDotBackground';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import '../styles/global.css';
@@ -48,16 +48,16 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-			<body>
-				<AccentColor />
-				<DotsBackground />
-				<Navbar />
-				<main className="content">{children}</main>
-				<SpeedInsights />
-				<Analytics />
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body>
+        <AccentColor />
+        <DynamicDotBackground />
+        <Navbar />
+        <main className="content">{children}</main>
+        <SpeedInsights />
+        <Analytics />
+      </body>
+    </html>
+  );
 }
