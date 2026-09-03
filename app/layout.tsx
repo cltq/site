@@ -57,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <AccentColor />
                 <DynamicDotBackground />
                 <Navbar />
-                <main className="content">{children}</main>
                 <SpeedInsights />
                 <Analytics />
             </body>
