@@ -8,15 +8,21 @@ import SpotifyNowPlaying from '../components/SpotifyNowPlaying';
 <Layout>
 	<main class="min-h-dvh bg-zinc-950 text-zinc-200">
 		<div class="mx-auto flex min-h-dvh w-full max-w-3xl flex-col gap-6 px-6 py-12">
-			<header class="flex flex-col gap-1">
+			<header class="animate-fade-up flex flex-col gap-1">
 				<h1 class="text-2xl font-bold text-white">Rinne</h1>
 				<p class="text-sm text-zinc-400">Spotify, Discord &amp; Last.fm status</p>
 			</header>
 			<section class="flex flex-col gap-6">
-				<SpotifyNowPlaying client:load />
+				<div class="animate-fade-up">
+					<SpotifyNowPlaying client:load />
+				</div>
 				<div class="grid gap-6 lg:grid-cols-2">
-					<DiscordProfileCard client:load />
-					<LastFmWidget client:load />
+					<div class="animate-fade-up" style="animation-delay: 120ms">
+						<DiscordProfileCard client:load />
+					</div>
+					<div class="animate-fade-up" style="animation-delay: 240ms">
+						<LastFmWidget client:load />
+					</div>
 				</div>
 			</section>
 		</div>

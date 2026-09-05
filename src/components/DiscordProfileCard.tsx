@@ -84,30 +84,6 @@ function ActivityLine({ activity }: { activity: DiscordActivity }) {
 	);
 }
 
-function ProfileBanner({ url, accentColor }: { url: string | null; accentColor: string | null }) {
-	const [visible, setVisible] = useState(Boolean(url));
-
-	useEffect(() => {
-		setVisible(Boolean(url));
-	}, [url]);
-
-	return (
-		<div
-			className="relative h-20 w-full overflow-hidden"
-			style={{ backgroundColor: accentColor ?? '#18181b' }}
-		>
-			{url && visible && (
-				<img
-					src={url}
-					alt=""
-					onError={() => setVisible(false)}
-					className="absolute inset-0 h-full w-full object-cover"
-				/>
-			)}
-		</div>
-	);
-}
-
 export default function DiscordProfileCard({
 	endpoint = '/api/discord',
 	refreshIntervalMs = 30_000,
@@ -173,28 +149,27 @@ export default function DiscordProfileCard({
 
 	return (
 		<div className="w-full overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/60">
-			<ProfileBanner url={user.banner} accentColor={user.accentColor} />
-			<div className="px-4 pb-4">
-				<div className="-mt-8 flex items-end gap-3">
+			<div className="px-4 py-4">
+				<div className="flex items-center gap-3">
 					<img
 						src={user.avatar}
 						alt={user.displayName}
-						width={64}
-						height={64}
-						className="h-16 w-16 shrink-0 rounded-full border-4 border-zinc-900 object-cover"
+						width={52}
+						height={52}
+						className="h-13 w-13 shrink-0 rounded-full object-cover"
 					/>
-				</div>
-				<div className="mt-3">
-					<div className="flex items-center gap-2">
-						<h3 className="text-base font-bold text-white">{user.displayName}</h3>
-						<span className="text-sm text-zinc-500">@{user.username}</span>
+					<div className="min-w-0">
+						<div className="flex items-center gap-2">
+							<h3 className="truncate text-base font-bold text-white">{user.displayName}</h3>
+							<span className="shrink-0 text-sm text-zinc-500">@{user.username}</span>
+						</div>
+						{user.customStatus && (
+							<p className="mt-0.5 truncate text-sm text-zinc-300">“{user.customStatus}”</p>
+						)}
+						{user.boostBadge && (
+							<p className="mt-0.5 text-xs text-zinc-400">Boosting {user.guildName}</p>
+						)}
 					</div>
-					{user.boostBadge && (
-						<p className="mt-1 text-xs text-zinc-400">Boosting {user.guildName}</p>
-					)}
-					{user.customStatus && (
-						<p className="mt-2 text-sm text-zinc-300">“{user.customStatus}”</p>
-					)}
 				</div>
 				{user.activities.length > 0 && (
 					<ul className="mt-3 divide-y divide-zinc-800/70 border-t border-zinc-800">
