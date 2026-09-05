@@ -1,5 +1,12 @@
 import { env } from 'cloudflare:workers';
 import type { APIRoute } from 'astro';
+import { augmentSpotifyImages } from '../../lib/spotify-search';
+import type {
+	LastFmRecentTracksResponse,
+	LastFmTopArtistsResponse,
+	LastFmTopTracksResponse,
+	LastFmUserInfoResponse,
+} from '../../lib/integrations';
 
 export const prerender = false;
 
@@ -68,13 +75,33 @@ export const GET: APIRoute = async ({ url }) => {
 			);
 		}
 
-		const data = (await response.json()) as { error?: number; message?: string };
+		const data = (await response.json()) as {
+			error?: number;
+			message?: string;
+		} & (
+			| LastFmRecentTracksResponse
+			| LastFmTopTracksResponse
+			| LastFmTopArtistsResponse
+			| LastFmUserInfoResponse
+		);
 
 		if (data.error) {
 			return new Response(
 				JSON.stringify({ error: data.message ?? `Last.fm error ${data.error}` }),
 				{ status: 502, headers: { 'Content-Type': 'application/json' } },
 			);
+		}
+
+		const clientId = env.SPOTIFY_CLIENT_ID || '';
+		const clientSecret = env.SPOTIFY_CLIENT_SECRET || '';
+		if (clientId && clientSecret) {
+			if ('recenttracks' in data && Array.isArray(data.recenttracks.track)) {
+				await augmentSpotifyImages(data.recenttracks.track, 'track', clientId, clientSecret);
+			} else if ('toptracks' in data && Array.isArray(data.toptracks.track)) {
+				await augmentSpotifyImages(data.toptracks.track, 'track', clientId, clientSecret);
+			} else if ('topartists' in data && Array.isArray(data.topartists.artist)) {
+				await augmentSpotifyImages(data.topartists.artist, 'artist', clientId, clientSecret);
+			}
 		}
 
 		return new Response(JSON.stringify(data), {

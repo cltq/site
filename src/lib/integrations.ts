@@ -89,6 +89,8 @@ export interface LastFmTrack {
 		size: string;
 		'#text': string;
 	}>;
+	/** Resolved album cover hosted on Spotify's CDN (i.scdn.co). */
+	spotifyImage?: string;
 	date?: LastFmTrackDate;
 	'@attr'?: {
 		nowplaying: string;
@@ -125,6 +127,8 @@ export interface LastFmTopTrack {
 	playcount: string;
 	artist?: { name: string; url?: string };
 	image: LastFmImage;
+	/** Resolved album cover hosted on Spotify's CDN (i.scdn.co). */
+	spotifyImage?: string;
 	'@attr'?: { rank: string };
 }
 
@@ -142,6 +146,8 @@ export interface LastFmTopArtist {
 	url: string;
 	playcount: string;
 	image: LastFmImage;
+	/** Resolved artist image hosted on Spotify's CDN (i.scdn.co). */
+	spotifyImage?: string;
 	'@attr'?: { rank: string };
 }
 

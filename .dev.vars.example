@@ -6,6 +6,12 @@
 LASTFM_API_KEY=
 LASTFM_USERNAME=
 
+# Spotify API (required for Spotify CDN cover art in the Last.fm widget)
+# Create an app: https://developer.spotify.com/dashboard
+# Then `wrangler secret put SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET`
+SPOTIFY_CLIENT_ID=
+SPOTIFY_CLIENT_SECRET=
+
 # Optional overrides (defaults are used when unset)
 SPOTIFY_API_URL=https://spotify.mapleji.xyz/api/spotify
 DISCORD_API_URL=https://api.mapleji.xyz/v2/discord/user/1

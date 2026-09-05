@@ -50,9 +50,15 @@ function Rank({ rank }: { rank?: string }) {
 	);
 }
 
-function TrackImage({ image, alt }: { image: LastFmImage; alt: string }) {
-	const src = lastfmImage(image, 'small');
-	if (!src) {
+function TrackImage({ image, art, alt }: { image: LastFmImage; art?: string; alt: string }) {
+	const [failed, setFailed] = useState(false);
+	const src = art || lastfmImage(image, 'small');
+
+	useEffect(() => {
+		setFailed(false);
+	}, [src]);
+
+	if (!src || failed) {
 		return (
 			<div className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-zinc-800 text-[10px] font-bold text-zinc-500">
 				{alt.charAt(0)}
@@ -60,7 +66,14 @@ function TrackImage({ image, alt }: { image: LastFmImage; alt: string }) {
 		);
 	}
 	return (
-		<img src={src} alt="" width={36} height={36} className="h-9 w-9 shrink-0 rounded object-cover" />
+		<img
+			src={src}
+			alt=""
+			onError={() => setFailed(true)}
+			width={36}
+			height={36}
+			className="h-9 w-9 shrink-0 rounded bg-zinc-800 object-cover"
+		/>
 	);
 }
 
@@ -78,7 +91,7 @@ function TrackRow({ track }: { track: LastFmTrack }) {
 			rel="noreferrer"
 			className="flex items-center gap-3 py-2 text-zinc-200 no-underline transition hover:bg-zinc-800/50"
 		>
-			<TrackImage image={track.image} alt={track.name} />
+			<TrackImage image={track.image} art={track.spotifyImage} alt={track.name} />
 			<div className="min-w-0 flex-1">
 				<p className={`truncate text-xs font-semibold ${nowPlaying ? 'text-accent' : 'text-zinc-200'}`}>
 					{nowPlaying ? '▶ ' : ''}
@@ -102,7 +115,7 @@ function TopTrackRow({ track }: { track: LastFmTopTrack }) {
 			className="flex items-center gap-3 py-2 text-zinc-200 no-underline transition hover:bg-zinc-800/50"
 		>
 			<Rank rank={track['@attr']?.rank} />
-			<TrackImage image={track.image} alt={track.name} />
+			<TrackImage image={track.image} art={track.spotifyImage} alt={track.name} />
 			<div className="min-w-0 flex-1">
 				<p className="truncate text-xs font-semibold text-zinc-200">{track.name}</p>
 				<p className="truncate text-[11px] text-zinc-500">{track.artist?.name}</p>
@@ -121,7 +134,7 @@ function TopArtistRow({ artist }: { artist: LastFmTopArtist }) {
 			className="flex items-center gap-3 py-2 text-zinc-200 no-underline transition hover:bg-zinc-800/50"
 		>
 			<Rank rank={artist['@attr']?.rank} />
-			<TrackImage image={artist.image} alt={artist.name} />
+			<TrackImage image={artist.image} art={artist.spotifyImage} alt={artist.name} />
 			<div className="min-w-0 flex-1">
 				<p className="truncate text-xs font-semibold text-zinc-200">{artist.name}</p>
 			</div>
