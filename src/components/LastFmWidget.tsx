@@ -28,6 +28,8 @@ const VIEWS: { id: LastFmView; label: string }[] = [
 	{ id: 'info', label: 'Stats' },
 ];
 
+const ALL_VIEWS = VIEWS.map((v) => v.id);
+
 type ViewData = {
 	recent: LastFmRecentTracksResponse;
 	toptracks: LastFmTopTracksResponse;
@@ -179,46 +181,54 @@ export default function LastFmWidget({
 }: LastFmWidgetProps) {
 	const [view, setView] = useState<LastFmView>('recent');
 	const [data, setData] = useState<Partial<ViewData>>({});
-	const [error, setError] = useState<string | null>(null);
+	const [errors, setErrors] = useState<Partial<Record<LastFmView, string>>>({});
 
 	useEffect(() => {
 		let cancelled = false;
 
-		async function load() {
-			try {
-				const response = await fetch(`${endpoint}?view=${view}&limit=${trackCount}`);
-				if (!response.ok) {
-					const body = (await response.json().catch(() => null)) as { error?: string } | null;
-					throw new Error(body?.error ?? `Request failed with ${response.status}`);
-				}
-				const json = (await response.json()) as ViewData[LastFmView] & {
-					error?: number | string;
-					message?: string;
-				};
-				if (cancelled) return;
+		async function loadAll() {
+			await Promise.all(
+				ALL_VIEWS.map(async (v) => {
+					try {
+						const response = await fetch(`${endpoint}?view=${v}&limit=${trackCount}`);
+						if (!response.ok) {
+							const body = (await response.json().catch(() => null)) as { error?: string } | null;
+							throw new Error(body?.error ?? `Request failed with ${response.status}`);
+						}
+						const json = (await response.json()) as ViewData[LastFmView] & {
+							error?: number | string;
+							message?: string;
+						};
+						if (cancelled) return;
 
-				if (json.error) {
-					throw new Error(json.message ?? String(json.error));
-				}
+						if (json.error) {
+							throw new Error(json.message ?? String(json.error));
+						}
 
-				setData((current) => ({ ...current, [view]: json }));
-				setError(null);
-			} catch (err) {
-				if (cancelled) return;
-				setError(err instanceof Error ? err.message : `Failed to load ${view}`);
-			}
+						setData((current) => ({ ...current, [v]: json }));
+						setErrors((current) => (current[v] ? { ...current, [v]: undefined } : current));
+					} catch (err) {
+						if (cancelled) return;
+						setErrors((current) => ({
+							...current,
+							[v]: err instanceof Error ? err.message : `Failed to load ${v}`,
+						}));
+					}
+				}),
+			);
 		}
 
-		void load();
-		const timer = setInterval(() => void load(), refreshIntervalMs);
+		void loadAll();
+		const timer = setInterval(() => void loadAll(), refreshIntervalMs);
 
 		return () => {
 			cancelled = true;
 			clearInterval(timer);
 		};
-	}, [endpoint, view, trackCount, refreshIntervalMs]);
+	}, [endpoint, trackCount, refreshIntervalMs]);
 
 	const viewData = data[view];
+	const viewError = errors[view];
 	const raw = viewData as UsernameShape | undefined;
 	const username = viewData
 		? (raw?.recenttracks?.['@attr']?.user ??
@@ -256,12 +266,12 @@ export default function LastFmWidget({
 					</button>
 				))}
 			</div>
-			{error && !viewData && (
+			{viewError && !viewData && (
 				<p className="mt-3 text-xs text-zinc-400">
-					<span className="font-semibold text-zinc-500">Unable to load:</span> {error}
+					<span className="font-semibold text-zinc-500">Unable to load:</span> {viewError}
 				</p>
 			)}
-			{!viewData && !error && <p className="mt-3 text-xs text-zinc-400">Loading…</p>}
+			{!viewData && !viewError && <p className="mt-3 text-xs text-zinc-400">Loading…</p>}
 			{viewData && (
 				<div className="mt-2 divide-y divide-zinc-800/70">
 					{recentData &&
