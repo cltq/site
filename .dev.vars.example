@@ -1,0 +1,11 @@
+# Copy to .dev.vars for local development
+# https://developers.cloudflare.com/workers/configuration/secrets/
+
+# Last.fm API (required for the Last.fm route)
+# Get an API key: https://www.last.fm/api/account/create
+LASTFM_API_KEY=
+LASTFM_USERNAME=
+
+# Optional overrides (defaults are used when unset)
+SPOTIFY_API_URL=https://spotify.mapleji.xyz/api/spotify
+DISCORD_API_URL=https://api.mapleji.xyz/v2/discord/user/1

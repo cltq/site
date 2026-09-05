@@ -1,0 +1,143 @@
+import { useEffect, useState } from 'react';
+import type { SpotifyNowPlaying } from '../lib/integrations';
+
+interface SpotifyNowPlayingCardProps {
+	endpoint?: string;
+	refreshIntervalMs?: number;
+}
+
+function formatTime(ms: number): string {
+	const totalSeconds = Math.floor(ms / 1000);
+	const minutes = Math.floor(totalSeconds / 60);
+	const seconds = totalSeconds % 60;
+	return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+export default function SpotifyNowPlayingCard({
+	endpoint = '/api/spotify',
+	refreshIntervalMs = 30_000,
+}: SpotifyNowPlayingCardProps) {
+	const [data, setData] = useState<SpotifyNowPlaying | null>(null);
+	const [error, setError] = useState<string | null>(null);
+	const [elapsedMs, setElapsedMs] = useState(0);
+
+	useEffect(() => {
+		let cancelled = false;
+
+		async function load() {
+			try {
+				const response = await fetch(endpoint);
+				if (!response.ok) {
+					const body = (await response.json().catch(() => null)) as { error?: string } | null;
+					throw new Error(body?.error ?? `Request failed with ${response.status}`);
+				}
+				const json = (await response.json()) as SpotifyNowPlaying | { error: string };
+				if (cancelled) return;
+
+				if ('error' in json) {
+					setError(json.error);
+					return;
+				}
+
+				setData(json);
+				setElapsedMs(
+					json.isPlaying ? Math.min(json.progressMs, json.durationMs) : json.progressMs,
+				);
+				setError(null);
+			} catch (err) {
+				if (cancelled) return;
+				setError(err instanceof Error ? err.message : 'Failed to load Spotify data');
+			}
+		}
+
+		void load();
+
+		const loadingTimer = setInterval(() => void load(), refreshIntervalMs);
+		const elapsedTimer = setInterval(() => {
+			setElapsedMs((ms) => Math.min(ms + 1000, data?.durationMs ?? ms + 1000));
+		}, 1000);
+
+		return () => {
+			cancelled = true;
+			clearInterval(loadingTimer);
+			clearInterval(elapsedTimer);
+		};
+	}, [endpoint, refreshIntervalMs, data?.durationMs]);
+
+	if (error) {
+		return (
+			<div className="w-full rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-400">
+				<span className="font-semibold text-zinc-500">Spotify</span>
+				<p className="mt-1">Unable to load: {error}</p>
+			</div>
+		);
+	}
+
+	if (!data) {
+		return (
+			<div className="w-full rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-400">
+				<span className="font-semibold text-zinc-500">Spotify</span>
+				<p className="mt-1">Loading currently playing…</p>
+			</div>
+		);
+	}
+
+	const progressPercent = data.durationMs > 0 ? (elapsedMs / data.durationMs) * 100 : 0;
+
+	return (
+		<a
+			href={data.trackUrl}
+			target="_blank"
+			rel="noreferrer"
+			className="flex w-full items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-zinc-200 no-underline transition hover:bg-zinc-900"
+		>
+			{data.albumImageUrl ? (
+				<img
+					src={data.albumImageUrl}
+					alt={`${data.album} cover`}
+					width={56}
+					height={56}
+					className="h-14 w-14 shrink-0 rounded-md object-cover"
+				/>
+			) : (
+				<div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-green-400 to-green-600">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+					</svg>
+				</div>
+			)}
+			<div className="min-w-0 flex-1">
+				<div className="flex items-center gap-2">
+					<span className="relative flex h-2 w-2">
+						{data.isPlaying ? (
+							<>
+								<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+								<span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+							</>
+						) : (
+							<span className="inline-flex h-2 w-2 rounded-full bg-zinc-500" />
+						)}
+					</span>
+					<span className="text-xs font-medium uppercase tracking-wider text-green-400">
+						{data.isPlaying ? 'Currently Playing' : 'Last Played'}
+					</span>
+				</div>
+				<p className="mt-1 truncate text-sm font-semibold text-white">{data.title}</p>
+				<p className="truncate text-xs text-zinc-400">
+					{data.artist} — <span className="text-zinc-500">{data.album}</span>
+				</p>
+				<div className="mt-2 flex items-center gap-2">
+					<div className="h-1 w-full overflow-hidden rounded-full bg-zinc-800">
+						<div
+							className="h-full rounded-full bg-green-400 transition-[width] duration-1000 ease-linear"
+							style={{ width: `${progressPercent}%` }}
+						/>
+					</div>
+					<span className="shrink-0 text-[10px] tabular-nums text-zinc-500">
+						{formatTime(elapsedMs)} / {formatTime(data.durationMs)}
+					</span>
+				</div>
+			</div>
+		</a>
+	);
+}
