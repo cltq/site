@@ -6,20 +6,6 @@ interface DiscordProfileCardProps {
 	refreshIntervalMs?: number;
 }
 
-const BADGE_LABELS: Record<string, string> = {
-	HypeSquadOnlineHouse1: 'Bravery',
-	HypeSquadOnlineHouse2: 'Brilliance',
-	HypeSquadOnlineHouse3: 'Balance',
-	HypeSquadEvents: 'HypeSquad Events',
-	Subscriber: 'Nitro',
-	Partner: 'Discord Partner',
-	BugHunterLevel1: 'Bug Hunter',
-	BugHunterLevel2: 'Bug Hunter Gold',
-	ActiveDeveloper: 'Active Developer',
-	VerifiedDeveloper: 'Early Developer',
-	Staff: 'Discord Staff',
-};
-
 const MEDIA_EXTERNAL_PREFIX = 'mp:external/';
 
 function activityIconUrl(activity: DiscordActivity): string | null {
@@ -57,7 +43,16 @@ function ActivityIcon({ activity }: { activity: DiscordActivity }) {
 }
 
 function formatDuration(ms: number): string {
-	return Math.floor(ms / 1000) + 's';
+	const totalSeconds = Math.floor(ms / 1000);
+	const days = Math.floor(totalSeconds / 86400);
+	const hours = Math.floor((totalSeconds % 86400) / 3600);
+	const minutes = Math.floor((totalSeconds % 3600) / 60);
+	const seconds = totalSeconds % 60;
+
+	if (days > 0) return `${days}d ${hours}h`;
+	if (hours > 0) return `${hours}h ${minutes}m`;
+	if (minutes > 0) return `${minutes}m ${seconds}s`;
+	return `${seconds}s`;
 }
 
 function activityRunTime(activity: DiscordActivity): string {
@@ -86,6 +81,30 @@ function ActivityLine({ activity }: { activity: DiscordActivity }) {
 			</div>
 			{elapsed && <span className="shrink-0 text-[11px] tabular-nums text-zinc-500">{elapsed}</span>}
 		</li>
+	);
+}
+
+function ProfileBanner({ url, accentColor }: { url: string | null; accentColor: string | null }) {
+	const [visible, setVisible] = useState(Boolean(url));
+
+	useEffect(() => {
+		setVisible(Boolean(url));
+	}, [url]);
+
+	return (
+		<div
+			className="relative h-20 w-full overflow-hidden"
+			style={{ backgroundColor: accentColor ?? '#18181b' }}
+		>
+			{url && visible && (
+				<img
+					src={url}
+					alt=""
+					onError={() => setVisible(false)}
+					className="absolute inset-0 h-full w-full object-cover"
+				/>
+			)}
+		</div>
 	);
 }
 
@@ -152,21 +171,9 @@ export default function DiscordProfileCard({
 		);
 	}
 
-	const badges = user.badges
-		.map((badge) => BADGE_LABELS[badge] ?? null)
-		.filter((label): label is string => label !== null);
-
 	return (
 		<div className="w-full overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/60">
-			<div
-				className="h-20 w-full bg-cover bg-center"
-				style={{
-					backgroundImage: user.banner
-						? `linear-gradient(180deg, transparent 0%, rgba(9,9,11,0.85) 100%), url(${user.banner})`
-						: undefined,
-					backgroundColor: user.accentColor ?? '#18181b',
-				}}
-			/>
+			<ProfileBanner url={user.banner} accentColor={user.accentColor} />
 			<div className="px-4 pb-4">
 				<div className="-mt-8 flex items-end gap-3">
 					<img
@@ -182,18 +189,6 @@ export default function DiscordProfileCard({
 						<h3 className="text-base font-bold text-white">{user.displayName}</h3>
 						<span className="text-sm text-zinc-500">@{user.username}</span>
 					</div>
-					{badges.length > 0 && (
-						<div className="mt-2 flex flex-wrap gap-1.5">
-							{badges.map((badge) => (
-								<span
-									key={badge}
-									className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] font-medium text-zinc-300"
-								>
-									{badge}
-								</span>
-							))}
-						</div>
-					)}
 					{user.boostBadge && (
 						<p className="mt-1 text-xs text-zinc-400">Boosting {user.guildName}</p>
 					)}

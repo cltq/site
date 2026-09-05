@@ -1,10 +1,26 @@
 import { env } from 'cloudflare:workers';
 import type { APIRoute } from 'astro';
-import type { LastFmRecentTracksResponse } from '../../lib/integrations';
 
 export const prerender = false;
 
 const LASTFM_URL = 'https://ws.audioscrobbler.com/2.0/';
+
+const VIEWS = ['recent', 'toptracks', 'topartists', 'info'] as const;
+type LastFmView = (typeof VIEWS)[number];
+
+const METHOD_BY_VIEW: Record<LastFmView, string> = {
+	recent: 'user.getrecenttracks',
+	toptracks: 'user.gettoptracks',
+	topartists: 'user.gettopartists',
+	info: 'user.getinfo',
+};
+
+const DEFAULT_LIMIT_BY_VIEW: Record<LastFmView, string> = {
+	recent: '10',
+	toptracks: '10',
+	topartists: '10',
+	info: '1',
+};
 
 export const GET: APIRoute = async ({ url }) => {
 	const apiKey = env.LASTFM_API_KEY || '';
@@ -19,15 +35,25 @@ export const GET: APIRoute = async ({ url }) => {
 		);
 	}
 
-	const limit = url.searchParams.get('limit') ?? '10';
+	const rawView = url.searchParams.get('view');
+	const view: LastFmView = (VIEWS as readonly string[]).includes(rawView ?? '')
+		? (rawView as LastFmView)
+		: 'recent';
 
 	const params = new URLSearchParams({
-		method: 'user.getrecenttracks',
+		method: METHOD_BY_VIEW[view],
 		user: username,
 		api_key: apiKey,
 		format: 'json',
-		limit,
 	});
+
+	if (view !== 'info') {
+		params.set('limit', url.searchParams.get('limit') ?? DEFAULT_LIMIT_BY_VIEW[view]);
+	}
+
+	if (view === 'toptracks' || view === 'topartists') {
+		params.set('period', 'overall');
+	}
 
 	try {
 		const controller = new AbortController();
@@ -42,7 +68,7 @@ export const GET: APIRoute = async ({ url }) => {
 			);
 		}
 
-		const data = (await response.json()) as LastFmRecentTracksResponse;
+		const data = (await response.json()) as { error?: number; message?: string };
 
 		if (data.error) {
 			return new Response(
@@ -61,7 +87,7 @@ export const GET: APIRoute = async ({ url }) => {
 		const message =
 			error instanceof Error && error.name === 'AbortError'
 				? 'Last.fm API request timed out'
-				: 'Failed to fetch Last.fm recent tracks';
+				: 'Failed to fetch Last.fm data';
 		return new Response(JSON.stringify({ error: message }), {
 			status: 502,
 			headers: { 'Content-Type': 'application/json' },

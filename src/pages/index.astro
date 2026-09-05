@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import DiscordProfileCard from '../components/DiscordProfileCard';
-import LastFmRecentTracks from '../components/LastFmRecentTracks';
+import LastFmWidget from '../components/LastFmWidget';
 import SpotifyNowPlaying from '../components/SpotifyNowPlaying';
 ---
 
@@ -14,8 +14,10 @@ import SpotifyNowPlaying from '../components/SpotifyNowPlaying';
 			</header>
 			<section class="flex flex-col gap-6">
 				<SpotifyNowPlaying client:load />
-				<DiscordProfileCard client:load />
-				<LastFmRecentTracks client:load />
+				<div class="grid gap-6 lg:grid-cols-2">
+					<DiscordProfileCard client:load />
+					<LastFmWidget client:load />
+				</div>
 			</section>
 		</div>
 	</main>

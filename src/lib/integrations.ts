@@ -117,7 +117,61 @@ export const LASTFM_IMAGE = {
 	extralarge: 'extralarge',
 } as const;
 
-export function lastfmImage(images: LastFmTrack['image'], size: string = 'large'): string {
+export type LastFmImage = Array<{ size: string; '#text': string }>;
+
+export interface LastFmTopTrack {
+	name: string;
+	url: string;
+	playcount: string;
+	artist?: { name: string; url?: string };
+	image: LastFmImage;
+	'@attr'?: { rank: string };
+}
+
+export interface LastFmTopTracksResponse {
+	toptracks: {
+		track: LastFmTopTrack[];
+		'@attr': { user: string };
+	};
+	error?: number;
+	message?: string;
+}
+
+export interface LastFmTopArtist {
+	name: string;
+	url: string;
+	playcount: string;
+	image: LastFmImage;
+	'@attr'?: { rank: string };
+}
+
+export interface LastFmTopArtistsResponse {
+	topartists: {
+		artist: LastFmTopArtist[];
+		'@attr': { user: string };
+	};
+	error?: number;
+	message?: string;
+}
+
+export interface LastFmUserInfo {
+	name: string;
+	url: string;
+	playcount: string;
+	artist_count: string;
+	track_count: string;
+	album_count: string;
+	registered?: { unixtime: string; '#text'?: string };
+}
+
+export interface LastFmUserInfoResponse {
+	user?: LastFmUserInfo;
+	error?: number;
+	message?: string;
+}
+
+export function lastfmImage(images: LastFmImage | undefined, size: string = 'large'): string {
+	if (!images?.length) return '';
 	const match = images.find((img) => img.size === size);
 	return match?.['#text'] ?? images[images.length - 1]?.['#text'] ?? '';
 }
