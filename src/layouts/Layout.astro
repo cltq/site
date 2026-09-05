@@ -1,16 +1,29 @@
 ---
 import '../styles/global.css';
+
+const preconnects = [
+	'https://spotify.mapleji.xyz',
+	'https://api.mapleji.xyz',
+	'https://ws.audioscrobbler.com',
+	'https://i.scdn.co',
+	'https://cdn.discordapp.com',
+	'https://media.discordapp.net',
+];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="description" content="Rinne — live Spotify, Discord and Last.fm status." />
+		<meta property="og:title" content="Rinne" />
+		<meta property="og:description" content="Live Spotify, Discord and Last.fm status." />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Rinne</title>
+		{preconnects.map((href) => <link rel="preconnect" href={href} crossorigin="anonymous" />)}
 		<script defer src="https://portus.sh/p.js" data-site="prt_jjudtdtrznlr4buly6yo"></script>
 		<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "19e054ca2aae4e1d80634a3fb040be6a"}'></script>
 	</head>

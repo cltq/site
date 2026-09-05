@@ -95,6 +95,7 @@ export default function DiscordProfileCard({
 		let cancelled = false;
 
 		async function load() {
+			if (typeof document !== 'undefined' && document.hidden) return;
 			try {
 				const response = await fetch(endpoint);
 				if (!response.ok) {
@@ -122,10 +123,15 @@ export default function DiscordProfileCard({
 
 		void load();
 		const timer = setInterval(() => void load(), refreshIntervalMs);
+		const onVisible = () => {
+			if (!document.hidden) void load();
+		};
+		document.addEventListener('visibilitychange', onVisible);
 
 		return () => {
 			cancelled = true;
 			clearInterval(timer);
+			document.removeEventListener('visibilitychange', onVisible);
 		};
 	}, [endpoint, refreshIntervalMs]);
 
@@ -156,13 +162,13 @@ export default function DiscordProfileCard({
 						alt={user.displayName}
 						width={52}
 						height={52}
+						loading="lazy"
+						decoding="async"
 						className="h-13 w-13 shrink-0 rounded-full object-cover"
 					/>
 					<div className="min-w-0">
-						<div className="flex items-center gap-2">
-							<h3 className="truncate text-base font-bold text-white">{user.displayName}</h3>
-							<span className="shrink-0 text-sm text-zinc-500">@{user.username}</span>
-						</div>
+						<h3 className="truncate text-base font-bold text-white">{user.displayName}</h3>
+						<span className="block text-sm text-zinc-500">@{user.username}</span>
 						{user.customStatus && (
 							<p className="mt-0.5 truncate text-sm text-zinc-300">“{user.customStatus}”</p>
 						)}

@@ -16,6 +16,9 @@ import {
 interface LastFmWidgetProps {
 	endpoint?: string;
 	trackCount?: number;
+	/** Refresh interval for the Recent view (live sync). */
+	recentRefreshMs?: number;
+	/** Refresh interval for Top Tracks / Top Artists / Stats. */
 	refreshIntervalMs?: number;
 }
 
@@ -71,6 +74,8 @@ function TrackImage({ image, art, alt }: { image: LastFmImage; art?: string; alt
 		<img
 			src={src}
 			alt=""
+			loading="lazy"
+			decoding="async"
 			onError={() => setFailed(true)}
 			width={36}
 			height={36}
@@ -177,6 +182,7 @@ function StatsView({ user }: { user: LastFmUserInfo }) {
 export default function LastFmWidget({
 	endpoint = '/api/lastfm',
 	trackCount = 10,
+	recentRefreshMs = 10_000,
 	refreshIntervalMs = 60_000,
 }: LastFmWidgetProps) {
 	const [view, setView] = useState<LastFmView>('recent');
@@ -186,9 +192,11 @@ export default function LastFmWidget({
 	useEffect(() => {
 		let cancelled = false;
 
-		async function loadAll() {
+		async function loadViews(views: LastFmView[]) {
+			if (document.hidden) return;
+
 			await Promise.all(
-				ALL_VIEWS.map(async (v) => {
+				views.map(async (v) => {
 					try {
 						const response = await fetch(`${endpoint}?view=${v}&limit=${trackCount}`);
 						if (!response.ok) {
@@ -218,14 +226,25 @@ export default function LastFmWidget({
 			);
 		}
 
-		void loadAll();
-		const timer = setInterval(() => void loadAll(), refreshIntervalMs);
+		const otherViews = (['toptracks', 'topartists', 'info'] as const).filter(
+			(v): v is Exclude<LastFmView, 'recent'> => v !== view,
+		);
+
+		void loadViews(ALL_VIEWS);
+		const fastTimer = setInterval(() => void loadViews(['recent']), recentRefreshMs);
+		const slowTimer = setInterval(() => void loadViews(otherViews), refreshIntervalMs);
+		const onVisible = () => {
+			if (!document.hidden) void loadViews(ALL_VIEWS);
+		};
+		document.addEventListener('visibilitychange', onVisible);
 
 		return () => {
 			cancelled = true;
-			clearInterval(timer);
+			clearInterval(fastTimer);
+			clearInterval(slowTimer);
+			document.removeEventListener('visibilitychange', onVisible);
 		};
-	}, [endpoint, trackCount, refreshIntervalMs]);
+	}, [endpoint, trackCount, recentRefreshMs, refreshIntervalMs, view]);
 
 	const viewData = data[view];
 	const viewError = errors[view];

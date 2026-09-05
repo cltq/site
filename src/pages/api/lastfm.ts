@@ -104,10 +104,12 @@ export const GET: APIRoute = async ({ url }) => {
 			}
 		}
 
+		const maxAge = view === 'recent' ? 10 : 60;
+
 		return new Response(JSON.stringify(data), {
 			headers: {
 				'Content-Type': 'application/json',
-				'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=30',
+				'Cache-Control': `public, s-maxage=${maxAge}, stale-while-revalidate=${maxAge}`,
 			},
 		});
 	} catch (error) {

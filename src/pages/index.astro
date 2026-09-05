@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import DiscordProfileCard from '../components/DiscordProfileCard';
 import LastFmWidget from '../components/LastFmWidget';
 import SpotifyNowPlaying from '../components/SpotifyNowPlaying';
+
+export const prerender = false;
 ---
 
 <Layout>
@@ -14,14 +16,14 @@ import SpotifyNowPlaying from '../components/SpotifyNowPlaying';
 			</header>
 			<section class="flex flex-col gap-6">
 				<div class="animate-fade-up">
-					<SpotifyNowPlaying client:load />
+					<SpotifyNowPlaying client:visible />
 				</div>
 				<div class="grid gap-6 lg:grid-cols-2">
 					<div class="animate-fade-up" style="animation-delay: 120ms">
-						<DiscordProfileCard client:load />
+						<DiscordProfileCard client:visible />
 					</div>
 					<div class="animate-fade-up" style="animation-delay: 240ms">
-						<LastFmWidget client:load />
+						<LastFmWidget client:visible />
 					</div>
 				</div>
 			</section>

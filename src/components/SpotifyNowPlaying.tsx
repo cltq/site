@@ -34,6 +34,7 @@ export default function SpotifyNowPlayingCard({
 		let cancelled = false;
 
 		async function load() {
+			if (typeof document !== 'undefined' && document.hidden) return;
 			try {
 				const response = await fetch(endpoint);
 				if (!response.ok) {
@@ -71,11 +72,16 @@ export default function SpotifyNowPlayingCard({
 		const elapsedTimer = setInterval(() => {
 			setElapsedMs((ms) => Math.min(ms + 1000, data?.durationMs ?? ms + 1000));
 		}, 1000);
+		const onVisible = () => {
+			if (!document.hidden) void load();
+		};
+		document.addEventListener('visibilitychange', onVisible);
 
 		return () => {
 			cancelled = true;
 			clearInterval(loadingTimer);
 			clearInterval(elapsedTimer);
+			document.removeEventListener('visibilitychange', onVisible);
 		};
 	}, [endpoint, refreshIntervalMs, data?.durationMs]);
 
@@ -127,6 +133,8 @@ export default function SpotifyNowPlayingCard({
 					alt={`${data.album} cover`}
 					width={56}
 					height={56}
+					fetchPriority="high"
+					decoding="async"
 					className="h-14 w-14 shrink-0 rounded-md object-cover"
 				/>
 			) : (
