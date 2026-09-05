@@ -6,13 +6,6 @@ interface DiscordProfileCardProps {
 	refreshIntervalMs?: number;
 }
 
-const STATUS_COLORS: Record<string, string> = {
-	online: 'bg-green-400',
-	idle: 'bg-yellow-400',
-	dnd: 'bg-red-400',
-	offline: 'bg-zinc-500',
-};
-
 const BADGE_LABELS: Record<string, string> = {
 	HypeSquadOnlineHouse1: 'Bravery',
 	HypeSquadOnlineHouse2: 'Brilliance',
@@ -27,14 +20,25 @@ const BADGE_LABELS: Record<string, string> = {
 	Staff: 'Discord Staff',
 };
 
+const MEDIA_EXTERNAL_PREFIX = 'mp:external/';
+
+function activityIconUrl(activity: DiscordActivity): string | null {
+	if (!activity.icon) return null;
+	if (activity.icon.startsWith(MEDIA_EXTERNAL_PREFIX)) {
+		return `https://media.discordapp.net/external/${activity.icon.slice(MEDIA_EXTERNAL_PREFIX.length)}`;
+	}
+	return `https://cdn.discordapp.com/app-assets/${activity.applicationId}/${activity.icon}.png`;
+}
+
 function ActivityIcon({ activity }: { activity: DiscordActivity }) {
 	if (activity.emoji) {
 		return <span aria-hidden="true">{activity.emoji}</span>;
 	}
-	if (activity.icon) {
+	const iconUrl = activityIconUrl(activity);
+	if (iconUrl) {
 		return (
 			<img
-				src={`https://cdn.discordapp.com/${activity.icon}`}
+				src={iconUrl}
 				alt=""
 				width={20}
 				height={20}
@@ -81,52 +85,6 @@ function ActivityLine({ activity }: { activity: DiscordActivity }) {
 				{activity.state && <p className="truncate text-xs text-zinc-500">{activity.state}</p>}
 			</div>
 			{elapsed && <span className="shrink-0 text-[11px] tabular-nums text-zinc-500">{elapsed}</span>}
-		</li>
-	);
-}
-
-function DiscordSpotifyStatus({ spotify }: { spotify: NonNullable<DiscordUserData['spotify']> }) {
-	const [progressMs, setProgressMs] = useState(() =>
-		Math.max(0, Math.min(Date.now() - spotify.startedAt, spotify.endsAt - spotify.startedAt)),
-	);
-
-	useEffect(() => {
-		const update = () =>
-			setProgressMs(Math.max(0, Math.min(Date.now() - spotify.startedAt, spotify.endsAt - spotify.startedAt)));
-		update();
-		const timer = setInterval(update, 1000);
-		return () => clearInterval(timer);
-	}, [spotify]);
-
-	const totalMs = spotify.endsAt - spotify.startedAt;
-	const percent = totalMs > 0 ? (progressMs / totalMs) * 100 : 0;
-
-	return (
-		<li className="flex items-center gap-3 border-t border-zinc-800 py-3">
-			{spotify.cover && (
-				<img
-					src={spotify.cover}
-					alt=""
-					width={40}
-					height={40}
-					className="h-10 w-10 rounded-md object-cover"
-				/>
-			)}
-			<div className="min-w-0 flex-1">
-				<p className="truncate text-xs font-semibold text-green-400">Listening to Spotify</p>
-				<p className="truncate text-xs font-semibold text-zinc-200">{spotify.song}</p>
-				<p className="truncate text-xs text-zinc-500">
-					{spotify.artist} — {spotify.album}
-				</p>
-				<div className="mt-1.5 flex items-center gap-2">
-					<div className="h-1 w-full overflow-hidden rounded-full bg-zinc-800">
-						<div
-							className="h-full rounded-full bg-green-400"
-							style={{ width: `${percent}%` }}
-						/>
-					</div>
-				</div>
-			</div>
 		</li>
 	);
 }
@@ -194,7 +152,6 @@ export default function DiscordProfileCard({
 		);
 	}
 
-	const statusColor = STATUS_COLORS[user.status] ?? STATUS_COLORS.offline;
 	const badges = user.badges
 		.map((badge) => BADGE_LABELS[badge] ?? null)
 		.filter((label): label is string => label !== null);
@@ -206,8 +163,8 @@ export default function DiscordProfileCard({
 				style={{
 					backgroundImage: user.banner
 						? `linear-gradient(180deg, transparent 0%, rgba(9,9,11,0.85) 100%), url(${user.banner})`
-						: 'none',
-					backgroundColor: user.accentColor ? undefined : '#18181b',
+						: undefined,
+					backgroundColor: user.accentColor ?? '#18181b',
 				}}
 			/>
 			<div className="px-4 pb-4">
@@ -219,15 +176,6 @@ export default function DiscordProfileCard({
 						height={64}
 						className="h-16 w-16 shrink-0 rounded-full border-4 border-zinc-900 object-cover"
 					/>
-					<div className="mb-0.5 flex items-center gap-2">
-						<span
-							className={`relative inline-flex h-3 w-3 rounded-full ${statusColor} ring-2 ring-zinc-900`}
-						>
-							{user.status === 'online' && (
-								<span className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-60" />
-							)}
-						</span>
-					</div>
 				</div>
 				<div className="mt-3">
 					<div className="flex items-center gap-2">
@@ -253,9 +201,8 @@ export default function DiscordProfileCard({
 						<p className="mt-2 text-sm text-zinc-300">“{user.customStatus}”</p>
 					)}
 				</div>
-				{(user.spotify || user.activities.length > 0) && (
+				{user.activities.length > 0 && (
 					<ul className="mt-3 divide-y divide-zinc-800/70 border-t border-zinc-800">
-						{user.spotify && <DiscordSpotifyStatus spotify={user.spotify} />}
 						{user.activities.map((activity) => (
 							<ActivityLine key={activity.applicationId ?? activity.name} activity={activity} />
 						))}
